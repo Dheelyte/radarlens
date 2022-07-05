@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '5d02a575908c7f5fb177bfefa34510e7535bf3894d8c1e16b516cd9e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'linque-demo.herokuapp.com', 'ec2-18-205-163-14.compute-1.amazonaws.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -130,10 +130,10 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
+        'NAME': os.environ.get('DATABASE_NAME', 'radarlens'),
+        'USER': os.environ.get('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'allthesewhile'),
+        'HOST': os.environ.get('DATABASE_HOST', 'radarlens.c7ay9ilyif62.us-east-1.rds.amazonaws.com'),
         'PORT': '5432'
     }
 }
@@ -179,17 +179,17 @@ else:
     WEB_ROOT = 'https://linque-demo.herokuapp.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = 'RadarLens Business Profile'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'linque.adm@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'vlmrhojseygpfmre')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', '587')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'RadarLens'
 #FEEDBACK_EMAIL = os.environ.get('FEEDBACK_EMAIL')
 FEEDBACK_EMAIL = 'linque.feedback@gmail.com'
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'AKIAUB73RK3M3B67AE5U')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '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')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', 'linque-media')
 
 AWS_S3_FILE_OVERWRITE = False
     
