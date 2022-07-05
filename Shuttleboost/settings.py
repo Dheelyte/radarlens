@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'linque-demo.herokuapp.com', 'https://linque-demo.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'linque-demo.herokuapp.com', 'ec2-18-205-163-14.compute-1.amazonaws.com']
 
 
 # Application definition
@@ -195,7 +195,7 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_FILE_OVERWRITE = False
     
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_ROOT = BASE_DIR / 'media'
