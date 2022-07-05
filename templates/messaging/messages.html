@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+  Messages
+{% endblock %}
+
+{% block description %}
+  Messages
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+  <h4 class="bg-white m-0 p-3">Messages</h4>
+  {% if chats %}
+    {% for chat in chats %}
+      <div id="messages">
+        <div class="message-list pointer d-flex position-relative p-3 bg-white border-bottom" call="{{ web_root }}/messages/{% if chat.sender == request.user %}{{ chat.receiver.slug }}{% else %}{{ chat.sender.slug }}{% endif %}/">
+          <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;" src="{% if chat.sender == request.user %}{{ chat.receiver.image.url }}{% else %}{{ chat.sender.image.url }}{% endif %}" alt="">
+          <div class="d-block">
+            <p class="font-weight-bold overflow">
+              {% if chat.sender == request.user %}
+                {{ chat.receiver.name }}
+              {% else %}
+                {{ chat.sender.name }}
+              {% endif %}
+            </p>
+            <p class="text-muted pr-3 overflow">{{ chat.last_message.message }}</p>
+          </div>
+          <div class="d-block">
+            <p class="text-muted position-absolute" style="right:5px; top: 10px;">{{ chat.last_message.timestamp |naturalday }}</p>
+            {% if chat.last_message.sender != request.user %}
+              {% if not chat.last_message.seen %}
+                <span class="icon-circle unread" style="right: 20px; top: 50px;"></span>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div> 
+    {% endfor %}
+    <div class="text-center p-2 bg-white" id="more-div">
+      <span class="p-2 purple font-weight-bold m-2" id="more">Load More</span>
+    </div>
+    <div id="loading-div" class="mt-4 purple" style="display: none;">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="position-relative" style="height: 80vh;">
+      <div class="font-weight-bold center text-center text-muted">
+        <span class="icon-envelope" style="font-size: 60px;"></span>
+        <h5 class="mt-3">Your messages will appear here</h5>
+      </div>
+    </div>
+  {% endif %}
+</div>
+<div id="main-2" class="position-relative">
+    <div id="header">
+        <span id="header-back-button">
+            <span class="icon-arrow-left"></span>
+        </span>
+        <div id="header-user"></div>
+    </div>
+    <div class="message-info d-flex justify-content-center p-2"></div>
+    <div id="spinner" class="d-none justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div id="messages-area"></div>
+    <div id="input-area" class="p-1">
+        <div contenteditable="true" class="mr-1" id="content_editable"></div>
+        <button id="send-btn">
+            <span class="icon-paper-plane"></span>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/messages.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+  var email_verified = "{{ request.user.email_is_verified }}";
+  var verify_email = "{% url 'verify-email' %}";
+  var csrf_token = "{{ csrf_token }}";
+  var webRoot = "{{ web_root }}";
+  var messages = "{% url 'messages' %}"
+  var user = "{{ request.user.slug }}"
+</script>
+<script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}

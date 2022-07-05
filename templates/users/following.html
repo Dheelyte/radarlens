@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Following
+{% endblock %}
+{% block style %}
+<style>
+    .search {
+        background-color: #fff;
+        min-height: 105px;
+    }
+    .thumbnail-div {
+        width: 35%;
+        padding-bottom: 15.75%;
+    }
+    .info-div {
+        width: 65%;
+        z-index: 1;
+    }
+    .thumbnail-div img{
+        top: 0;
+        left: 0;
+        height: 100%;
+        max-width: 100%;
+    }
+    .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+    .more:hover {
+        background-color: #f0f0f1;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block description %}
+    Businesses you follow
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+    <h4 class="p-3 pb-4 bg-white m-0">Businesses you follow</h4>
+    {% if following %}
+    <div id="following">
+      {% for following in following %}
+        <div class="search d-flex border-bottom position-relative">
+          <div class="thumbnail-div">
+            <img src="{% static 'images/Lazy1.png' %}" data-src="{{ following.low_thumbnail.url }}" class="lazy position-absolute" role="img">
+          </div>
+          <div class="p-1 info-div bg-white">
+            <p class="purple ml-2">{{ following.category.name }}</p>
+            <h6 class="ml-2" style="max-height: 50px; overflow: hidden;">{{ following.name }}</h6>
+            <div class="d-flex">
+              <span class="d-flex mt-1 text-muted">
+                {% if following.rating.rating__avg != None %}
+                  <p class="ml-2">Rating: {{ following.rating.rating__avg | floatformat:"1" }}</p>
+                {% else %}
+                  <p class="ml-2">Rating: 0</p>
+                {% endif %}
+                <span style="margin-left: 2px;"><span class="icon-star"></span></span>
+              </span>
+            </div>
+          </div>
+          <a href="{% url 'business-detail' following.slug %}" class="stretched-link"></a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="text-center p-2 bg-white" id="more-div">
+      <span class="p-2 purple more font-weight-bold m-2" id="more">Load More</span>
+    </div>
+    <div id="loading-div" class="mt-4 purple" style="display: none;">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+    </div>
+    {% else %}
+      <div class="position-relative" style="height: 80vh;">
+        <div class="font-weight-bold center text-center text-muted">
+            <h5>Businesses you follow will show up here</h5>
+        </div>
+      </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    let div = document.getElementById('following');
+    if(div){
+        let more = document.getElementById('more-div');
+        if(div.childElementCount < 20){
+            more.style.display = "none"
+        }
+    };
+    var lazy = document.getElementsByClassName('lazy');
+    function lazyLoad(img){
+        if(!!window.IntersectionObserver){
+            let observer = new IntersectionObserver((entries, observer) => { 
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.src = entry.target.dataset.src;
+                    observer.unobserve(entry.target);
+                }
+            });
+            }, {rootMargin: "0px 0px 0px 0px"});
+            observer.observe(img);
+        }
+    };
+
+    for(var index=0;index < lazy.length;index++){
+        lazyLoad(lazy[index]);
+    };
+
+    var webRoot = "{{ web_root }}";
+    var page = 2;
+    $('#more').click(()=>{
+      $('#more-div').hide();
+      $('#loading-div').show();
+      $.ajax({
+        method: "GET",
+        url: "{% url 'following' %}",
+        data: {
+          page: page
+        },
+        success: (response)=>{
+          page += 1;
+          $.each(response.following, (index, following)=>{
+            if(following.rating.rating__avg != null){
+              var rating = `<p class="ml-2">Rating: ${following.rating["rating__avg"]}</p>`
+            } else {
+              var rating = `<p class="ml-2">Rating: 0</p>`
+            }
+            $('#following').append(`
+              <div class="search d-flex border-bottom position-relative">
+                <div class="thumbnail-div">
+                  <img src="{% static 'images/Lazy1.png' %}" data-src="${following["image"]}" class="lazy position-absolute" role="img">
+                </div>
+                <div class="p-1 info-div bg-white">
+                  <p class="purple ml-2">${following["category"]}</p>
+                  <h6 class="ml-2" style="max-height: 50px; overflow: hidden;">${following["name"]}</h6>
+                  <div class="d-flex">
+                    <span class="d-flex mt-1 text-muted">
+                      ${rating}
+                      <span style="margin-left: 2px;"><span class="icon-star"></span></span>
+                    </span>
+                  </div>
+                </div>
+                <a href="${webRoot}${following["url"]}" class="stretched-link"></a>
+              </div>
+            `)
+          })
+          $('#loading-div').hide();
+          $('#more-div').show();
+          for(var index=0;index < lazy.length;index++){
+              lazyLoad(lazy[index]);
+          };
+          if(response.has_next == false || response == ""){
+              $('#more-div').hide();
+          }
+        }
+      })
+    })
+</script>
+{% endblock %}

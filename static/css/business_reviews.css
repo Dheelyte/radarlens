@@ -1,0 +1,124 @@
+.thumbnail-div{
+    width: 100%;
+    padding-bottom: 45%;
+}
+.thumbnail-div img{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.rounded-bottom {
+    border-radius: 3px;
+}
+.name-div {
+    margin: 0;
+    padding: 5px 15px;
+    justify-content: space-between;
+}
+.name-div h1 {
+    font-size: 25px !important;
+}
+@media (max-width: 768px) {
+    .name-div h1 {
+        font-size: 22px !important;
+    }
+}
+.tabs-link {
+    width: 33%
+}
+.tabs-link.purple {
+    border-bottom: 3px rgb(120, 60, 245) solid;
+}
+.edit-review:hover {
+    background-color: #e3dff0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.star {
+    font-size: 40px;
+    color: rgb(120, 60, 245);
+}
+.star:hover{
+    cursor: pointer;
+}
+.rating-card {
+    padding: 10px;
+    background-color: white;
+    transition: all 0.01s ease 0.01s;
+}
+.rating-card img {
+    width:50px;
+    height:50px;
+    border-radius:200px
+}
+.ratings {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    color: #b1b1b1;
+    overflow: hidden;
+  }
+  
+  .full-stars{
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: tomato;
+  }
+  
+  .empty-stars:before,
+  .full-stars:before {
+    content: "\2605\2605\2605\2605\2605";
+    font-size: 17pt;
+  }
+  .business-description {
+    height:fit-content ;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    height: auto;
+}
+.incomplete {
+    height: 27px;
+}
+.incomplete span {
+    word-wrap: break-word; /* Firefox & IE */
+    word-break: break-all; /* Chrome */
+}
+#see-more {
+    color: rgb(48, 46, 46);
+    cursor: pointer;
+    font-size: large;
+    margin: 1px 10px;
+    padding: 0px 10px;            
+    transition: all 0.3s ease 0s;
+}
+.option-icon {
+    right: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+.option-icon .options {
+    display: none;
+    width: 150px;
+    right: 35px;
+    top: 45px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+#more:hover {
+    color: rgb(120, 60, 245);
+    background-color: #e3dff0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#more-div {
+    display: flex;
+}
+.back-to-top {
+    bottom: 10px;
+    right: 10px;
+}

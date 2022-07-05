@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Reviews - {{ business.name }}
+{% endblock %}
+
+{% block description %}
+    Reviews - {{ business.name }}
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="rounded-bottom position-relative bg-white">
+            <div class="thumbnail-div position-relative">
+                <img src="{{ business.thumbnail.url }}" class="card-img position-absolute" role="img" alt="{{ business.name }}">
+            </div>
+            <div class="name-div d-flex bg-white">
+                <h1><a href="{% url 'business-detail' business.slug %}">{{ business.name }}</a></h1>
+                {% if not business.rating.rating__avg == None %}
+                <span class="d-flex purple" title="Business rating">
+                    <h4>{{ business.rating.rating__avg | floatformat:'1' }}</h4>
+                    <span class="pt-1"><span class="icon-star"></span></span>
+                </span>
+                {% endif %}
+            </div>
+            <div class="business-description" style="overflow: hidden;">
+                <p class="incomplete position-relative pb-2">
+                  <span class="mr-1 text-muted"><a href="{% url 'business-category' business.category.slug %}">{{ business.category }}</a></span> • 
+                  <span class="ml-1">{{ business.description }}</span>
+                </p>
+                <span tabindex="0" id="see-more">
+                  <span class="icon-angle-down"></span>
+                </span>
+            </div>
+        </div>
+
+        <div class="tabs d-flex text-center bg-white mt-1">
+            <a href="{% url 'business-detail' business.slug %}" class="tabs-link p-2 text-muted font-weight-bold">Home</a>
+            <a href="{% url 'business-products' business.slug %}" class="tabs-link p-2 text-muted font-weight-bold">Products</a>
+            <a href="{% url 'business-reviews' business.slug %}" class="tabs-link p-2 purple font-weight-bold">Reviews</a>
+        </div>
+
+        {% if request.user.is_authenticated and request.user != business.user %}
+            {% if rated %}
+                <div class="rating-div bg-white mb-2 rounded text-center p-3">
+                <div class="d-flex justify-content-center p-2 mb-2">
+                    <img src="{{ request.user.image.url }}" style="width: 50px; border-radius: 50px;" alt="{{ request.user.name }}">
+                    <p class="text-center pt-2 ml-3">You have rated this business page</p>
+                </div>
+                <a href="{% url 'edit-business-rating' business.slug %}" class="edit-review p-2 purple font-weight-bold m-2">Edit Review</a>
+                </div>
+            {% else %}
+                <div class="rating-div bg-white rounded mb-2">
+                <div class="d-flex justify-content-center p-2 mb-2">
+                    <img src="{{ request.user.image.url }}" style="width: 50px; border-radius: 50px;" alt="{{ request.user.name }}">
+                    <h4 class="pt-2 pb-2 ml-3 text-center">Rate this Business</h4>  
+                </div>
+                <div id="rating-widget" class="d-flex justify-content-center">
+                    <span class="star" id="1">&#9734;</span>
+                    <span class="star" id="2">&#9734;</span>
+                    <span class="star" id="3">&#9734;</span>
+                    <span class="star" id="4">&#9734;</span>
+                    <span class="star" id="5">&#9734;</span>
+                </div>
+                <form method="POST" id="business-rating-form">
+                    {% csrf_token %}
+                    <div id="rating-textarea" class="p-2" style="display: none;">
+                    <p class="text-center p-2">Tell us more about what you think about this business...</p>
+                    <input type="hidden" id="hiddenrating" name="rating" value="0">
+                    <textarea name="content" class="form-control" rows="5"></textarea>            
+                    <button id="submit-rating" type="submit" class="btn max-btn btn-primary mt-2">Post review</button>
+                    </div>
+                </form>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if ratings %}
+            <div class="reviews-div" id="reviews">
+                {% for rating in ratings %}
+                    <article class="rating-card d-flex border-bottom position-relative">
+                        <img class="mr-3 lazy" src="{% static 'images/Lazy1.png' %}" data-src="{{ rating.user.image.url }}">
+                        <div>
+                            <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |date:"j/n/Y" }}</p>
+                            <div class="ratings mt-0">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width: calc({{ rating.rating }}/5*100%)"></div>
+                            </div>
+                            <p class="mt-1">{{ rating.content }}</p>
+                        </div>
+                        <span tabindex="1" class="side-ellipsis option-icon p-2 text-muted position-absolute">
+                            <span class="icon-ellipsis-v"></span>
+                            <div class="options position-absolute ">
+                                {% if request.user != rating.user %}
+                                    <li id="report" class="list-group-item list-group-item-action p-2" data-review="{{ rating.id }}">Report</li>
+                                {% else %}
+                                    <form action="{% url 'delete-business-review' rating.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="list-group-item list-group-item-action p-2">
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </span>
+                    </article>
+                {% endfor %}
+            </div>
+            <div class="justify-content-center bg-white" id="more-div">
+                <span class="p-2 purple font-weight-bold m-2" id="more">Load More</span>
+            </div>
+            <div id="loading-div" class="mt-4 purple" style="display: none;">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+            </div>
+            <div style="height: 50vh;"> </div>
+            <span class="back-to-top position-fixed rounded d-none shadow p-3 bg-white">
+                <span class="icon-angle-up"></span>
+                <span>Back To Top</span>
+              </span>
+        {% else %}
+            <p class="d-flex justify-content-center bg-white p-3 pt-5 pb-5">This business profile has no reviews</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/business_reviews.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var login = `/login/?next=${window.location.href}`;
+    var authenticated = "{{ request.user.is_authenticated }}";
+    var email_verified = "{{ request.user.email_is_verified }}";
+    var email_verify_url = "{% url 'verify-email' %}";
+    var ph = "{% static 'images/my_official_logo.png' %}";
+    var reportReview = "{% url 'report-business-review' %}";
+    var reviews = "{% url 'business-reviews' business.slug %}";
+    var rate = "{% url 'business-rating' business.slug %}";
+    var user = "{{ request.user.id }}";
+    var csrfToken = "{{ csrf_token }}";
+</script>
+<script src="{% static 'js/business_reviews.js' %}"></script>
+{% endblock %}

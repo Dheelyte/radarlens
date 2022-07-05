@@ -1,0 +1,238 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    --color: #ffb600
+}
+*:focus {outline: none;}
+body {
+    background-color: #f0f0f1;
+}
+a {color: #212529;}
+a:hover {text-decoration: none;}
+p, hr, h1, h1, h3, h4, h5, h6, .row {margin: 1px;}
+p {font-size: 15px;}
+ul {margin: 0;}
+.purple {
+    color: rgb(120, 60, 245)
+}
+.alert {
+    font-size: 15px;
+}
+.overflow-1{
+    max-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.overflow-2{
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#main {
+    height: 100%;
+    margin-top: 50px;
+    padding: 0px;       
+    word-wrap: break-word; /* Firefox & IE */
+}
+#main-2 {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+}
+.card-body {
+    padding: 10px;
+    border-radius: 50%;
+}        
+.size {
+    font-size: 20px;
+}
+header {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
+}
+@media (min-width: 850px) {
+    header{
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+.logo-name{
+    cursor: pointer;
+    margin: 10px 10px;
+    float: left;
+}
+@media (max-width: 767px) {
+    .logo{ display: none}
+}
+@media (max-width: 281px) {
+    .logo-name, .header-btn, #search{ margin: 6px 2px !important;}
+}
+#search, #user {
+    float: right;
+    cursor: pointer;
+    font-size: large;
+    margin: 6px 5px;
+    padding: 5px 10px 3px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 15px #d9d9d9, -5px -5px 15px #ffffff;
+    -webkit-box-shadow: 5px 5px 15px #d9d9d9, -5px -5px 15px #ffffff;
+    -moz-box-shadow: 5px 5px 15px #d9d9d9, -5px -5px 15px #ffffff;
+    transition: all 0.3s ease 0s;
+}
+#user-div{
+    width: 85%;
+    max-width: 250px;
+    display: none;
+    position: fixed;
+    top: 50px;
+    right: 5px;
+    z-index: 3;
+}
+#user-div ul{
+    list-style-type: none;
+}
+#user-div li{
+    transition: all 0.3s ease 0s;
+}
+#user-div li:hover{
+    background-color: aliceblue;
+}
+header span form {
+    float: left;
+}
+.header-btn {
+    border: 1px solid #212529;
+    color: #212529;
+    float: right;
+    margin: 7px;
+    padding:  5px 8px;
+}
+.header-btn:hover {
+    background-color: #212529;
+    color: #fff;
+}
+@media (min-width: 701px) {
+    #search{ display: none;}
+}
+#main-div {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 850px;
+}
+#search-form {
+    display: flex;
+    width: 600px;
+}
+@media (max-width: 950px) {
+    #search-form{ width: 500px;}
+}
+@media (max-width: 800px) {
+    #search-form{ width: 400px;}
+}
+@media (max-width: 700px) {
+    #search-form{ display: none; }
+}
+#search-form select {
+    background-color: #f3f3f4;
+    width: 25%;
+    max-width: 150px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 0;
+}
+.base-search {
+    background-color: #f3f3f4;
+    width: 85%;
+    max-width: 500px;
+    border: 0;
+    padding: 9px;
+}
+.base-search-button {
+    background-color: rgb(120, 60, 245);
+    color: #fff;
+    padding: 9px 17px;
+    border: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.base-search-button:hover {
+    background-color: #6b35cf;
+    outline: none;
+    transition: all 0.3s ease 0s;
+}
+#header-full-search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    color: black;
+    display: none;
+    z-index: 3;
+}
+#header-full-search form {
+    height: 100%;
+}
+#header-full-search form select {
+    width: 25%;
+    max-width: 150px;
+    background-color: #fff;
+    border: 0;
+}
+#header-full-search input[type="search"] {
+    width: 100%;
+    border: none;
+    padding: 7px;
+}
+#header-full-search button {
+    width: 50px;
+    border: 0;
+    padding: 5px;
+}
+.success, .info, .danger {
+    right: 10px;
+    top: 60px;
+    z-index: 10px;
+    width: 80%;
+    max-width: 300px;
+    display: none;
+    color: white;
+}
+.a2hs-container {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.max-btn {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgb(120, 60, 245);
+    border-color: rgb(120, 60, 245);
+    color: #ffffff;
+}
+.btn.max-btn:focus {
+    background-color: rgb(120, 60, 245) !important;
+}
+.max-btn:hover {
+    background-color: rgb(92, 35, 197);
+    border-color: rgb(92, 35, 197);
+}

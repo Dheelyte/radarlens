@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ other_user.name }}
+{% endblock %}
+
+{% block description %}
+    {{ other_user.name }}
+{% endblock %}
+
+{% block content %}
+  <div id="main-div">
+    <div id="header">
+        <span id="header-back-button">
+            <span class="icon-arrow-left"></span>
+        </span>
+        <div id="header-user">
+            <img src="{{ other_user.image }}" width="40px" alt="pic" style="border-radius: 50px;">
+            <span><h6 class="mt-2 ml-2">{{ other_user.name }}</h6></span>
+        </div>
+    </div>
+    <div class="message-info d-flex justify-content-center p-2">
+      <button id="previous-messages" class="p-2 rounded-pill btn"><span class="icon-arrow-up"></span> Previous messages</button>
+    </div>
+    <div id="messages-area">
+      <ul>
+        {% for message in messages %}
+            {% if message.sent %}
+            <li class="sent">
+                <p>
+                  <span class="msg-content">{{ message.message }}</span>
+                  <span class="mt-1">{{ message.timestamp }}</span>
+                </p>
+              </li>
+            {% else %}
+            <li class="reply">
+                <p>
+                  <span class="msg-content">{{ message.message }}</span>
+                  <span class="text-muted mt-1">{{ message.timestamp }}</span>
+                </p>
+              </li>
+            {% endif %}
+        {% endfor %}
+          <li class="mb-1 mt-0" id="seen" style="display: inline-block">
+            <p style="display: inline-block; float: right" class="p-0 text-muted">{{ seen }}</p>
+          </li>
+      </ul>
+    </div>
+    <div id="input-area">
+      <div contenteditable="true" class="edit mr-1" id="content_editable"></div>
+      <button id="send-btn">
+          <span class="icon-paper-plane"></span>
+      </button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/message_box.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var csrfToken = "{{ csrf_token }}";
+    var otherUser = "{{ other_user.slug }}";
+    var webRoot = "{{ web_root }}"
+</script>
+<script src="{% static 'js/message_box.js' %}"></script>
+{% endblock %}

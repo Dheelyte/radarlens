@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block description %}
+Contact Us
+{% endblock %}
+
+{% block style %}
+    <style>
+        footer {
+            background-color: rgb(41, 40, 40);
+            color: #fff;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .social a {
+            color: #fff !important;
+            padding-left: 15px;
+            font-size: 20px;
+        }
+        .quick-links a {
+            display: block;
+            color: #fff;
+        }
+        .links a {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="main-div">
+    <div class="bg-white p-3">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mt-2 text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="mb-4">Write feedback</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div class="text-center">
+                <input type="submit" class="btn max-btn" name="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="p-4">
+    <a href="/">
+      <img src="{% static 'images/logo-32.png' %}" class="mr-2 mb-2" style="height: 30px" alt="Logo">
+      <h4 style="display: inline" class="pt-2"><span style="color: #ffffff;">radarLens</span></h4>
+    </a>
+    <div class="quick-links mt-4 mb-4">
+      <h5 class="mb-2">Quick Links</h5>
+      <a href="{% url 'create-business' %}">Create Business Profile</a>
+      <a href="{% url 'signup' %}" class="">Sign Up</a>
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'contact' %}">Feedback</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'privacy-policy' %}">Privacy Policy</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+    <div class="social d-flex justify-content-center mb-2">
+      <a href="">
+          <span class="icon-facebook"></span>
+      </a>
+      <a href="https://twitter.com/radarlensHQ">
+          <span class="icon-twitter"></span>
+      </a>
+      <a href="">
+          <span class="icon-youtube"></span>
+      </a>
+      <a href="">
+          <span class="icon-linkedin"></span>
+      </a>
+      <a href="">
+          <span class="icon-instagram"></span>
+      </a>
+  </div>
+  <p class="text-center">© {% now 'Y' %} radarLens</p>
+  </footer>
+
+{% endblock %}

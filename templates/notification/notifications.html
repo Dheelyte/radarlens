@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Notifications
+{% endblock %}
+
+{% block description %}
+    Notifications
+{% endblock %}
+
+{% block style %}
+    <style>
+        .unread {
+            top: 40%;
+            right: 10px;
+            font-size: 10px;
+        }
+        .more:hover {
+            background-color: #f0f0f1;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .notification:hover {
+            background-color: aliceblue !important;
+        }
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+        }
+        .overflow {
+            overflow: hidden;
+            max-height: 24px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <h4 class="bg-white m-0 p-3">Notifications</h4>
+        {% if notifications %}
+            <div id="notifications">
+                {% for notification in notifications %}
+                    <div class="notification d-flex p-3 border-bottom position-relative bg-white">
+                        <div>
+                            <p class="overflow" style="max-height: 48px;">{{ notification.content }}</p>
+                            <div class="d-flex">
+                                <p class="overflow purple mr-2">{{ notification.tag }} </p> ·
+                                <p class="text-muted ml-2"> {{ notification.time |date:"j/n/Y" }}</p>                   
+                            </div>
+                        </div>
+                        {% if not notification.seen %}
+                            <span class="icon-circle unread purple position-absolute"></span>
+                        {% endif %}
+                        <a href="{% url 'notification' notification.id %}" class="stretched-link"></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center p-2 bg-white" id="more-div">
+                <span class="p-2 purple more font-weight-bold m-2" id="more">Load More</span>
+            </div>
+            <div id="loading-div" class="mt-4 purple" style="display: none;">
+                <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="position-relative" style="height: 80vh;">
+                <div class="font-weight-bold center text-center text-muted">
+                    <span class="icon-bell" style="font-size: 60px;"></span>
+                    <h5 class="mt-3">You have no notifications yet</h5>
+                </div>
+            </div>
+        {% endif %}
+        <div style="height: 40vh;"></div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        let more = document.getElementById('more-div');
+        let div = document.getElementById('notifications');
+        if(div.childElementCount < 20){
+            more.style.display = "none"
+        };
+        var webRoot = "{{ web_root }}";
+        var page = 2;
+        $('#more').click(()=>{
+            $('#more-div').hide();
+            $('#loading-div').show();
+            $.ajax({
+                method: "GET",
+                url: "{% url 'notifications' %}",
+                data: {
+                    page: page
+                },
+                success: (response)=>{
+                    page += 1;
+                    $.each(response.notifications, (index, notification)=>{
+                        if(!notification.seen){
+                            var seen = `<span class="icon-circle unread purple position-absolute"></span>`
+                        }
+                        $('#notifications').append(`
+                            <div class="notification d-flex p-3 border-bottom position-relative bg-white">
+                                <div>
+                                    <p class="overflow" style="max-height: 48px;">${notification["content"]}</p>
+                                    <div class="d-flex">
+                                        <p class="purple mr-2 overflow">${notification["tag"]} </p> ·
+                                        <p class="text-muted ml-2"> ${notification["time"]}</p>                   
+                                    </div>
+                                </div>
+                                ${seen}
+                                <a href="${webRoot}/notification/${notification["id"]}/" class="stretched-link"></a>
+                            </div>
+                        `)
+                    })
+                    $('#loading-div').hide();
+                    $('#more-div').show();
+                    if(response.has_next == false || response == ""){
+                        $('#more-div').hide();
+                    }
+                }
+            })
+        })
+    </script>
+{% endblock %}

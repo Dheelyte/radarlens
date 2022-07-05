@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<h2>Rate {{ business }}</h2>
+<form method="POST" id="business-rating-form">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" value="Submit">
+</form>
+<h1>Ratings</h1>
+    <div id="rating-div">
+    {% for rating in ratings %}
+    <article class="media content-section m-3 append-div">
+        <img class="mr-3" style="width:50px; height:50px; border-radius:200px" src="post.author.profile.image.url">
+        <div class="media-body">
+            <div class="article-metada">
+                <h6 class="">{{ rating.user }} : {{ rating.rating }}</h6>
+                <h6>{{ rating.date_posted }}</h6>
+                <h6>{{ rating.content }}</h6>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+$("#business-rating-form").submit(function (e) {
+    e.preventDefault();
+    var serializedData = $(this).serialize();
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'business-rating' business.slug %}",
+        data: serializedData,
+        success: function (response) {
+            console.log("Request sent");
+            $("#business-rating-form").trigger("reset");
+            $("id_rating").focus();
+
+            var instance = JSON.parse(response["instance"]);
+            var fields = instance[0]["fields"];
+            $("#rating-div").prepend(
+                `<article class="media content-section m-3 append-div">
+                    <img class="mr-3" style="width:50px; height:50px; border-radius:200px" src="post.author.profile.image.url">
+                    <div class="media-body">
+                        <div class="article-metada">
+                            <h6 class="">${fields["user"]||""} : ${fields["rating"]||"0"}</h6>
+                            <h6>Just now</h6>
+                            <h6>${fields["content"]||""}</h6>
+                        </div>
+                    </div>
+                </article>`
+            )
+            console.log(instance)
+        },
+        error: function (response) {
+            alert(response["responseJSON"]["error"]);
+        }
+    })
+})
+
+
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

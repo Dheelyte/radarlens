@@ -1,0 +1,83 @@
+.option-icon {
+    right: 10px;
+}
+article {
+    word-wrap: break-word; /* Firefox & IE */
+    word-break: break-all; /* Chrome */
+}
+.option-icon .options {
+    display: none;
+    width: 150px;
+    right: 20px;
+    top: 40px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.post-actions span, .post-actions a {
+    width: 45%;
+    border-radius: 50px;
+    background-color: #e3dff0;
+}
+.like-post{
+    position: relative;
+}
+.like-post:hover {
+    background-color: rgb(243, 213, 157);
+    transform: scale(0.98);
+    cursor: pointer;
+}
+.pointer {
+    cursor: pointer;
+}
+.comment:focus {
+    background-color: rgb(205, 168, 240);
+    cursor: pointer;
+}
+.liked {
+    background-color: rgb(243, 213, 157)
+}
+.rounded-top {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+#input-area{
+    position: fixed;
+    max-width: 800px;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+}
+#input-area #send-btn {
+    border-radius: 50px;
+    width: 20%;
+    outline: none;
+}
+#input-area textarea::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+    display: block
+}
+#input-area textarea::-webkit-scrollbar-thumb {
+    background: #e4eaf5;
+    border-radius: 8px;
+}
+#input-area textarea::-webkit-scrollbar-thumb:hover {
+    background: rgb(196, 201, 211)
+}
+#more:hover {
+    color: rgb(120, 60, 245);
+    background-color: #e3dff0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#more-div {
+    display: flex;
+}
+.edit {
+    outline: none;
+    max-height: 8em;
+    min-height: 4em;
+    overflow: auto;
+    width: 100%;
+    background-color: #fff;
+  }

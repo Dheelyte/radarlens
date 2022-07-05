@@ -1,0 +1,50 @@
+{% extends 'base2.html'  %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block description %}
+    Login to create a page for your business and see Businesses and services near you
+{% endblock %}
+
+{% block content %}
+    <div class="text-center mt-4 mb-4">
+        <a href="/" class="d-flex justify-content-center">
+            <img src="{% static 'images/logo-32.png' %}" class="mr-2" style="height: 30px" alt="Logo">
+            <h4><span style="color: #783CF5;">radar</span><span style="color: #FEA000">lens</span></h4>
+        </a>
+        <h4 class="mt-5">Login</h4>
+    </div>
+    <div class="container rounded">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mt-2 text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <input class="btn btn-primary max-btn" type="submit" value="Login">
+        </form>
+        <p class="text-center text-muted mt-4">Don't Have An Account? <a href="{% url 'signup' %}" id="sign-up">Sign Up</a></p>
+        <p class="text-center"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+    </div>
+    <p class="text-center text-muted mt-4">© {% now 'Y' %} RadarLens · <a href="{% url 'privacy-policy' %}">Privacy Policy</a></p>
+    <p class="text-center mb-4"><a href="{% url 'contact' %}">Write feedback</a></p>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        const parameters = window.location.search;
+        const urlParams = new URLSearchParams(parameters);
+        if (urlParams.has('next')){
+            const next = urlParams.get('next');
+            document.getElementById('sign-up').href = `{% url 'signup' %}?next=${next}`;
+        }
+    </script>
+{% endblock %}

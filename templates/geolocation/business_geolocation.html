@@ -1,0 +1,106 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Set a location for your business
+{% endblock %}
+
+{% block description %}
+    Set the primary location for your business
+{% endblock %}
+
+{% block head %}
+    {{ form.media }}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/business_geolocation.css' %}">
+    <style>
+        #id_location_map { width: 100% !important; height: 400px !important;}
+        label {
+            display: none
+        }
+        .btn.max-btn:focus {
+            background-color: rgb(120, 60, 245) !important;
+        }
+        .max-btn {
+            width: 100%;
+            max-width: 500px;
+            background-color: rgb(120, 60, 245);
+            border-color: rgb(120, 60, 245);
+            color: #ffffff;
+            margin: 10px auto;
+        }
+        .max-btn:hover {
+            background-color: rgb(92, 35, 197);
+            border-color: rgb(92, 35, 197);
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 4; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+    <div class="main-container">
+        <div class="text-center bg-white p-2 pt-3">
+            <i class="fas fa-map-marker-alt text-muted" style="font-size: 100px;"></i>
+            <h4 class="font-weight-bold mt-4">Primary Business Location</h4>
+            <p class="mt-4">Choose a primary location for your business</p>
+            <p>People near the location will be able to find it when searched for on RadarLens.
+                However, other people can still find your business through your link on on Google.
+            </p>
+            <p>Use your current location or choose a point on the map</p>
+            <button id="use-location" class="btn btn-primary mt-4 mb-4">Use current location</button>
+            <button id="use-map" class="btn btn-link mt-4 mb-4">Choose on map</button>
+        </div>
+        <div id="map" class="modal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Choose Location</h5>
+                  <button type="button" id="close-btn1" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <form enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        {{ form | crispy}}
+                        <input type="submit" value="Done" class="btn max-btn"/>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div style="width:100%;" class="invisible" id="map">
+            
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/business_geolocation.js' %}"></script>
+<script>
+var useLocation = "{% url 'use-location' business.slug %}";
+var business = "{% url 'business-detail' business.slug %}";
+var csrf_token = "{{ csrf_token }}";
+
+</script>
+{% endblock %}

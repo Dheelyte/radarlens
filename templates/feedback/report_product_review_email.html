@@ -1,0 +1,13 @@
+<h1>Report Product Review</h1>
+
+<p>Review ID: {{ review.id }}</p>
+
+<p>Review: {{ review.content }}</p>
+
+<p>Product Reviewed: <a href="{% url 'product-detail' review.product.business.slug review.product.slug %}"></a></p>
+
+<h1>Reporter</h1>
+
+<p>User ID: {{ user.id }}</p>
+
+<p>Name: {{ user.name }}</p>

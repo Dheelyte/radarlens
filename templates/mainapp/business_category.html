@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ category.name }}
+{% endblock %}
+
+{% block description %}
+{{ category.name }}
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+    {% if businesses %}
+      <h4 class="bg-white rounded-top p-3 mt-1 ml-0 mr-0">{{ category.name }}</h4>
+      {% for business in businesses %}
+        <div class="search border-bottom position-relative" style="min-height: 105px;">
+          <div class="thumbnail-div">
+            <img src="{% static 'images/Lazy1.png' %}" data-src="{{ business.thumbnail.url }}" class="lazy position-absolute" role="img">
+          </div>
+          <div class="p-1 info-div bg-white" style="z-index: 1;">
+            <p class="purple ml-2">{{ business.category.name }}</p>
+            <p class="ml-2 mt-2 card-text">{{ business.name }}</p>
+            <div class="d-flex">
+              <div class="ratings ml-2">
+                <div class="empty-stars"></div>
+                <div class="full-stars" style="width: calc({% if business.rating.rating__avg != None %}{{ business.rating.rating__avg }}{% else %}0{% endif %}/5*100%)"></div>
+              </div>
+              <p class="ml-2 mt-2 badge badge-success" style="font-size: 14px; height: 22px">
+                {% if business.distance.m < 1000 %}
+                  {{ business.distance.m | floatformat:"0"}} m
+                {% else %}
+                  {{ business.distance.km | floatformat:"1"}} km
+                {% endif %}
+              </p>
+              </span>
+            </div>
+          </div>
+          <a href="{% url 'business-detail' business.slug %}" class="stretched-link"></a>
+        </div>
+      {% endfor %}
+
+      <div class="bg-white p-2 mt-1" id="">
+      {% if businesses.has_previous %}
+        <a href="?page=1" class="btn btn-outline-primary">First</a>
+        <a href="?page={{ businesses.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+      {% endif %}
+
+      {% for num in businesses.paginator.page_range %}
+        {% if businesses.number == num %}
+        <a href="?page={{ num }}" class="btn btn-primary">{{ num }}</a>
+        {% elif num > businesses.number|add:'-1' and num < businesses.number|add:'1' %}
+        <a href="?page={{ num }}" class="btn btn-outline-primary">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if businesses.has_next %}
+        <a href="?page={{ businesses.next_page_number }}" class="btn btn-outline-primary">Next</a>
+      {% endif %}
+    </div>
+
+    {% else %}
+      <div class="position-relative" style="height: 80vh;">
+        <div class="font-weight-bold center text-center text-muted">
+          <span class="icon-search" style="font-size: 60px;"></span>
+          <h5 class="mt-3">No business found in this category"</h5>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/business_category.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+  if(!!window.IntersectionObserver){
+    let observer = new IntersectionObserver((entries, observer) => { 
+      entries.forEach(entry => {
+      if(entry.isIntersecting){
+          console.log(entry);
+          entry.target.src = entry.target.dataset.src;
+          observer.unobserve(entry.target);
+    }
+    });
+  }, {rootMargin: "0px 0px 0px 0px"});
+  document.querySelectorAll('.lazy').forEach(img => { observer.observe(img) });
+}
+</script>
+
+{% endblock %}

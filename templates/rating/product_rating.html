@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Product Reviews - {{ product.name }}
+{% endblock %}
+
+{% block description %}
+Product Reviews - {{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<h2>Rate {{ product }}</h2>
+<form method="POST" id="product-rating-form">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" value="Submit">
+</form>
+
+<h1>Ratings</h1>
+    <div id="rating-div">
+    {% for rating in ratings %}
+    <article class="media content-section m-3 append-div">
+        <img class="mr-3" style="width:50px; height:50px; border-radius:200px" src="post.author.profile.image.url">
+        <div class="media-body">
+            <div class="article-metada">
+                <h6 class="">{{ rating.user }} : {{ rating.rating }}</h6>
+                <h6>{{ rating.date_posted }}</h6>
+                <h6>{{ rating.content }}</h6>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/product_rating.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/product_rating.js' %}"></script>
+{% endblock %}

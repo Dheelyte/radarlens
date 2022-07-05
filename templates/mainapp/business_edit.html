@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Edit {{ business.name }}
+{% endblock %}
+
+{% block description %}
+    Edit business
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/business_edit.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .max-btn {
+            width: 100%;
+            max-width: 500px;
+            background-color: rgb(123, 59, 241);
+            border-color: rgb(123, 59, 241);
+            color: #ffffff;
+        }
+        .max-btn:focus {
+            background-color: rgb(123, 59, 241) !important;
+        }
+        .max-btn:hover {
+            color: #ffffff;
+            background-color: rgb(92, 35, 197);
+            border-color: rgb(92, 35, 197);
+        }
+        .select2-selection {
+            height: 38px !important;
+        }
+        .select2-selection__rendered {
+            padding-top: 5px
+        }
+        .select2-selection__arrow {
+            margin-top: 5px
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="bg-white p-4">
+            <h4 class="pb-2">Edit Page</h4>
+            <div class="pt-2">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.name |as_crispy_field }}
+                    {{ form.category |as_crispy_field }}
+                    {{ form.description |as_crispy_field }}
+                    <label class=" requiredField">
+                        Opening hours<span class="asteriskField">*</span>
+                    </label>
+                    <div class="form-row ml-1">
+                        <div id="div_id_opening_hours_from" class="form-group mr-2" style="width: 48%;">
+                            {{ form.opening_hours_from |as_crispy_field }}
+                        </div>
+                        <div id="div_id_opening_hours_to" class="form-group" style="width: 48%;">
+                            {{ form.opening_hours_to |as_crispy_field }}
+                        </div>
+                    </div>
+                    <h5 class="pb-2">Contact Information</h5>
+                    {{ contact_form | crispy }}
+                    <h5 class="pb-2 pt-2">Primary Location</h5>
+                    {{ form.show_location |as_crispy_field }}
+                    <a href="{% url 'business-geolocation' business.slug %}" class="btn btn-secondary mb-5">Change Primary Location</a>
+                    <div class="text-center">
+                        <input class="btn btn-primary max-btn" type="submit" id="submit" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/business_edit.js' %}"></script>
+<script>
+    $('#id_opening_hours_from, #id_opening_hours_to').attr('type', 'time')
+    $("#id_category").select2({
+        placeholder: "Select Business Category",
+        allowClear: true,
+    });
+</script>
+{% endblock %}

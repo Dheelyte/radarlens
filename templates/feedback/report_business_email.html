@@ -1,0 +1,13 @@
+<h1>Report Business</h1>
+
+<p>Business ID: {{ business.id }}</p>
+
+<p>Business Name: {{ business.name }}</p>
+
+<p>Business Page: <a href="{% url 'business-detail' business.slug %}">{{ business.name }}</a></p>
+
+<h1>Reporter</h1>
+
+<p>User ID: {{ user.id }}</p>
+
+<p>Name: {{ user.name }}</p>

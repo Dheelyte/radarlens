@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Products - {{ business.name }}
+{% endblock %}
+
+{% block description %}
+  Products - {{ business.name }}
+{% endblock %}
+
+{% block style %}
+<style>
+    .thumbnail-div {
+        width: 50px;
+        padding-bottom: 100px;
+    }
+    .thumbnail-div img{
+        top: 0;
+        left: 0;
+        height: 100%;
+        max-width: 100%;
+    }
+    .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+    .more:hover {
+        background-color: #f0f0f1;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <h4 class="p-3 bg-white">Followers</h4>
+        {% if followers %}
+            <div id="followers">
+                {% for follower in followers %}
+                    <div class="position-relative bg-white d-flex border-bottom" style="height: 60px;">
+                        <img src="{{ follower.image.url }}" class="rounded-circle m-2" style="width: 40px; height: auto;" alt="{{ follower.name }}">
+                        <div class="ml-3 mt-3">
+                            <p class="font-weight-bold">{{ follower.name }}</p>
+                        </div>
+                        <a href="{% url 'load-message' follower.slug %}" class="btn btn-outline-primary rounded-pill position-absolute" style="height: 40px; right: 10px; top: 10px">Message</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center p-2 bg-white" id="more-div">
+                <span class="p-2 purple more font-weight-bold m-2" id="more">Load More</span>
+            </div>
+            <div id="loading-div" class="mt-4 purple" style="display: none;">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="position-relative" style="height: 80vh;">
+                <div class="font-weight-bold center text-center text-muted">
+                    <h5>No business follower</h5>
+                </div>
+          </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    let div = document.getElementById('followers');
+    if(div){
+        let more = document.getElementById('more-div');
+        if(div.childElementCount < 20){
+            more.style.display = "none"
+        }
+    };
+    var webRoot = "{{ web_root }}";
+    var page = 2;
+    $('#more').click(()=>{
+        $('#more-div').hide();
+        $('#loading-div').show();
+        $.ajax({
+            method: "GET",
+            url: "{% url 'business-followers' business.slug %}",
+            data: {
+                page: page
+            },
+            success: (response)=>{
+                page += 1;
+                $.each(response.followers, (index, follower)=>{
+                    $('#followers').append(`
+                        <div class="position-relative bg-white d-flex border-bottom" style="height: 60px;">
+                            <img src="${follower["image"]}" class="rounded-circle m-2" style="width: 40px; height: auto;" alt="${follower["name"]}">
+                            <div class="ml-3 mt-3">
+                                <p class="font-weight-bold">${follower["name"]}</p>
+                            </div>
+                            <a href="${webRoot}messages/${follower["name"]}/" class="btn btn-outline-primary rounded-pill position-absolute" style="height: 40px; right: 10px; top: 10px">Message</a>
+                        </div>
+                    `)
+                })
+                $('#loading-div').hide();
+                $('#more-div').show();
+                if(response.has_next == false || response == ""){
+                    $('#more-div').hide();
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

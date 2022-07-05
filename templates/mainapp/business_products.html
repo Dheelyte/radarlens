@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Products - {{ business.name }}
+{% endblock %}
+
+{% block description %}
+  Products - {{ business.name }}
+{% endblock %}
+
+{% block content %}
+  <div id="main-div">
+    <div class="rounded-bottom position-relative bg-white">
+      <div class="thumbnail-div position-relative">
+        <img src="{{ business.thumbnail.url }}" class="card-img position-absolute" role="img" alt="{{ business.name }}">
+      </div>
+      <div class="name-div d-flex bg-white">
+          <h1><a href="{% url 'business-detail' business.slug %}">{{ business.name }}</a></h1>
+          {% if not business.rating.rating__avg == None %}
+            <span class="d-flex" title="Business rating" style="color: #28a745">
+              <h4>{{ business.rating.rating__avg |floatformat:'1' }}</h4>
+              <span class="pt-1"><span class="icon-star"></span></span>
+            </span>
+          {% endif %}
+      </div>
+      <div class="business-description" style="overflow: hidden;">
+        <p class="incomplete position-relative pb-2">
+          <span class="mr-1 text-muted"><a href="{% url 'business-category' business.category.slug %}">{{ business.category }}</a></span> • 
+          <span class="ml-1">{{ business.description }}</span>
+        </p>
+        <span tabindex="0" id="see-more">
+          <span class="icon-angle-down"></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="tabs d-flex text-center bg-white mt-1">
+      <a href="{% url 'business-detail' business.slug %}" class="tabs-link p-2 text-muted font-weight-bold">Home</a>
+      <a href="{% url 'business-products' business.slug %}" class="tabs-link p-2 purple font-weight-bold">Products</a>
+      <a href="{% url 'business-reviews' business.slug %}" class="tabs-link p-2 text-muted font-weight-bold">Reviews</a>
+    </div>
+
+    {% if products %}
+      <div class="row products justify-content-center bg-white" id="products">
+          {% for product in products %}
+            <div class="card home-product-card m-1 rounded-bg shadow-sm">
+              <div class="product-image-div position-relative">
+                <img class="lazy position-absolute" src="{% static 'images/my_official_logo.png' %}" data-src="{{ product.image.url }}" role="img" alt="{{ business.name }}">
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ product.name }}</p>
+                <div class="ratings">
+                  <div class="empty-stars"></div>
+                  <div class="full-stars" style="width: calc({{ product.rating }}/5*100%)"></div>
+                </div>
+                {% if product.price != None %}
+                  <p class="text-muted m-0">{{ product.currency }} {{ product.price }}</p>
+                {% endif %}
+                <a href="{% url 'product-detail' product.business.slug product.slug %}" class="stretched-link"></a>
+              </div>
+              <div class="pl-2 pr-2 pb-2 pt-0" style="z-index: 1;">
+                <button class="save not-saved btn shadow-none" data-save="{% url 'save-product' product.slug %}">Save For Later</button>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+      <div class="text-center p-2 bg-white" id="more-div">
+        <span class="p-2 purple font-weight-bold m-2" id="more">Load More</span>
+      </div>
+      <div id="loading-div" class="mt-4 purple" style="display: none;">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <span class="back-to-top position-fixed pointer rounded d-none shadow p-3 bg-white">
+        <span class="icon-angle-up"></span>
+        <span>Back To Top</span>
+      </span>
+      {% else %}
+        <p class="d-flex justify-content-center bg-white p-3 pt-5 pb-5">This business profile has no products</p>
+      {% endif %}
+      <div style="height: 50vh;"></div>
+  </div>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/business_products.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+  var ph = "{% static 'images/my_official_logo.png' %}";
+  var products = "{% url 'business-products' business.slug %}";
+  var csrfToken = "{{ csrf_token }}"
+</script>
+<script src="{% static 'js/business_products.js' %}"></script>
+{% endblock %}

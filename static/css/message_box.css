@@ -1,0 +1,128 @@
+html, body {
+    height: 100%
+}
+#header {
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    max-width: 850px;
+    height: 50px;
+    background-color: white;
+}
+#header-back-button {
+    margin: 6px;
+    padding: 7px 12px;
+    float: left;
+    cursor: pointer;
+    border-radius: 30px;
+}
+#header-back-button:hover {
+    color: rgb(120, 60, 245);
+    background-color: #e3dff0;
+}
+#header-user {
+    float: left;
+    display: flex;
+    margin: 7px 0px;
+}
+#messages-area{
+    height: calc(100% - 156px);
+    background-color: rgb(227, 227, 227);
+    min-width: 100%;
+}
+#messages-area ul {
+    padding: 0px 15px 60px;
+    background-color: rgb(227, 227, 227);;
+}
+@media (max-width: 816px) {
+    #messages-area{
+        background-color: rgb(238, 238, 238)
+    }
+    #messages-area ul {
+        background-color: rgb(238, 238, 238)
+    }
+    #spinner {
+        background-color: rgb(238, 238, 238)
+    }
+    #input-area{
+        background-color: rgb(238, 238, 238);
+    }
+}
+#messages-area ul li {
+    display: inline-block;
+    margin: 5px;
+    width: 100%;
+    font-size: 0.9em;
+}
+#messages-area ul li p {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 80%;
+    line-height: 130%;
+}
+#messages-area ul li p a {
+    padding: 5px;
+    text-decoration: underline;
+}
+#messages-area ul li.sent p {
+    background: rgb(120, 60, 245);           
+    float: right;
+    color: #f5f5f5;
+    
+}
+#messages-area ul li.reply p {
+    background: #ffffff;
+}
+#messages-area ul li.reply span {
+    display: block;
+}
+#messages-area ul li.sent span {
+    position: inherit;
+    display: block;
+    right: 0;
+}
+#input-area{
+    position: fixed;
+    max-width: 850px;
+    bottom: 5px;
+    width: 100%;
+    display: flex;
+    background-color: rgb(227, 227, 227);
+}
+.edit {
+    outline: none;
+    padding: 15px;
+    max-height: 8em;
+    min-height: 3.5em;
+    overflow: auto;
+    width: 100%;
+    border-radius: 50px;
+    background-color: #fff;
+}
+#input-area #send-btn {
+    border-radius: 50px;
+    outline: none;
+    padding: 15px 20px;
+    height: 56px;
+    border: 0;
+    color: #fff;
+    background-color: rgb(120, 60, 245);
+    right: 5px;
+    bottom: 0;
+}
+#message-input{
+    padding:10px;
+    width: 100%;
+    max-height: 500px;
+}
+.message-info {
+    margin-top: 100px;
+    background-color: rgb(227, 227, 227)
+}
+#spinner {
+    background-color: rgb(227, 227, 227)
+}
+#previous-messages {
+    background-color: #ffffff;
+}

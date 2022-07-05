@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Edit Review - {{ business.name }}
+{% endblock %}
+
+{% block description %}
+    Edit Review - {{ business.name }}
+{% endblock %}
+
+{% block style %}
+<style>
+    #div_id_rating {
+    display: none;
+}
+#rating-widget {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+.star {
+    font-size: 35px;
+}
+.max-btn {
+    width: 100%;
+    background-color: rgb(120, 60, 245);
+    border-color: rgb(120, 60, 245);
+    color: #ffffff;
+}
+.btn.max-btn:focus {
+    background-color: rgb(120, 60, 245)!important;
+}
+.max-btn:hover {
+    background-color: rgb(92, 35, 197);
+    border-color: rgb(92, 35, 197);
+}
+.star {
+    font-size: 50px;
+    color: rgb(120, 60, 245);
+}
+.star:hover{
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="mt-5 bg-white p-2">
+            <h5 class="font-weight-bold">Edit Review</h5>
+            <p>{{ business.name }}</p>
+            <div id="rating-widget">
+                <span class="star" id="1">&#9734;</span>
+                <span class="star" id="2">&#9734;</span>
+                <span class="star" id="3">&#9734;</span>
+                <span class="star" id="4">&#9734;</span>
+                <span class="star" id="5">&#9734;</span>
+            </div>
+            <div class="pt-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="text-center">
+                        <input class="btn btn-primary max-btn" type="submit" id="submit" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/edit_business_rating.js' %}"></script>
+{% endblock %}

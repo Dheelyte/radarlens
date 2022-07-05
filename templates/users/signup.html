@@ -1,0 +1,71 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block description %}
+    Sign up to create a page for your business and see Businesses and Services near you
+{% endblock %}
+
+{% block style %}
+    <style>
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="text-center mt-4 mb-4">
+        <a href="/" class="d-flex justify-content-center">
+            <img src="{% static 'images/logo-32.png' %}" class="mr-2" style="height: 30px" alt="Logo">
+            <h4><span style="color: #783CF5;">radar</span><span style="color: #FEA000">lens</span></h4>
+        </a>
+        <h4 class="mt-5">Sign Up</h4>
+    </div>
+    <div class="container rounded">
+        {% if form.non_field_errors %}
+            {% for message in form.non_field_errors %}
+                <div class="alert alert-danger text-center mt-2">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.name |as_crispy_field }}
+            {{ form.email |as_crispy_field }}
+            <div class="position-relative">
+                {{ form.password |as_crispy_field }}
+                <span id="toggle" class="position-absolute rounded pl-1 pr-1"><small>hide</small></span>
+            </div>
+            
+            <input class="btn btn-primary max-btn mb-2" type="submit" value="Sign Up" id="submit">
+            
+        </form>
+        <p class="text-center text-muted mt-2">Already have an account? <a href="{% url 'login' %}" id="login">Login</a></p>
+    </div>
+    <p class="text-center text-muted mt-4">© {% now 'Y' %} RadarLens · <a href="{% url 'privacy-policy' %}">Privacy Policy</a></p>
+    <p class="text-center mb-4"><a href="{% url 'contact' %}">Write feedback</a></p>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    const parameters = window.location.search;
+    const urlParams = new URLSearchParams(parameters);
+    if (urlParams.has('next')){
+        const next = urlParams.get('next');
+        document.getElementById('login').href = `{% url 'login' %}?next=${next}`;
+    }
+    const password = document.querySelector('#id_password');
+    const submit = document.querySelector('#submit');
+    const togglePassword = document.querySelector("#toggle");     
+    togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        const text = togglePassword.textContent === 'show' ? 'hide' : 'show';
+        togglePassword.innerHTML = `<small>${text}</small>`
+    })
+</script>
+{% endblock %}

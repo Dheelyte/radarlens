@@ -1,0 +1,64 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal img {
+  display: block;
+  max-width: 100%
+}
+#div_id_thumbnail, #div_id_low_thumbnail {
+  position: absolute;
+  visibility: hidden;
+}
+.preview-div {
+  margin-left: auto;
+  margin-right: auto;
+}
+#preview {
+  width: 100%;
+  padding-bottom: 45%;
+  position: relative;
+  background-color: rgb(235, 235, 235);
+}
+#preview:hover {
+  cursor: pointer;
+  transition: all 0.01s ease 0.01s;
+  opacity: .7
+}
+#preview img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+.max-btn {
+  width: 100%;
+  background-color: rgb(120, 60, 245);
+  border-color: rgb(120, 60, 245);
+  color: #ffffff;
+}
+.max-btn:focus {
+  background-color: rgb(120, 60, 245) !important;
+}
+.max-btn:hover {
+  background-color: rgb(92, 35, 197);
+  color: #fff;
+  border-color: rgb(92, 35, 197);
+}

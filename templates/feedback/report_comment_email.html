@@ -1,0 +1,13 @@
+<h1>Report Comment</h1>
+
+<p>Comment ID: {{ comment.id }}</p>
+
+<p>Comment content: {{ comment.content }}</p>
+
+<p>Post commented on: <a href="{% url 'business-post-detail' comment.post.business.slug %}">{% url 'business-post-detail' comment.post.business.slug %}</a></p>
+
+<h1>Reporter</h1>
+
+<p>User ID: {{ user.id }}</p>
+
+<p>Name: {{ user.name }}</p>

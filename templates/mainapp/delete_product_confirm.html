@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete {{ product.name }}
+{% endblock %}
+
+{% block style %}
+    <style>
+        .btn {
+            width: 100%;
+            max-width: 500px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="bg-white p-2 mt-5">
+            <h4 class="mb-3">Delete Product</h4>
+            <p>If you delete your product, all reviews associated with it will be deleted also.</p>
+            <p>If you want to make changes to it, you can <a href="{% url 'edit-product' product.slug %}" style="color: #0056B3;">Edit</a> it instead</p>
+            <p class="font-weight-bold">Are you sure you want to delete {{ product.name }}?</p>
+            <form method="POST" action="{% url 'delete-product-confirm' product.slug %}" class="pt-3">
+                {% csrf_token %}
+                <div class="d-flex justify-content-center">
+                    <button type="submit" id="submit" class="btn btn-danger"><span class="icon-trash mr-2"></span>Delete Product</button>
+                </div>
+            </form>
+            <div class="d-flex justify-content-center mb-4">
+                <a href="{% url 'product-detail' product.business.slug product.slug %}" class="btn btn-secondary mt-2">Cancel</a>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

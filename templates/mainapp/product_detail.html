@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block description %}
+    {{ product.description }}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "{{ product.name }}",
+        "image": [
+            "{{ product.image.url }}"
+        ],
+        "description": "{{ product.description }}",
+        "brand": {
+            "@type": "Brand",
+            "name": "{{ product.business.name }}"
+        },
+        {% if product.reviews %}
+        "review": {
+            "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "{{ product.latest_review.rating }}",
+                "bestRating": "5"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "{{ product.latest_review.user.name }}"
+            }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "{{ product.rating }}",
+            "reviewCount": "{{ product.reviews_count }}"
+        },
+        {% endif %}
+        {% if product.price != None %}
+        "offers": {
+            "@type": "AggregateOffer",
+            "offerCount": "1",
+            "lowPrice": "{{ product.price }}",
+            "highPrice": "{{ product.price }}",
+            "priceCurrency": "{{ product.currency_code }}"
+        }
+        {% endif %}
+    }
+</script>
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "https://{{ request.META.HTTP_HOST }}",
+          "item": "https://{{ request.META.HTTP_HOST }}"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ product.business.name }}",
+          "item": "https://{{ request.META.HTTP_HOST }}{{ product.business.get_absolute_url }}"
+        },{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ product.name }}"
+        }]
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="row product-div">
+
+        <div class="image-div image-column">
+            <div class="thumbnail-div position-relative bg-white" style="height: 100%;">
+                <img src="{{ product.image.url }}" class="position-absolute" alt="{{ product.name }}" style="width: 100%; max-width: 100%; height: auto;">
+            </div>            
+        </div>
+    
+        <div class="info-div position-relative bg-white p-3" style="width: 400px;">
+            <small class="text-muted">
+                <a href="{% url 'business-detail' product.business.slug %}" class="overflow">{{ product.business.name }}</a>
+                <a href="{% url 'business-products' product.business.slug %}" class="overflow"> > Products > </a>
+                <span class="overflow">{{ product.name }}</span>
+            </small>
+            <h1 class="mb-0 mr-5" id="product-name" style="font-size: 25px;">{{ product.name }}</h1>
+            <span class="d-none" id="product-slug">{{ product.slug }}</span>
+            <div style="color:tomato;">
+                <div class="ratings pb-1">
+                    <div class="empty-stars"></div>
+                    <div class="full-stars" style="width: calc({{ product.rating }}/5*100%)"></div>
+                </div>
+                <span class="text-muted">({{ product.reviews_count |intcomma }})</span>
+            </div>
+
+            {% if product.price != None %}
+                <h4 class="mt-2 font-weight-bold" style="color: #28a745">{{ product.currency }} {{ product.price |intcomma }}</h4>
+            {% endif %}
+
+            <div class="justify-content-between cta d-flex mt-4">
+                {% if request.user == product.business.user %}
+                <a href="{% url 'messages' %}" class="btn max-btn shadow font-weight-bold p-2"> <span class="icon-envelope mr-3"></span> View Messages</a>
+                <button class="option-icon position-relative btn p-2 shadow ml-4" style="width: 20%">
+                    <div class="options position-absolute shadow pointer" id="delete-product">
+                        <form action="{% url 'delete-product' product.slug %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="list-group-item list-group-item-action p-2" value="Delete product" style="color: red;">
+                        </form>
+                    </div>
+                    <span class="icon-ellipsis-h purple"></span>
+                </button>
+                {% else %}
+                    <a href="{% url 'load-message' product.business.user.slug %}?text=Hi. Is this product available?%0A{{ product.name }} - https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" class="btn max-btn shadow font-weight-bold p-2"> <span class="icon-envelope mr-3"></span> Message the seller</a>
+                    {% if product.business.phone != None %}
+                        <a href="tel:{{ product.business.phone }}" title="call the seller" class="btn p-2 shadow ml-2 purple" style="width: 20%" data-business="{{ product.business.slug }}"><span class="icon-phone"></span></a>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="m-auto">
+                <div class="actions d-flex justify-content-center mt-4 mb-2">
+                    <span id="save" class="pt-3 action rounded">
+                    {% if saved %}
+                        <span class="p-3 rounded-circle blue">
+                            <span id="save-icon" class="icon icon-heart"></span>
+                        </span>
+                        <p id="save-text" class="mt-3">Saved</p>
+                    {% else %}
+                        <span class="p-3 rounded-circle blue">
+                            <span id="save-icon" class="icon icon-heart-o"></span>
+                        </span>
+                        <p id="save-text" class="mt-3">Save</p>
+                    {% endif %}
+                    </span>
+                    <span id="share" class="pt-3 action rounded">
+                        <span class="p-3 rounded-circle blue">
+                            <span class="icon icon-link"></span>
+                        </span>
+                        <p class="mt-3">Share</p>
+                    </span>
+                    {% if product.business.user == request.user %}
+                        <a href="{% url 'edit-product' product.slug %}" class="pt-3 action rounded">
+                            <span class="p-3 rounded-circle blue">
+                                <span class="icon icon-pen"></span>
+                            </span>
+                            <p class="mt-3">Edit</p>
+                        </a>
+                    {% else %}
+                        <span id="report" class="pt-3 action rounded">
+                            <span class="p-3 rounded-circle" style="outline: 1px red solid">
+                                <span class="icon icon-flag-o" style="color: red"></span>
+                            </span>
+                            <p class="mt-3" style="color: red">Report</p>
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="seller position-relative shadow m-2 mt-3">
+                    <div class="d-flex">
+                        <div class="position-relative seller-image">
+                            <img src="{{ product.business.thumbnail.url }}" class="position-absolute" alt="{{ product.business.name }}">
+                        </div>
+                        <div class="p-2" style="z-index: 1; background-color: #fff">
+                            <p class="card-text">{{ product.business.name }}</p>
+                            <span class="d-flex">
+                                <span class="text-muted" style="margin-top: 6px">seller · </span>
+                                <div class="ratings ml-1">
+                                    <div class="empty-stars"></div>
+                                    <div class="full-stars" style="width: calc({{ product.business.rating.rating__avg }}/5*100%)"></div>
+                                </div>
+                            </span>
+                        </div>
+                        <a class="btn btn-outline-success position-absolute rounded-pill ml-1" href="{% url 'business-detail' product.business.slug %}">View</a>
+                    </div>
+                    <a href="{% url 'business-detail' product.business.slug %}" class="stretched-link"></a>
+                </div>
+                {% if user.is_authenticated and request.user != product.business.user %}
+                    {% if not rated %}
+                    <div class="rating-div">
+                        <h5 class="text-center mt-5">Rate this product</h5>
+                        <div class="text-center rating mt-2 purple">
+                            <span tabindex="0" class="star" id="1">&#9734;</span>
+                            <span tabindex="0" class="star" id="2">&#9734;</span>
+                            <span tabindex="0" class="star" id="3">&#9734;</span>
+                            <span tabindex="0" class="star" id="4">&#9734;</span>
+                            <span tabindex="0" class="star" id="5">&#9734;</span>
+                        </div>
+                        <form method="POST" id="product-rating-form">
+                            {% csrf_token %}
+                            <div id="rating-textarea" class="p-2" style="display: none;">
+                            <p class="text-center p-2">Tell us more about what you think about this business...</p>
+                            <input type="hidden" id="hiddenrating" name="rating" value="0">
+                            <textarea name="content" class="form-control" rows="5"></textarea>            
+                            <button id="submit-rating" type="submit" class="btn max-btn btn-primary mt-2">Post review</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="mt-2 border-bottom" style="margin: 0 auto; max-width: 1200px">
+        <h5 class="bg-white p-3 font-weight-bold ml-0 mr-0 rounded-top">Product description</span></h5>
+        <div class="desc-div position-relative">
+            <div class="incomplete overflow-hidden bg-white pt-3 pl-3 pr-3" style="padding-bottom: 60px;">
+                {{ product.description |linebreaks }}
+            </div>
+            <div class="desc-more text-center pointer">
+                <span class="icon-angle-down position-absolute bg-white rounded-circle shadow"></span>
+            </div>
+        </div>
+
+        <h5 class="bg-white p-3 mt-2 font-weight-bold ml-0 mr-0 rounded-top">Product reviews</h5>
+        {% if product.reviews %}
+            <div class="reviews-div" id="reviews">
+                {% for rating in product.reviews %}
+                <article class="position-relative p-2 pb-3 bg-white border-bottom d-flex">
+                    <img class="mr-3 lazy rounded-circle" src="{% static 'images/my_official_logo.png' %}" data-src="{{ rating.user.image.url }}">
+                    <div>
+                        <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |naturalday }}</p>
+                        <div class="ratings">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" style="width: calc({{ rating.rating }}/5*100%)"></div>
+                        </div>
+                        <p class="mt-1 pr-2">{{ rating.content }}</p>
+                    </div>
+                    <span tabindex="1" class="side-ellipsis option-icon p-2 text-muted position-absolute">
+                        <span class="icon-ellipsis-v"></span>
+                        <div class="options position-absolute shadow pointer" id="delete-product">
+                            {% if rating.user != request.user %}
+                                <li id="report-review" data-review="{{ rating.id }}" class="list-group-item list-group-item-action p-2">Report</li>
+                            {% else %}
+                                <form action="{% url 'delete-product-review' rating.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Delete" class="list-group-item list-group-item-action p-2">
+                                </form>
+                            {% endif %}
+                        </div>
+                    </span>
+                </article>
+                {% endfor %}
+            </div>
+            <div class="text-center p-2 bg-white" id="more-div">
+                <span class="p-2 purple font-weight-bold m-2" id="more">Load More</span>
+            </div>
+        {% else %}
+            <p class="p-4 m-0 bg-white d-flex justify-content-center">
+                No review for this product yet
+            </p>
+        {% endif %}
+        <h5 class="bg-white p-3 mt-2 products-title font-weight-bold ml-0 mr-0 rounded-top">Related Products</h5>
+        <div id="related-products"></div>
+        <div id="loading-div" class="mt-4 purple">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+        </div>
+    </div>
+    <span class="back-to-top position-fixed rounded d-none shadow p-3 bg-white">
+        <span class="icon-angle-up"></span>
+        <span>Back To Top</span>
+    </span>
+    <div style="height: 20vh;"></div>
+
+    <div id="share-div" class="modal p-0">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content p-2">
+                <div class="modal-body text-center position-relative" id="modal-body" style="padding: 0px;">
+                  <p class="text-center mb-2 mt-2">Copy product link</p>
+                  <div class="input-group mb-4">
+                      <input type="text" value="https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" class="form-control" id="share-link" readonly>
+                      <button type="button" class="btn btn-secondary" id="copy"><span class="icon-copy"></span> Copy</button>
+                  </div>
+                  <p class="social p-2 text-center">Share product to</p>
+                    <button data-href="https://api.whatsapp.com/send?text=https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-success btn-sm mr-1 mb-2"><span class="icon-whatsapp"></span> WhatsApp</button>
+                    <button data-href="https://www.facebook.com/sharer/sharer.php?u=https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-primary btn-sm mr-1 mb-2"><span class="icon-facebook"></span> Facebook</button>
+                    <button data-href="https://twitter.com/intent/tweet?text=https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-primary btn-sm mb-2"><span class="icon-twitter"></span> Twitter</button>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock %}
+{% block javascript %}
+    <script>
+        var login = `/login/?next=${window.location.href}`;
+        var rating = "{% url 'product-rating' product.slug %}";
+        var report = "{% url 'report-product' product.slug %}";
+        var reportReview = "{% url 'report-product-review' %}";
+        var reviews = "{% url 'product-reviews' product.slug %}";
+        var save = "{% url 'save-product' product.slug %}";
+        var csrfToken = "{{ csrf_token }}";
+        var authenticated = "{{ request.user.is_authenticated }}";
+        var user = "{{ request.user.id }}";
+        var verify_email = "{% url 'verify-email' %}";
+        var email_verified = "{{ user.email_is_verified }}";
+        var relatedProducts = "{% url 'related-products' %}";
+        var placeholder = "{% static 'images/Lazy.png' %}";
+    </script>
+    <script async src="{% static 'js/product_detail.js' %}"></script>
+{% endblock %}

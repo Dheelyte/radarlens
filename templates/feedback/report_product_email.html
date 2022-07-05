@@ -1,0 +1,13 @@
+<h1>Report Product</h1>
+
+<p>Product ID: {{ product.id }}</p>
+
+<p>Product Name: {{ product.name }}</p>
+
+<p>Product Page: <a href="{% url 'product-detail' product.business.slug product.slug %}">{{ product.name }}</a></p>
+
+<h1>Reporter</h1>
+
+<p>User ID: {{ user.id }}</p>
+
+<p>Name: {{ user.name }}</p>

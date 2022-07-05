@@ -1,0 +1,331 @@
+A {color: rgb(43, 41, 41);}
+a:hover {text-decoration: none;}
+.blue {
+    outline: 1px rgb(120, 60, 245) solid;
+}
+.name-div {
+    margin: 0;
+    padding: 5px 15px;
+    justify-content: space-between;
+}
+.name-div h1 {
+    font-size: 25px !important;
+}
+@media (max-width: 768px) {
+    .name-div h1 {
+        font-size: 22px !important;
+    }
+}
+.my-container {
+    background-color: white;
+    color: #212529;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+.thumbnail-div{
+    width: 100%;
+    padding-bottom: 45%;
+}
+.thumbnail-div img{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.product-image-div {
+    padding-bottom: 100%;
+    width: 100%;
+}
+.product-image-div img {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.product-image-div span {
+    right: 0;
+    bottom: 0;
+    background-color: rgb(40, 40, 40);
+    color: #fff;
+}
+#edit-image{
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    opacity: .9;
+}
+#edit-image {
+    cursor: pointer;
+}
+#edit-image:hover {
+    opacity: 1;
+}
+.business-description {
+    height:fit-content ;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    height: auto;
+}
+.business-description a {
+    color: #007BFF;
+}
+.cta .options {
+    bottom: 70px;
+    right: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    display: none;
+}
+.incomplete {
+    height: 27px;
+}
+#complete {
+    display: none;
+}
+#see-more {
+    color: rgb(48, 46, 46);
+    cursor: pointer;
+    font-size: large;
+    margin: 1px 10px;
+    padding: 0px 10px;            
+    transition: all 0.3s ease 0s;
+}
+.my-container {
+    height: auto;
+}
+.info-div {
+    width: 50%;
+    padding: 6px;
+    padding-left: 10px;
+}
+@media (max-width: 430px) {
+    .info-div{ width: 100%; }
+}
+.message-btn {
+    background-color: rgb(120, 60, 245);
+    color: #fff;
+    width: 87%;
+    letter-spacing: .5px;
+}
+.tabs-link {
+    width: 33%
+}
+.tabs-link.purple {
+    border-bottom: 3px rgb(120, 60, 245) solid;
+}
+.add-product {
+    background-color: rgb(120, 60, 245);
+    color: #fff;
+}
+.message-btn:hover {
+    background-color: rgb(123, 59, 241);
+    color: #fff;
+}
+.cta button {
+    width: 13%;
+}
+.actions {
+    background-color: #fff;
+    text-align: center;
+    padding: 5px;
+}
+.actions svg {
+    color: #ff9a71;
+}
+.action {
+    width: 25%;
+    padding: 5px;
+    cursor: pointer;
+}
+.action:hover {
+    background-color: #f0f0f1;
+    color: rgb(123, 59, 241);
+}
+.action .icon {
+    font-size: 20px;
+}
+.action .rounded-circle {
+    padding: 13px;
+}
+.rounded {
+    border-radius: 10px !important;
+}
+.insights {
+    background-color: #fff;
+    padding: 15px 0px;
+}
+.admin-tools {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px 0px;
+}
+.admin-tools i {
+    margin-right: 10px;
+}
+.admin-tools a {
+    display: inline-block;
+    background-color: #f0f0f1;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    color: black;
+    transition: all .09s ease .09s;
+    cursor: pointer;
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+}
+.admin-tools a:hover {
+    background-color: #ccc;
+}
+.edit-review:hover {
+    color: rgb(123, 59, 241);
+    background-color: #f0f0f1;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn.max-btn:focus {
+    background-color: rgb(120, 60, 245) !important;
+}
+.max-btn {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgb(120, 60, 245);
+    border-color: rgb(120, 60, 245);
+    color: #ffffff;
+}
+.max-btn:hover {
+    background-color: rgb(92, 35, 197);
+    border-color: rgb(92, 35, 197);
+}
+.home-product-card {
+    width: 33.3%;
+    min-width: 33.3%;
+    display: inline-block;
+}
+@media (max-width: 500px) {
+    .home-product-card {
+        min-width: 60%;
+    }
+}
+@media (max-width: 310px) {
+    .home-product-card {
+        min-width: 80%;
+    }
+}
+.card-text {
+    width: calc(100%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.star {
+    font-size: 40px;
+    color: rgb(120, 60, 245);
+}
+.star:hover{
+    cursor: pointer;
+}
+.scrolling-wrapper {
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+.scrolling-wrapper::-webkit-scrollbar {
+      display: none;
+  }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 4; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    cursor: pointer;
+}
+.modal img {
+    display: block;
+    max-width: 100%
+}
+#image-form {
+    position: absolute;
+    visibility: hidden;
+}
+.option-icon {
+    right: 10px;
+    cursor: pointer;
+    z-index: 2;
+}
+.option-icon .options {
+    display: none;
+    width: 150px;
+    right: 30px;
+    top: 35px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.post-actions span, .post-actions a {
+    width: 45%;
+    border-radius: 50px;
+    background-color: #f0f0f1;
+}
+.like-post{
+    position: relative;
+    z-index: 2;
+}
+.like-post:hover {
+    background-color: rgb(243, 213, 157);
+    transform: scale(0.98);
+    cursor: pointer;
+}
+.comment:focus {
+    background-color: rgb(205, 168, 240);
+    cursor: pointer;
+}
+.liked {
+    background-color: rgb(243, 213, 157)
+}
+#products-div, #ratings-div, #about-div {
+    display: none;
+}
+.rating-card {
+    padding: 10px;
+    background-color: white;
+    transition: all 0.01s ease 0.01s;
+}
+.rating-card img {
+    width:50px;
+    height:50px;
+    border-radius:200px
+}
+.card-title {
+    margin: 0 0 2px 0;
+}
+.ratings {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    color: #b1b1b1;
+    overflow: hidden;
+}
+
+.full-stars{
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: tomato;
+}
+.empty-stars:before,
+.full-stars:before {
+    content: "\2605\2605\2605\2605\2605";
+    font-size: 17pt;
+}

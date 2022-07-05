@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Edit product - {{ product.name }}
+{% endblock %}
+{% block description %}
+Add product
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+    <div class="main-container">
+        <h4 class="pb-2">Edit Product</h4>
+        <div class="pt-2">
+          <form method="POST" id="product-form">
+            <div class="preview-div" id="image-button">
+              <div id="preview" class="position-relative text-center rounded-sm mb-3">
+                <img src="{{ product.image.url }}">
+              </div>
+            </div>
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div style="text-align: center;">
+              <input type="submit" id="submit" value="Save Product" class="btn btn-primary max-btn">          
+            </div>
+          </form>
+      </div>
+    </div>
+
+    <div id="exampleModalCenter" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Crop Cover Photo</h5>
+              <button type="button" id="close-btn1" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="modal-body" style="padding: 0px;"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close-btn2">Close</button>
+              <button type="button" class="btn btn-primary" id="confirm-btn">Done</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div id="success" class="alert alert-success modal rounded-bg">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content p-0" style="height: 300px;">
+              <div class="modal-body text-center position-relative" id="modal-body" style="padding: 0px;">
+                  <div class="position-relative" style="background-color: #28a745; width: 100%; height: 50%">
+                    <span class="center">
+                      <span class="icon-check-circle" style="font-size: 60px; color: #fff;"></span>
+                    </span>
+                  </div>
+                  <div>
+                  <div>
+                    <h5 style="color: #28a745;" class="p-2 mt-2 mb-2">Uploaded Successfully</h5>
+                    <a href="" class="btn btn-outline-primary m-2 rounded-pill" id="view-product">View</a>
+                    <button class="btn btn-primary m-2 rounded-pill" id="add-product">Add new product</button>
+                  </div>
+                  </div>
+              </div>
+          </div>
+      </div>  
+  </div>
+
+
+</div>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/add_products.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" integrity="sha512-E+gDQcIvNXE60SjCS38ysf1mGh4ObBpKcUOp0oEaHQHQAdaN2p7GelOpgEdpTuCLoIJyLkNXiqFZbyD9Ak/Ygw==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.css" integrity="sha512-iAcZ4OrGhQ7KDqtM+LMc+iuv63aJ9O7hPyWBzCXsrZYuhJ6jhdeh40+hf9o4QmZVu8QrH/cWy/JTmoKNOL4Urw==" crossorigin="anonymous" />
+<script>
+  $('input#id_price').attr('placeholder', '{{ currency }}')
+  var csrf_token = "{{ csrf_token }}";
+  var product = "{% url 'edit-product' product.slug %}";
+</script>
+<script src="{% static 'js/edit_product.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 90%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+.pointer {
+    cursor: pointer;
+}
+.search {
+    display: flex;
+    background-color: #fff;
+}
+.ratings {
+    position: relative;
+    display: inline-block;
+    color: #b1b1b1;
+    overflow: hidden;
+    vertical-align: middle;
+}
+  
+.full-stars{
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: tomato;
+}
+.empty-stars:before,
+.full-stars:before {
+    content: "\2605\2605\2605\2605\2605";
+    font-size: 17pt;
+}
+.thumbnail-div {
+    width: 35%;
+    padding-bottom: 15.75%;
+}
+.thumbnail-div img{
+    top: 0;
+    left: 0;
+    height: 100%;
+    max-width: 100%;
+}
+.info-div {
+    width: 65%;
+}
+.card-text{
+    max-height: 24px;
+    overflow: hidden
+}

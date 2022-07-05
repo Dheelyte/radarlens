@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %} | RadarLens</title>
+    <meta name="description" content="{% block description %}{% endblock %}"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{% static 'images/logo-16.png' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="google-site-verification" content="p5tkzZvj8nVoXuv9hvhxeg8nejrcmL9sgZL1Okg_lOs" />
+    {% block structured_data %}
+    {% endblock %}
+    {% block head %}
+    {% endblock %}
+    <style>
+    </style>
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+    <header class="shadow-sm">
+        <span class="logo-name">
+            <a href="{% url 'home' %}" class="d-flex">
+                <img src="{% static 'images/logo-32.png' %}" class="mr-2" style="margin-top: 2px; height: 25px" alt="RadarLens Logo">
+                <h5><span style="color: #783CF5;">radar</span><span style="color: #FEA000">lens</span></h5>
+            </a>
+        </span>
+        <span tabindex="0" id="header-search" class="rounded">
+            <form action="{% url 'search' %}" id="search-form" class="mt-1 ml-5">
+                <select name="type" class="p-2">
+                  <option value="business">Businesses</option>
+                  <option value="products">Products</option>
+                </select>
+                <input class="base-search" type="search" name="q" value="{{ search_term }}" placeholder="Businesses and products near you..." autocomplete="off" required/>
+                <input type="hidden" name="lon" id="id_lon">
+                <input type="hidden" name="lat" id="id_lat">
+                <button class="base-search-button" type="submit"><span class="icon-search"></span></button>
+              </form>
+        </span>
+        <span tabindex="0" id="user" class="position-relative"><span class="icon-user-o"></span><span class="icon-circle position-absolute user-unread" style="display: none; font-size: 10px; color: red; right: 0; top: 0;"></span></span>
+        <span tabindex="0" id="search"><span class="icon-search"></span></span>
+        <span tabindex="0"><a href="{% url 'create-business' %}" class="header-btn rounded-pill">Create</a></span>
+    </header>
+
+   <span tabindex="0" id="header-full-search">
+       <form action="{% url 'search' %}" id="search-form2" class="d-flex">
+            <select name="type" class="p-2">
+                <option value="business">Businesses</option>
+                <option value="products">Products</option>
+            </select>
+            <input type="search" name="q" value="{{ search_term }}" placeholder="Products, services and businesses near you" method="GET" autocomplete="off" required/>
+            <input type="hidden" name="lon" id="id_lon">
+            <input type="hidden" name="lat" id="id_lat">
+            <button type="submit"><span class="icon-search purple"></span></button>
+        </form>
+    </span>
+
+    <div id="user-div" class="shadow-lg bg-white">
+        <ul class="p-0">
+            {% if user.is_authenticated %}
+                <div class="text-center p-2">
+                    <img src="{{ request.user.image.url }}" class="rounded-circle mt-2" alt="You" width="60px">
+                    <h6>{{ request.user.name }}</h6>
+                </div>
+                <li class="p-0"><a class="p-3 d-block border-top purple" href="{% url 'messages' %}"><span class="icon-envelope mr-3"></span>Messages <div id="message-count" class="badge badge-danger badge-pill ml-2"></div></a></li>
+                <li class="p-0"><a class="p-3 d-block border-top purple" href="{% url 'notifications' %}"><span class="icon-bell-o mr-3"></span>Notifications <div id="notification-count" class="badge badge-danger badge-pill ml-2"></div></a></li>
+                <li class="p-0"><a class="p-3 d-block border-top purple" href="{% url 'account' %}"><span class="icon-user-o mr-3"></span>Account</a></li>
+                <li class="p-0"><a class="p-3 d-block border-top purple" href="{% url 'logout' %}"><span class="icon-sign-out-alt mr-3"></span>Log out</a></li>
+            {% else %}
+                <li class="p-0"><a class="p-3 d-block border-top" href="{% url 'login' %}"><span class="icon-sign-in-alt mr-3"></span>Log in</a></li>
+                <li class="p-0"><a class="p-3 d-block border-top" href="{% url 'signup' %}"><span class="icon-sign-in-alt mr-3"></span>Sign up</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div id="main" class="position-relative">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="a2hs-container">
+        <div class="modal-dialog modal-dialog-centered m-0" style="height: 100%">
+          <div class="modal-content text-center a2hs position-absolute border-0" style="bottom: 0; height: 40%;">
+            <h5 class="modal-title p-3 border-bottom">Add To Home Screen</h5>
+            <div class="modal-body" id="modal-body">
+                <p>Find Businesses and products near you faster. Add radarLens to home screen for easy accessibility</p>
+                <button class="btn a2hs-button max-btn mt-3">Add To Home Screen</button>
+                <button class="btn a2hs-close purple mt-1">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    
+                        
+    <div class="success position-fixed p-2 shadow rounded-sm" style="background-color: #28a745;"></div>
+    <div class="info position-fixed p-2 shadow rounded-sm" style="background-color: yellow; color: black;"></div>
+    <div class="danger position-fixed p-2 shadow rounded-sm" style="background-color: red;"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var isAuthenticated = "{{ request.user.is_authenticated }}";
+        var notificationCount = "{% url 'notification-count' %}";
+        var messageCount = "{% url 'message-count' %}";
+    </script>
+    <script src="{% static 'js/base.js' %}"></script>
+        {% block javascript %}
+        {% endblock %}
+</body>
+</html>

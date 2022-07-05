@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Create Post - {{ business.name }}
+{% endblock %}
+
+{% block description %}
+    Create Post - {{ business.name }}
+{% endblock %}
+
+{% block style %}
+<style>
+    .max-btn {
+        width: 100%;
+        max-width: 500px;
+        background-color: rgb(120, 60, 245);
+        border-color: rgb(120, 60, 245);
+        color: #ffffff;
+    }
+    .btn.max-btn:focus {
+        background-color: rgb(120, 60, 245) !important;
+    }
+    .max-btn:hover {
+        background-color: rgb(92, 35, 197);
+        border-color: rgb(92, 35, 197);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="bg-white p-2 mt-5">
+            <h4>Create post</h4>
+            <form method="POST" class="pt-3">
+                {% csrf_token %}
+                {{ form | crispy}}
+                <input type="submit" id="submit" value="Create Post" class="btn btn-primary max-btn">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

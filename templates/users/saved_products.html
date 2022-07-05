@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Saved Products
+{% endblock %}
+
+{% block style %}
+<style>
+    .home-product-card {
+        width: 23.7%;
+    }
+    @media (max-width: 500px) {
+        .home-product-card {
+            width: 47%;
+        }
+    }
+    @media (max-width: 310px) {
+        .home-product-card {
+            width: 100%;
+        }
+    }
+    .product-image-div {
+        padding-bottom: 100%;
+        width: 100%;
+    }
+    .product-image-div img {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .product-image-div span {
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        color: #fff;
+    }
+    .ratings {
+        position: relative;
+        display: inline-block;
+        color: #b1b1b1;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+    
+    .full-stars{
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        color: tomato;
+    }
+    .empty-stars:before,
+    .full-stars:before {
+        content: "\2605\2605\2605\2605\2605";
+        font-size: 17pt;
+    }
+    .card-text {
+        width: calc(100%);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    .thumbnail-div {
+        width: 30%;
+        max-width: 100px;
+        padding-bottom: 10%;
+    }
+    .thumbnail-div img{
+        top: 0;
+        left: 0;
+        height: 100%;
+        max-width: 100%;
+    }
+    .info-div {
+        width: 70%;
+        z-index: 1;
+    }
+    .info-div:hover {
+        background-color: rgb(0, 0, 0);
+    }
+    .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+    .more:hover {
+        background-color: #f0f0f1;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block description %}
+    Saved Products
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="bg-white">
+            <h4 class="p-3 pb-4 bg-white m-0">Saved Products</h4>
+        </div>
+        {% if products %}
+            <div id="products" class="row products">
+                {% for saved in products %}
+
+                <div class="card home-product-card m-1 rounded-bg shadow-sm">
+                    <div class="product-image-div position-relative">
+                      <img class="lazy position-absolute" src="{% static 'images/my_official_logo.png' %}" data-src="{{ saved.product.image.url }}" role="img" alt="{{ saved.product.name }}">
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">{{ saved.product.name }}</p>
+                      <div class="ratings">
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" style="width: calc({{ saved.product.rating }}/5*100%)"></div>
+                      </div>
+                      {% if saved.product.price != None %}
+                        <p class="m-0">{{ saved.product.currency }} {{ saved.product.price }}</p>
+                      {% endif %}
+                      <a href="{% url 'product-detail' saved.product.business.slug saved.product.slug %}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                {% endfor %}
+            </div>
+            <div class="text-center p-2 bg-white" id="more-div">
+                <span class="p-2 purple more font-weight-bold m-2" id="more">Load More</span>
+            </div>
+            <div id="loading-div" class="mt-4 purple" style="display: none;">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="position-relative" style="height: 80vh;">
+                <div class="font-weight-bold center text-center text-muted">
+                    <span class="icon-bookmark" style="font-size: 60px;"></span>
+                    <h5 class="mt-3">Products you save will appear here</h5>
+                </div>
+          </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    let div = document.getElementById('products');
+    if(div){
+        let more = document.getElementById('more-div');
+        if(div.childElementCount < 15){
+            more.style.display = "none"
+        }
+    };
+    var lazy = document.getElementsByClassName('lazy');
+    function lazyLoad(img){
+        if(!!window.IntersectionObserver){
+            let observer = new IntersectionObserver((entries, observer) => { 
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.src = entry.target.dataset.src;
+                    observer.unobserve(entry.target);
+                }
+            });
+            }, {rootMargin: "0px 0px 0px 0px"});
+            observer.observe(img);
+        }
+    };
+
+    for(var index=0;index < lazy.length;index++){
+        lazyLoad(lazy[index]);
+    };
+
+    var page = 2;
+    $('#more').click(()=>{
+        $('#more-div').hide();
+        $('#loading-div').show();
+        $.ajax({
+            method: "GET",
+            url: "{% url 'saved-products' %}",
+            data: {
+                page: page
+            },
+            success: (response)=>{
+                page += 1;
+                $.each(response.products, (index, product)=>{
+                    if(product["price"]){
+                        var currency = product["currency"];
+                        var price = product["price"];
+                    } else {
+                        var currency = "";
+                        var price = "";
+                    }
+                    $('#products').append(`
+                        <div class="card home-product-card m-1 rounded-bg shadow-sm">
+                            <div class="product-image-div position-relative">
+                                <img class="lazy position-absolute" src="{% static 'images/my_official_logo.png' %}" data-src="${product["image"]}" role="img" alt="${product["name"]}">
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">${product["name"]}</p>
+                            <div class="ratings">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width: calc(${product["rating"]}/5*100%)"></div>
+                            </div>
+                            <p class="m-0">${currency} ${price}</p>
+                            <a href="http://127.0.0.1:8000${product["url"]}" class="stretched-link"></a>
+                            </div>
+                        </div>
+                    `)
+                })
+                $('#loading-div').hide();
+                $('#more-div').show();
+                for(var index=0;index < lazy.length;index++){
+                    lazyLoad(lazy[index]);
+                };
+                if(response.has_next == false || response == ""){
+                    $('#more-div').hide();
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

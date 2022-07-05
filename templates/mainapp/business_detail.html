@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ business.name }}
+{% endblock %}
+
+{% block description %}
+  {{ business.description }}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "https://{{ request.META.HTTP_HOST }}",
+        "item": "https://{{ request.META.HTTP_HOST }}"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ business.name }}",
+        "item": "https://{{ request.META.HTTP_HOST }}{{ business.get_absolute_url }}"
+      }]
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+  <div id="main-div">
+    <div class="my-container position-relative">
+        <div class="thumbnail-div position-relative">
+          <img src="{{ business.thumbnail.url }}" class="position-absolute" id="business-thumbnail" role="img" alt="{{ business.name }}">
+          {% if business.user == request.user %}
+            <span id="edit-image" class="bg-white p-1 rounded-sm"><span class="icon-pen"></span> Edit Cover Photo</span>
+            <form id="image-form">
+              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+              <input type="file" name="thumbnail" accept="image/*" id="id_thumbnail">
+            </form>
+          {% endif %}
+        </div>
+        <div class="name-div d-flex">
+            <h1><a href="{% url 'business-detail' business.slug %}">{{ business.name }}</a></h1>
+            {% if business.rating.rating__avg != None %}
+              <span class="d-flex" title="Business rating" style="color: #28a745;">
+                <h4>{{ business.rating.rating__avg | floatformat:"1" }}</h4>
+                <span class="pt-1"><span class="icon-star"></span></span>
+              </span>
+            {% endif %}
+        </div>
+        <div class="business-description" style="overflow: hidden;">
+            <p class="incomplete position-relative pb-2">
+              <span class="mr-1 text-muted"><a href="{% url 'business-category' business.category.slug %}">{{ business.category }}</a></span> • 
+              <span class="ml-1">{{ business.description }}</span>
+            </p>
+            <span tabindex="0" id="see-more">
+              <span class="icon-angle-down"></span>
+            </span>
+        </div>
+    </div>
+    
+    <div class="card p-0 border-0 mb-1">
+        <div class="row">
+          <div class="info-div" title="Phone">
+            <p>
+              <span class="icon-phone mr-2 text-muted"></span>
+              {% if business.phone == None  %}
+                No phone number
+              {% else %}
+                {{ business.phone }}
+              {% endif %}
+            </p>
+          </div>
+          <div class="info-div" title="Email">
+            <p><span class="icon-envelope mr-2 text-muted"></span> <a href="mailto:{{ business.email }}">{{ business.email }}</a></p>
+          </div>
+          <div class="info-div" title="Opening Hours">
+            <p><span class="icon-clock mr-2 text-muted"></span> {{ business.opening_hours_from }} - {{ business.opening_hours_to }}</p>
+          </div>
+          <div class="info-div" title="Reviews">
+            <p><span class="icon-star mr-2 text-muted"></span><a href="{% url 'business-reviews' business.slug %}">{{ business.rating.rating__avg | floatformat:"1" | default:"0" }} star{{ business.rating.rating__avg | pluralize }} · {{ business.ratings }} review{{ business.ratings | pluralize }}</a></p>
+          </div>
+        </div>
+      <div class="d-flex cta">
+        {% if request.user == business.user %}
+          <a href="{% url 'add-product' business.slug %}" class="btn message-btn m-3 shadow font-weight-bold"><span class="icon-plus mr-2"></span> Add Product</a>
+        {% else %}
+          <a href="{% url 'load-message' business.user.slug %}" class="btn message-btn m-3 shadow font-weight-bold"><span class="icon-paper-plane mr-2"></span>Send Message</a>
+        {% endif %}
+        {% if request.user == business.user %}
+          <button class="btn mr-3 mb-3 mt-3 shadow" id="cta-btn1">
+            <div class="options position-absolute shadow rounded-sm">
+              {% if request.user == business.user %}
+                <a href="{% url 'business-edit' business.slug %}" class="d-flex p-3 list-group-item"><span class="icon-pen mr-3 mt-1"></span>Edit Profile</a>
+                <li id="share-btn" class="d-flex p-3 list-group-item"><span class="icon-link mr-3 mt-1"></span>Share</li>
+                <a href="{% url 'delete-business' business.slug %}" class="d-flex p-3 list-group-item" style="color: red;"><span class="icon-trash mr-3 mt-1"></span>Delete Business Profile</a>
+              {% endif %}
+            </div>
+            <span class="icon-ellipsis-h purple"></span>
+          </button>
+          {% else %}
+            <button class="btn mr-3 mb-3 mt-3 shadow" id="cta-btn2" title="Rate this business">
+              <span class="icon-star purple"></span>
+            </button>
+          {% endif %}
+      </div>
+    </div>
+    
+    
+      {% if business.user != request.user %}
+        <div class="actions d-flex justify-content-center rounded-sm mt-1 mb-1">
+          {% if business.phone != None %}
+          <a href="tel:{{ business.phone }}" class="pt-3 action rounded">
+            <span class="rounded-circle blue">
+              <span class="icon icon-phone purple"></span>
+            </span>
+            <p class="mt-3">Call</p>
+          </a>
+          {% endif %}
+          {% if business.show_location %}
+            <span id="action-directions" class="pt-3 action rounded" data-dir="https://www.google.com/maps/dir/?api=1&destination={{ business.location.coords.0 }}%2C{{ business.location.coords.1 }}">
+              <span class="rounded-circle blue" style="padding: 13px 16px;">
+                <span class="icon icon-map-marker-alt purple"></span>
+              </span>
+              <p class="mt-3">Directions</p>
+            </span>
+          {% endif %}
+          <span id="share-btn" class="pt-3 action rounded">
+            <span class="rounded-circle blue">
+              <span class="icon icon-link purple"></span>
+            </span>
+            <p class="mt-3">Share</p>
+          </span>
+          <span class="action rounded pt-3" id="report-business">
+            <span class="rounded-circle" style="border: 1px red solid">
+              <span class="icon icon-flag-o" style="color: red"></span>
+            </span>
+            <p class="mt-3" style="color: red">Report</p>
+          </span>
+        </div>
+      {% endif %}
+
+      <div class="tabs d-flex text-center bg-white mt-1">
+        <a href="{% url 'business-detail' business.slug %}" class="tabs-link p-3 purple font-weight-bold">Home</a>
+        <a href="{% url 'business-products' business.slug %}" class="tabs-link p-3 text-muted font-weight-bold">Products</a>
+        <a href="{% url 'business-reviews' business.slug %}" class="tabs-link p-3 text-muted font-weight-bold">Reviews</a>
+      </div>
+
+      {% if business.user == request.user %}
+        <div id="insights" class="insights mb-1 text-center">
+          <h5 class="mb-2">Page Visits</h5>
+          <div class="d-flex text-center mb-3 justify-content-center">
+            <div class="d-block mr-5">
+              <p>This Month</p>
+              <h4 class="font-weight-bold">{{ business.monthly_business_visits }}</h4>
+            </div>
+            <div class="border-right"></div>
+            <div class="d-block ml-5">
+              <p>All time</p>
+              <h4 class="font-weight-bold">{{ business.business_visits }}</h4>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    <div class="product-div">
+      <h5 class="bg-white m-0 rounded-top p-3"><b>Products</b></h5>
+      {% if products %}
+        <div class="scrolling-wrapper d-flex">
+          {% for product in products %}
+            <div class="card home-product-card shadow-sm">
+              <div class="product-image-div position-relative">
+                <img class="lazy position-absolute" src="{% static 'images/Lazy.png' %}" data-src="{{ product.image.url }}" alt="{{ product.name }}">
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ product.name }}</p>
+                <div class="ratings">
+                  <div class="empty-stars"></div>
+                  <div class="full-stars" style="width: calc({{ product.rating }}/5*100%)"></div>
+                </div>
+                {% if product.price != None %}
+                  <p class="text-muted m-0">{{ product.currency }} {{ product.price }}</p>
+                {% endif %}
+              </div>
+              <a href="{% url 'product-detail' product.business.slug product.slug %}" class="stretched-link"></a>
+            </div>
+          {% endfor %}
+        </div>
+      <div class="d-flex bg-white mb-2 justify-content-center rounded-bottom">
+        <a href="{% url 'business-products' business.slug %}" class="edit-review p-2 purple m-1 pointer" id="next">See all products</a>
+      </div>
+      {% elif business.user == request.user %}
+        <div class="bg-white mb-2">
+          <p class="text-center p-4">You haven't added any products</p>
+          <div class="d-flex justify-content-center">
+            <a href="{% url 'add-product' business.slug %}" class="add-product d-flex btn mb-3"><span class="icon-plus mt-1 mr-2"></span> Add product</a>
+          </div>
+        </div>
+      {% else %}
+        <p class="text-center p-4 mb-2 bg-white">This business page has no products</p>
+      {% endif %}
+    </div>
+
+
+
+    <div id="crop-modal" class="modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Crop Cover Photo</h5>
+            <button type="button" id="close-btn" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modal-body" style="padding: 0px;"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="close-btn2">Close</button>
+            <button type="button" class="btn btn-primary" id="confirm-btn">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div id="review-modal" class="modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Rate this Business</h5>
+            <button type="button" id="close-btn" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modal-body">
+            {% if request.user.is_authenticated and request.user != business.user %}
+              {% if rated %}
+                <div class="rating-div text-center pb-3">
+                  <div class="d-flex justify-content-center p-2 mb-2">
+                    <img src="{{ request.user.image.url }}" style="width: 50px; border-radius: 50px;" alt="You">
+                    <p class="text-center pt-2 ml-3">You have rated this business page</p>
+                  </div>
+                  <a href="{% url 'edit-business-rating' business.slug %}" class="edit-review p-2 purple font-weight-bold m-1 pointer">Edit Review</a>
+                </div>
+              {% else %}
+                <div class="rating-div">
+                  <div class="d-flex justify-content-center p-2">
+                    <img src="{{ request.user.image.url }}" style="width: 50px; border-radius: 50px;" alt="You">
+                    <h4 class="pt-2 pb-2 ml-3 text-center">Rate this Business</h4>  
+                  </div>    
+                  <div id="rating-widget" class="d-flex justify-content-center">
+                    <span class="star" id="1">&#9734;</span>
+                    <span class="star" id="2">&#9734;</span>
+                    <span class="star" id="3">&#9734;</span>
+                    <span class="star" id="4">&#9734;</span>
+                    <span class="star" id="5">&#9734;</span>
+                  </div>
+                  <form method="POST" id="business-rating-form">
+                    {% csrf_token %}
+                    <div id="rating-textarea" class="p-2" style="display: none;">
+                      <p class="text-center p-2">Tell people more about what you think about this business...</p>
+                      <input type="hidden" id="hiddenrating" name="rating" value="0">
+                      <textarea name="content" class="form-control" rows="5"></textarea>
+                      <div class="d-flex justify-content-center">
+                        <button id="submit-rating" type="submit" class="btn max-btn btn-primary mt-2">Post review</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              {% endif %}
+            {% else %}
+                <p class="p-2 mb-2">Login to write a review</p>
+                <a href="{% url 'login' %}" class="edit-review p-2 purple font-weight-bold m-1 pointer">Log In</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div id="share-modal" class="modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Share Profile Link</h5>
+            <button type="button" id="close-btn1" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <p class="text-center mb-2">Copy Business Profile Link</p>
+            <div class="input-group mb-2">
+                <input type="text" value="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" class="form-control" id="link" readonly>
+                <button type="button" class="btn btn-secondary" id="copy"><span class="icon-copy"></span> Copy</button>
+            </div>
+            <p class="p-2 text-center">Share to</p>
+            <div class="text-center">
+              <button data-href="https://api.whatsapp.com/send?text={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-success btn-sm mr-1 mb-2"><span class="icon-whatsapp"></span> WhatsApp</button>
+              <button data-href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-primary btn-sm mr-1 mb-2"><span class="icon-facebook"></span> Facebook</button>
+              <button data-href="https://twitter.com/intent/tweet?text={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-primary btn-sm mb-2"><span class="icon-twitter"></span> Twitter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="loading-div" class="mt-4 purple">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="home-ratings-div"></div>
+    <div style="height: 50vh;"> </div>
+  </div>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/business_detail.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+  var home = "{% url 'business-home' business.slug %}";
+  var business = "{% url 'business-detail' business.slug %}";
+  var businessName = "{{ business.name }}";
+  var businessImage = "{% url 'business-image2' business.slug %}";
+  var lazy_image = "{% static 'images/Lazy.png' %}";
+  var logo = "{% static 'images/my_official_logo.png' %}";
+  var products = "{% url 'business-products' business.slug %}";
+  var reviews = "{% url 'business-reviews' business.slug %}";
+  var reportBusiness = "{% url 'report-business' business.slug %}";
+  var reportReview = "{% url 'report-business-review' %}";
+  var login = `/login/?next=${window.location.href}`;
+  var verify_email = "{% url 'verify-email' %}";
+  var email_verified = "{{ user.email_is_verified }}";
+  var rating = "{% url 'business-rating' business.slug %}";
+  var csrfToken = "{{ csrf_token }}";
+  var user = "{{ request.user.id }}";
+  var authenticated = "{{ request.user.is_authenticated }}";
+</script>
+<script async src="{% static 'js/business_detail.js' %}"></script>
+{% endblock %}

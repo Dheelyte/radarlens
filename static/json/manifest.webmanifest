@@ -1,0 +1,15 @@
+{
+    "background_color": "rgb(108, 108, 255)",
+    "description": "Find Businesses and Products near you.",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/static/images/logo-160.png",
+            "sizes": "160x160",
+            "type": "image/png"
+        }
+    ],
+    "name": "radarLens",
+    "short_name": "radarLens",
+    "start_url": "/"
+}

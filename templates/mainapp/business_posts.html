@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Posts - {{ business.name }}
+{% endblock %}
+
+{% block description %}
+    Posts - {{ business.name }}
+{% endblock %}
+
+{% block content %}
+    <div id="main-div">
+        <div class="position-relative bg-white">
+            <div class="thumbnail-div position-relative">
+                <img src="{{ business.thumbnail.url }}" class="card-img position-absolute" role="img" alt="{{ business.name }}">
+            </div>
+            <div class="name-div d-flex bg-white">
+                <h3><a href="{% url 'business-detail' business.slug %}">{{ business.name }}</a></h3>
+                {% if not business.rating.rating__avg == None %}
+                <span class="d-flex purple" title="Business rating">
+                    <h4>{{ business.rating.rating__avg |floatformat:'1' }}</h4>
+                    <span class="pt-1"><span class="icon-star"></span></span>
+                </span>
+                {% endif %}
+            </div>
+            <div class="business-description" style="overflow: hidden;">
+                <p class="incomplete position-relative pb-2">
+                  <span class="mr-1 text-muted"><a href="{% url 'business-category' business.category.slug %}">{{ business.category }}</a></span> • 
+                  <span class="ml-1">{{ business.description }}</span>
+                </p>
+                <span tabindex="0" id="see-more">
+                  <span class="icon-angle-down"></span>
+                </span>
+            </div>
+        </div>
+
+        <h5 class="card-title rounded-top border-bottom mt-2 p-3">Posts</h5>
+        {% if posts %}
+            <div class="posts">
+                {% for post in posts %}
+                    <article class="position-relative bg-white p-3 border-bottom rounded-bottom">
+                        <span class="side-ellipsis option-icon p-2 text-muted position-absolute">
+                            <span class="icon-ellipsis-v"></span>
+                            <div class="options position-absolute">
+                                {% if request.user != post.business.user %}
+                                    <li id="report" class="list-group-item list-group-item-action p-2" data-post="{{ post.id }}">Report</li>
+                                {% else %}
+                                    <form action="{% url 'delete-post' post.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="list-group-item list-group-item-action p-2">
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </span>
+                        <div class="d-flex mb-2">
+                            <a href="{% url 'business-detail' post.business.slug %}" class="font-weight-bold mr-2">{{ post.business.name }}</a> · 
+                            <p class="text-muted ml-2">{{ post.date }}</p>
+                        </div>
+                        <p class="mb-3 content">{{ post.content }}</p>
+                        <div class="post-actions d-flex justify-content-between text-center">
+                            <span class="like-post p-2" {% if post.liked %} style="background-color : rgb(243, 213, 157);" {% endif %} data-post="{{ post.id }}"><span class="icon-thumbs-up"></span> Like</span>
+                            <a href="{% url 'business-post-detail' post.business.slug post.id %}" class="stretched-link comment p-2"><span class="icon-comment"></span> Comments</a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            <div class="justify-content-center bg-white" id="more-div">
+                <span class="more p-2 purple font-weight-bold m-2" id="more">Load More</span>
+            </div>
+            <div id="loading-div" class="mt-4 purple" style="display: none;">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+            </div>
+        {% else %}
+            <p>This business page has no posts</p>
+        {% endif %}
+        <span class="back-to-top position-fixed rounded d-none shadow p-3 bg-white">
+            <span class="icon-angle-up"></span>
+            <span>Back To Top</span>
+        </span>
+        <div style="height: 50vh;"></div>
+    </div>
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/business_posts.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var login = `/login/?next=${window.location.href}`;
+    var authenticated = "{{ request.user.is_authenticated }}";
+    var email_verified = "{{ request.user.email_is_verified }}";
+    var email_verify_url = "{% url 'verify-email' %}";
+    var ph = "{% static 'images/my_official_logo.png' %}";
+    var posts = "{% url 'business-posts' business.slug %}";
+    var csrfToken = "{{ csrf_token }}";
+    var user = "{{ request.user.id }}";
+</script>
+<script src="{% static 'js/business_posts.js' %}"></script>
+{% endblock %}

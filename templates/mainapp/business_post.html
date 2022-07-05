@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ post.content | truncatechars:'50' }} - {{ post.business.name }}
+{% endblock %}
+
+{% block description %}
+    {{ post.content }}
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+    <div style="padding-bottom: 70px;">
+        <article class="post bg-white p-3 border-bottom rounded position-relative">
+            <div class="d-flex mb-2">
+                <a href="{% url 'business-detail' post.business.slug %}" class="position-relative font-weight-bold mr-2" style="z-index: 1;">{{ post.business.name }}</a> · 
+                <p class="text-muted ml-2">{{ post.date |date:"j/n/Y" }}</p>
+                <span tabindex="1" class="side-ellipsis option-icon p-2 position-absolute pointer">
+                    <span class="icon-ellipsis-v"></span>
+                    <div class="options position-absolute">
+                        {% if request.user != post.business.user %}
+                            <li id="report-post" class="list-group-item list-group-item-action p-2" data-post="{{ post.id }}">Report</li>
+                        {% else %}
+                            <form action="{% url 'delete-post' post.id %}" method="POST" class="options">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete" id="delete-post" class="list-group-item list-group-item-action p-2">
+                            </form>
+                        {% endif %}
+                    </div>
+                </span>
+            </div>
+            <p class="mb-3">{{ post.content }}</p>
+            <div class="post-actions d-flex justify-content-between text-center">
+                <span class="like-post p-2" {% if post.liked %} style="background-color : rgb(243, 213, 157);"{% endif %} data-post="{{ post.id }}"><span class="icon-thumbs-up"></span> Like</span>
+                <a href="#comments" class="comment p-2"><span class="icon-comment"></span> Comments</a>
+            </div>
+        </article>
+
+        <div id="comments" class="bg-white mt-2">
+            <p class="rounded-top border-bottom p-3 font-weight-bold">Comments</p>       
+            {% if comments %}
+                <div class="comments-div">
+                {% for comment in comments %}
+                    <article class="bg-white p-2 border-bottom position-relative">
+                        <div class="d-flex mb-2">
+                            <img src="{{ comment.author.image.url }}" style="width: 50px; height: 50px; border-radius: 50px;" alt="">
+                            <div>
+                                <p class="text-muted ml-2">{{ comment.author.name }} · {{ comment.datetime |date:"j/n/Y" }}</p>
+                                <p class="ml-2 content">{{ comment.content }}</p>
+                            </div>
+                            <span tabindex="1" class="side-ellipsis option-icon pointer p-2 text-muted position-absolute">
+                                <span class="icon-ellipsis-v"></span>
+                                <div class="options position-absolute">
+                                    {% if request.user != comment.author and request.user != post.business.user %}
+                                        <li id="report-comment" class="list-group-item list-group-item-action p-2" data-comment="{{ comment.id }}">Report</li>
+                                    {% elif request.user == comment.author and request.user == post.business.user %}
+                                        <form action="{% url 'delete-comment' comment.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Delete" class="list-group-item list-group-item-action p-2">
+                                        </form>
+                                    {% elif request.user != comment.author and request.user == post.business.user %}
+                                        <li id="report-comment" class="list-group-item list-group-item-action p-2" data-comment="{{ comment.id }}">Report</li>
+                                        <form action="{% url 'delete-comment' comment.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Delete" class="list-group-item list-group-item-action p-2">
+                                        </form>
+                                    {% elif request.user == comment.author and request.user != post.business.user %}
+                                        <form action="{% url 'delete-comment' comment.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Delete" class="list-group-item list-group-item-action p-2">
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </span>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            <div class="justify-content-center bg-white" id="more-div">
+                <span class="p-2 purple font-weight-bold m-2" id="more">Load More</span>
+            </div>
+            <div id="loading-div" class="mt-4 purple" style="display: none;">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+            </div>
+            {% else %}
+                <p class="p-3 text-center">Be the first to comment</p>
+            {% endif %}
+        </div>
+    </div>
+    <div style="width: 100%;">
+        <form method="POST" id="input-area" onsubmit="return submitComment()">
+            {% csrf_token %}
+                <textarea name="content" id="id_content" style="display: none;"></textarea>
+                <div contenteditable="true" class="edit" id="content_editable" style="width: 100%;"></div>
+            <button type="submit" class="btn btn-primary"><span class="icon-paper-plane"></span></button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/business_post.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var login = `/login/?next=${window.location.href}`;
+    var authenticated = "{{ request.user.is_authenticated }}";
+    var email_verified = "{{ request.user.email_is_verified }}";
+    var email_verify_url = "{% url 'verify-email' %}";
+    var csrfToken = "{{ csrf_token }}";
+    var reportComment = "{% url 'report-comment' %}";
+    var reportPost = "{% url 'report-post'%}";
+    var comments = "{% url 'business-post-detail' post.business.slug post.id %}";
+    var user = "{{ request.user.id }}";
+</script>
+<script src="{% static 'js/business_post.js' %}"></script>
+{% endblock %}

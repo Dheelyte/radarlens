@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block content %}
+<div id="main-div">
+    <div class="user-section">
+        <div class="text-center" style="width: 150px; margin: auto;">
+            <div class="thumbnail-div position-relative bg-white">
+                <img id="thumbnail" src="{{ request.user.image.url }}" class="position-absolute rounded-circle m-0" alt="{{ request.user.name }}">
+            </div>
+            <span id="edit-icon" class="pointer">
+                <span class="icon-pen"></span>
+            </span>
+            <input type="file" accept="image/*" id="image-form" style="width: 10px;">
+        </div>
+        <div class="profile-name text-center p-2">
+            <h4>{{ request.user.name }}</h4>
+            <p>{{ request.user.email }}</p>
+        </div>
+    </div>
+
+    <div class="section rounded bg-white mt-2 mb-2">
+        <a href="{% url 'dashboard' %}" class="d-flex p-3 border-bottom">
+            <span class="icon-home text-muted mr-4"></span>
+            <span>Your Businesses</span>
+            <span class="icon-angle-right text-muted"></span>
+        </a>
+        <a href="{% url 'messages' %}" class="d-flex p-3 border-bottom">
+            <span class="icon-envelope text-muted mt-1 mr-4"></span>
+            <span>Messages</span>
+            <span class="icon-angle-right text-muted"></span>
+        </a>
+        <a href="{% url 'notifications' %}" class="d-flex p-3 border-bottom">
+            <span class="icon-bell-o text-muted mt-1 mr-4"></span>
+            <span>Notifications</span>
+            <span class="icon-angle-right text-muted"></span>
+        </a>
+        <a href="{% url 'saved-products' %}" class="d-flex p-3 border-bottom">
+            <span class="icon-bookmark text-muted mt-1 mr-4"></span>
+            <span>Saved products</span>
+            <span class="icon-angle-right text-muted"></span>
+        </a>
+    </div>
+    <div class="section rounded bg-white mt-2 mb-2">
+        <span class="update d-flex p-3 border-bottom">
+            <span class="icon-user-edit text-muted mt-1 mr-4"></span>
+            <span>Update Profile</span>
+            <span class="icon-angle-right text-muted"></span>
+        </span>
+        <a href="{% url 'password-change' %}" class="d-flex p-3 border-bottom">
+            <span class="icon-key text-muted mt-1 mr-4"></span>
+            <span>Change Password</span>
+            <span class="icon-angle-right text-muted"></span>
+        </a>
+    </div>
+    <div class="section rounded bg-white mt-2 mb-2">
+        <a href="{% url 'privacy-policy' %}" class="d-flex p-3 border-bottom">
+            <span class="icon-bookmark text-muted mt-1 mr-4"></span>
+            <span>Privacy Policy</span>
+            <span class="icon-angle-right text-muted"></span>
+        </a>
+        <a href="{% url 'logout' %}" class="d-flex p-3 border-bottom" style="color: red">
+            <span class="icon-sign-out-alt mt-1 mr-4"></span>
+            <span>Logout</span>
+            <span class="icon-angle-right"></span>
+        </a>
+    </div>
+
+    <div id="edit-profile-pic" class="modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Crop Cover Photo</h5>
+              <button type="button" id="close-btn1" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-0"  id="modal-body"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close-btn2">Close</button>
+              <button type="button" class="btn btn-primary" id="confirm-btn">Done</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div id="edit-profile" class="modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Profile</h5>
+              <button type="button" id="close-btn3" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ user_update_form | crispy }}
+                    <div class="form-group">
+                    <input class="btn max-btn" type="submit" value="Update">
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var updateThumbnail = "{% url 'update-thumbnail' %}";
+        var csrf_token = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
