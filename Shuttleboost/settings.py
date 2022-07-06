@@ -133,7 +133,7 @@ DATABASES = {
         'NAME': 'radarlens',
         'USER': 'postgres',
         'PASSWORD': 'allthesewhile',
-        'HOST': 'radarlens.c7ay9ilyif62.us-east-1.rds.amazonaws.com',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }
