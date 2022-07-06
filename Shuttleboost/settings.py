@@ -130,10 +130,10 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.environ.get('DATABASE_NAME', 'radarlens'),
-        'USER': os.environ.get('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'allthesewhile'),
-        'HOST': os.environ.get('DATABASE_HOST', 'radarlens.c7ay9ilyif62.us-east-1.rds.amazonaws.com'),
+        'NAME': 'radarlens',
+        'USER': 'postgres',
+        'PASSWORD': 'allthesewhile',
+        'HOST': 'radarlens.c7ay9ilyif62.us-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -170,26 +170,22 @@ LOGGING = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-if (os.environ.get('DEBUG_VALUE') == 'True'):
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    WEB_ROOT = 'http://127.0.0.1:8000'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    WEB_ROOT = 'https://linque-demo.herokuapp.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+WEB_ROOT = 'https://linque-demo.herokuapp.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'linque.adm@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'vlmrhojseygpfmre')
-EMAIL_PORT = os.environ.get('EMAIL_PORT', '587')
+EMAIL_HOST_USER = 'linque.adm@gmail.com'
+EMAIL_HOST_PASSWORD = 'vlmrhojseygpfmre'
+EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'RadarLens'
-#FEEDBACK_EMAIL = os.environ.get('FEEDBACK_EMAIL')
 FEEDBACK_EMAIL = 'linque.feedback@gmail.com'
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'AKIAUB73RK3M3B67AE5U')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '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')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', 'linque-media')
+AWS_ACCESS_KEY_ID = 'AKIAUB73RK3M3B67AE5U'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'linque-media'
 
 AWS_S3_FILE_OVERWRITE = False
     
@@ -205,7 +201,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 CREATE_REDIRECT_URL = '/signup/?next=/create/'
 
-DEV_GEOLOCATION_IP = os.environ.get('DEV_GEOLOCATION_IP')
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
