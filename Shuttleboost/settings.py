@@ -167,7 +167,6 @@ LOGGING = {
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 WEB_ROOT = 'ec2-52-91-252-153.compute-1.amazonaws.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -183,12 +182,11 @@ AWS_SECRET_ACCESS_KEY = '1b0NP/UeefGpwSYEcbIN3xPY9Xb4pcfQpBhepFDR'
 AWS_STORAGE_BUCKET_NAME = 'linque-media'
 
 AWS_S3_FILE_OVERWRITE = False
-    
-STATIC_URL = '/static/'
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 STATIC_ROOT = BASE_DIR / 'static/'
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
 
 GEOIP_PATH = BASE_DIR / 'geolocation/GeoLite2-City_20210713/GeoLite2-City.mmdb'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
