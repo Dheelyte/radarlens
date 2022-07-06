@@ -51,11 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'storages',
-    #'debug_toolbar',
 ]
 
 MIDDLEWARE = [
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,9 +65,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Shuttleboost.urls'
 
-'''INTERNAL_IPS = [
-    '127.0.0.1',
-]'''
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -173,7 +168,7 @@ LOGGING = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-WEB_ROOT = 'https://linque-demo.herokuapp.com'
+WEB_ROOT = 'ec2-52-91-252-153.compute-1.amazonaws.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'linque.adm@gmail.com'
