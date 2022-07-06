@@ -127,22 +127,26 @@
     display: inline-block;
     color: #b1b1b1;
     overflow: hidden;
-  }
-  
-  .full-stars{
+}
+.full-stars{
     position: absolute;
     left: 0;
     top: 0;
     white-space: nowrap;
     overflow: hidden;
     color: tomato;
-  }
-  
-  .empty-stars:before,
-  .full-stars:before {
+}  
+.empty-stars:before,
+.full-stars:before {
     content: "\2605\2605\2605\2605\2605";
     font-size: 17pt;
-  }
+}
+.rating-card {
+    height: auto
+}
+.rating-card-incomplete {
+    max-height: 297px;
+}
 article img {
     width:50px;
     height:50px;

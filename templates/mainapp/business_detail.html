@@ -345,6 +345,7 @@
   var csrfToken = "{{ csrf_token }}";
   var user = "{{ request.user.id }}";
   var authenticated = "{{ request.user.is_authenticated }}";
+  var webRoot = "{{ web_root }}"
 </script>
 <script async src="{% static 'js/business_detail.js' %}"></script>
 {% endblock %}

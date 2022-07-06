@@ -19,8 +19,8 @@ var fetchHome = ()=> {
                           </form>`
         };
         $('#home-ratings-div').append(`
-          <article class="rating-card d-flex position-relative border-bottom">
-            <img class="lazy mr-3" src="${logo}" data-src="http://127.0.0.1:8000${obj["image"]}" alt="${obj["user"]["name"]}">
+          <article class="rating-card rating-card-incomplete d-flex position-relative border-bottom">
+            <img class="lazy mr-3" src="${logo}" data-src="${webRoot}${obj["image"]}" alt="${obj["user"]["name"]}">
             <div class="position-relative">
               <p class="text-muted overflow-hidden" style="max-height: 20px">${obj["user"]["name"]} · ${obj["date_posted"]}</p>
               <div class="ratings mt-0">
@@ -96,6 +96,10 @@ $('#see-more').on('click', (e)=>{
     $('#see-more span').removeClass('icon-angle-up').addClass('icon-angle-down')
   }
 });
+
+$(document).on('click', '.rating-card', (e)=>{
+  $(e.currentTarget).toggleClass('rating-card-incomplete')
+})
 
 $('#cta-btn1').click(()=>{
   $('.cta .options').toggle();

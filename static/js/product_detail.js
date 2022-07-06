@@ -107,6 +107,10 @@ $('.desc-div').on('click', (e)=>{
   }
 });
 
+$(document).on('click', '.rating-card', (e)=>{
+  $(e.currentTarget).toggleClass('rating-card-incomplete')
+})
+
 $('.cta .option-icon').click(()=>{
   $('.cta .options').toggle()
 });
@@ -301,7 +305,7 @@ $('#more').click(()=>{
           var action = `<li id="report-review" data-review="${obj["id"]}" class="list-group-item list-group-item-action p-2">Report</li>`
         }
         $('.reviews-div').append(`
-          <article class="p-2 pb-3 bg-white border-bottom d-flex">
+          <article class="rating-card-incomplete rating-card p-2 pb-3 bg-white border-bottom d-flex">
             <img class="mr-3 lazy rounded-circle" src="${placeholder}" data-src="${obj["user"]["image"]}">
             <div>
                 <p class="text-muted">${obj["user"]["name"]} · ${obj["date"]}</p>
