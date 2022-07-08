@@ -1,0 +1,8 @@
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 72519
+"GET / HTTP/1.1" 200 72519
+"GET / HTTP/1.1" 200 73247
+"GET /notification-count/?_=1657309186701 HTTP/1.1" 200 2
+"GET /message-count/?_=1657309186702 HTTP/1.1" 200 2
+"GET /notification-count/?_=1657309186204 HTTP/1.1" 200 2
+"GET /message-count/?_=1657309186205 HTTP/1.1" 200 2
