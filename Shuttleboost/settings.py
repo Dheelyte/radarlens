@@ -27,7 +27,7 @@ SECRET_KEY = '5d02a575908c7f5fb177bfefa34510e7535bf3894d8c1e16b516cd9e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.radarlens.com']
 
 
 # Application definition
@@ -182,16 +182,12 @@ AWS_SECRET_ACCESS_KEY = '1b0NP/UeefGpwSYEcbIN3xPY9Xb4pcfQpBhepFDR'
 AWS_STORAGE_BUCKET_NAME = 'linque-media'
 
 AWS_S3_FILE_OVERWRITE = False
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_LOCATION = 'media'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-AWS_S3_FILE_OVERWRITE = False
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+STATIC_URL = "/static/"
+STATIC_ROOT = "/var/www/radarlens.com/static"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 GEOIP_PATH = BASE_DIR / 'geolocation/GeoLite2-City_20210713/GeoLite2-City.mmdb'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
