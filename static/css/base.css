@@ -112,7 +112,8 @@ header span form {
 }
 .header-btn {
     border: 1px solid #212529;
-    color: #212529;
+    color: #ffffff;
+    background-color: #212529;
     float: right;
     margin: 7px;
     padding:  5px 8px;
@@ -210,6 +211,12 @@ header span form {
     display: none;
     color: white;
 }
+.a2hs {
+    bottom: 0;
+    height: 40%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
 .a2hs-container {
     display: none;
     position: fixed; /* Stay in place */
@@ -222,17 +229,18 @@ header span form {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-.max-btn {
+.a2hs-button {
     width: 100%;
     max-width: 500px;
-    background-color: rgb(120, 60, 245);
-    border-color: rgb(120, 60, 245);
+    padding: 10px;
+    background-color: #28a745;
+    border-color: #28a745;
     color: #ffffff;
 }
-.btn.max-btn:focus {
-    background-color: rgb(120, 60, 245) !important;
+.a2hs-button:focus {
+    background-color: #28a745 !important;
 }
-.max-btn:hover {
-    background-color: rgb(92, 35, 197);
-    border-color: rgb(92, 35, 197);
+.a2hs-button:hover {
+    background-color: #0aa02d;
+    border-color: #0aa02d;
 }

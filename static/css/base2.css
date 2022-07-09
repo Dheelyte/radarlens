@@ -1,7 +1,10 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
-p {margin: 0;}
+p {
+    margin: 0;
+    font-size: 15px;
+}
 a {text-decoration: none;}
 a:hover {text-decoration: none;}
 .btn:focus {

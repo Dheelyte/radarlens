@@ -11,8 +11,8 @@ Add product - {{ business.name }}
 {% block content %}
 <div id="main-div">
     <div class="main-container">
-        <h4 class="pb-2">Add Product</h4>
-        <div class="pt-2">
+        <h4 class="p-4 pb-2">Add Product</h4>
+        <div class="p-4">
           <form method="POST" id="product-form">
             <div class="preview-div" id="image-button">
               <div id="preview" class="position-relative text-center rounded-sm mb-3">
@@ -24,11 +24,11 @@ Add product - {{ business.name }}
             </div>
             {% csrf_token %}
             {{ form | crispy }}
-            <div class="text-center p-4">
+            <div class="text-center pt-4 pb-2">
               <input type="submit" id="submit" value="Add Product" class="btn btn-primary max-btn">
             </div>
           </form>
-      </div>
+        </div>
     </div>
 
     <div id="exampleModalCenter" class="modal" tabindex="-1">

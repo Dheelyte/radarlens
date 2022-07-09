@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Businesses near you
+About | RadarLens
 {% endblock %}
 
 {% block description %}
@@ -84,11 +84,11 @@ See Businesses and services near you
           <h4 style="display: inline" class="pt-2"><span style="color: #ffffff;">radarLens</span></h4>
         </a>
         <div class="quick-links mt-4 mb-4">
-          <h5 class="mb-3">Quick Links</h5>
+          <h5 class="mb-3" style="color: #28a745;">Quick Links</h5>
           <a href="{% url 'create-business' %}">Create Business Profile</a>
           <a href="{% url 'signup' %}" class="">Sign Up</a>
           <a href="{% url 'login' %}">Login</a>
-          <h5 class="mb-3">Company</h5>
+          <h5 class="mb-3 mt-2" style="color: #28a745;">Company</h5>
           <a href="{% url 'contact' %}">Feedback</a>
           <a href="{% url 'about' %}">About</a>
           <a href="{% url 'privacy-policy' %}">Privacy Policy</a>
@@ -111,7 +111,7 @@ See Businesses and services near you
               <span class="icon-instagram"></span>
           </a>
       </div>
-      <p class="text-center">© {% now 'Y' %} radarLens</p>
+      <p class="text-center">© {% now 'Y' %} RadarLens</p>
       </footer>
     </div>
 {% endblock %}

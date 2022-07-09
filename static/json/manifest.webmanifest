@@ -9,7 +9,7 @@
             "type": "image/png"
         }
     ],
-    "name": "radarLens",
-    "short_name": "radarLens",
+    "name": "RadarLens",
+    "short_name": "RadarLens",
     "start_url": "/"
 }
