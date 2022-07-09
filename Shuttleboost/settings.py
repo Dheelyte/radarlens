@@ -184,6 +184,7 @@ AWS_STORAGE_BUCKET_NAME = 'linque-media'
 AWS_S3_FILE_OVERWRITE = False
 
 DEFAULT_FILE_STORAGE = 'Shuttleboost.storage_backends.MediaStorage'
+AWS_LOCATION = 'media'
 
 STATIC_URL = "/static/"
 STATIC_ROOT = "/var/www/radarlens.com/static"
