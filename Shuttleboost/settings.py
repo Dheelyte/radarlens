@@ -195,6 +195,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 CREATE_REDIRECT_URL = '/signup/?next=/create/'
 
+SECURE_HSTS_SECONDS = 30
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
