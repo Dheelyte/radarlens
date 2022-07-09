@@ -182,6 +182,7 @@ AWS_SECRET_ACCESS_KEY = '1b0NP/UeefGpwSYEcbIN3xPY9Xb4pcfQpBhepFDR'
 AWS_STORAGE_BUCKET_NAME = 'linque-media'
 
 AWS_S3_FILE_OVERWRITE = False
+AWS_LOCATION = 'media'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
