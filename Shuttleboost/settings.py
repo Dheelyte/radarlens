@@ -167,7 +167,7 @@ LOGGING = {
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-WEB_ROOT = 'ec2-52-91-252-153.compute-1.amazonaws.com'
+WEB_ROOT = 'http://radarlens.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'linque.adm@gmail.com'
