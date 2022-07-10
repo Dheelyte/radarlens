@@ -41,7 +41,7 @@ class Business(models.Model):
     show_location = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, editable=False)
-    description = models.CharField(max_length=1000, blank=True)
+    description = models.CharField(max_length=5000, blank=True)
     opening_hours_from = models.CharField(max_length=20)
     opening_hours_to = models.CharField(max_length=20)
     thumbnail = models.ImageField(upload_to='business_thumbnails', default='DefaultBusinessThumbnail.png')
