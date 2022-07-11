@@ -174,7 +174,7 @@ EMAIL_HOST_USER = 'radarlens.adm@gmail.com'
 EMAIL_HOST_PASSWORD = 'epuxjiptbijrmbln'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'RadarLens'
+DEFAULT_FROM_EMAIL = 'RadarLens radarlens.adm@gmail.com'
 FEEDBACK_EMAIL = 'radarlens.adm@gmail.com'
 
 AWS_ACCESS_KEY_ID = 'AKIAUB73RK3M3B67AE5U'

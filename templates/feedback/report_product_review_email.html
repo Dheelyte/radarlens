@@ -4,7 +4,9 @@
 
 <p>Review: {{ review.content }}</p>
 
-<p>Product Reviewed: <a href="{% url 'product-detail' review.product.business.slug review.product.slug %}"></a></p>
+<p>Product Reviewed: <a href="{% url 'product-detail' review.product.business.slug review.product.slug %}">{% url 'product-detail' review.product.business.slug review.product.slug %}</a></p>
+
+<br>
 
 <h1>Reporter</h1>
 

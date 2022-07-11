@@ -12,6 +12,21 @@ Contact Us
 
 {% block style %}
     <style>
+        .max-btn {
+            width: 100%;
+            max-width: 500px;
+            background-color: rgb(123, 59, 241);
+            border-color: rgb(123, 59, 241);
+            color: #ffffff;
+        }
+        .max-btn:focus {
+            background-color: rgb(123, 59, 241) !important;
+        }
+        .max-btn:hover {
+            color: #ffffff;
+            background-color: rgb(92, 35, 197);
+            border-color: rgb(92, 35, 197);
+        }
         footer {
             background-color: rgb(41, 40, 40);
             color: #fff;
@@ -39,14 +54,14 @@ Contact Us
 
 <div id="main-div">
     <div class="bg-white p-3">
+        <h3 class="mb-4 mt-2">Write feedback</h3>
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} mt-2 text-center">
+                <div class="alert alert-{{ message.tags }} text-center">
                     {{ message }}
                 </div>
             {% endfor %}
         {% endif %}
-        <h3 class="mb-4">Write feedback</h3>
         <form method="POST">
             {% csrf_token %}
             {{ form | crispy }}

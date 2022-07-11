@@ -197,7 +197,6 @@ def verify_email(request):
             current_site = get_current_site(request)
             user = request.user
             email = request.user.email
-            sender = "RadarLens"
             subject = "Verify Email"
             message = render_to_string('users/verify_email_message.html', {
                 'request': request,
@@ -207,7 +206,7 @@ def verify_email(request):
                 'token':account_activation_token.make_token(user),
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
             email.send()

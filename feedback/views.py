@@ -21,7 +21,6 @@ def report_business(request, slug):
         else:
             ReportBusiness.objects.create(business=business, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Feedback"
             subject = "Report Business"
             message = render_to_string('feedback/report_business_email.html', {
                 'subject': subject,
@@ -29,10 +28,10 @@ def report_business(request, slug):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
-            email.send()
+            email.send(fail_silently=False)
             return JsonResponse('You have reported this business', safe=False)
 
 def report_product(request, slug):
@@ -45,7 +44,6 @@ def report_product(request, slug):
         else:
             ReportProduct.objects.create(product=product, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Feedback"
             subject = "Report Product"
             message = render_to_string('feedback/report_product_email.html', {
                 'subject': subject,
@@ -53,10 +51,10 @@ def report_product(request, slug):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
-            email.send()
+            email.send(fail_silently=False)
             return JsonResponse('You have reported this product', safe=False)
 
 def report_post(request):
@@ -70,7 +68,6 @@ def report_post(request):
         else:
             ReportBusinessPost.objects.create(post=post, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Feedback"
             subject = "Report Post"
             message = render_to_string('feedback/report_post_email.html', {
                 'subject': subject,
@@ -78,7 +75,7 @@ def report_post(request):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
             email.send()
@@ -96,7 +93,6 @@ def report_review(request):
         else:
             ReportBusinessReview.objects.create(review=review, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Feedback"
             subject = "Report Business Review"
             message = render_to_string('feedback/report_business_review_email.html', {
                 'subject': subject,
@@ -104,10 +100,10 @@ def report_review(request):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
-            email.send()
+            email.send(fail_silently=False)
             return JsonResponse("You have reported this review.", safe=False)
 
 
@@ -122,7 +118,6 @@ def report_product_review(request):
         else:
             ReportProductReview.objects.create(review=review, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Feedback"
             subject = "Report Product Review"
             message = render_to_string('feedback/report_product_review_email.html', {
                 'subject': subject,
@@ -130,10 +125,10 @@ def report_product_review(request):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
-            email.send()
+            email.send(fail_silently=False)
             return JsonResponse("You have reported this review.", safe=False)
 
 
@@ -148,7 +143,6 @@ def report_comment(request):
         else:
             ReportBusinessComment.objects.create(comment=comment, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Feedback"
             subject = "Report Comment"
             message = render_to_string('feedback/report_comment_email.html', {
                 'subject': subject,
@@ -156,7 +150,7 @@ def report_comment(request):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
             email.send()
@@ -170,7 +164,6 @@ def contact(request):
             new.user = request.user
             new.save()
             email = settings.FEEDBACK_EMAIL
-            sender = "RadarLens Contact Message"
             subject = form.cleaned_data['subject']
             message = render_to_string('feedback/contact_email.html', {
                 'subject': subject,
@@ -178,7 +171,7 @@ def contact(request):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender, to=[email]
+                subject, message, to=[email]
             )
             email.content_subtype = 'html'
             email.send()
