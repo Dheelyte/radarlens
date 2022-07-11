@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Verify your email
+Verify email
 {% endblock %}
 
 {% block content %}
@@ -23,6 +23,6 @@ Verify your email
             {% endfor %}
         {% endif %}
     </div>
-    <p class="text-center text-muted mt-4 mb-4">© {% now 'Y' %} RadarLens · <a href="{% url 'privacy-policy' %}">Privacy Policy</a></p>
+    <p class="text-center text-muted mt-4">© {% now 'Y' %} RadarLens · <a href="{% url 'privacy-policy' %}">Privacy Policy</a></p>
     <p class="text-center mb-4"><a href="{% url 'contact' %}">Write feedback</a></p>
 {% endblock %}

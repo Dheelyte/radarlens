@@ -11,7 +11,7 @@ if(window.matchMedia("(max-width: 768px)").matches){
     let deferredPrompt;
     const A2HSButton = document.querySelector('.a2hs-button');
     const A2HS = document.querySelector('.a2hs-container');
-    $('.a2hs-close').click(()=>{
+    $('.a2hs-container').click(()=>{
         $('.a2hs-container').hide()
     })
 

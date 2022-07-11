@@ -19,7 +19,7 @@ var fetchHome = ()=> {
                           </form>`
         };
         $('#home-ratings-div').append(`
-          <article class="rating-card rating-card-incomplete d-flex position-relative border-bottom">
+          <article class="rating-card rating-card-incomplete d-flex overflow-hidden position-relative border-bottom">
             <img class="lazy mr-3" src="${logo}" data-src="${webRoot}${obj["image"]}" alt="${obj["user"]["name"]}">
             <div class="position-relative">
               <p class="text-muted overflow-hidden" style="max-height: 20px">${obj["user"]["name"]} · ${obj["date_posted"]}</p>
@@ -224,6 +224,7 @@ $("#business-rating-form").submit(function (e) {
     success: function () {
         $('.success').html(`You have successfully rated this business`);
         $('#review-modal').hide();
+        $('#review-modal').html(`<p class="text-center pt-2 ml-3">You have rated this business page</p>`)
         $('.success').show();
         $('.success').delay(5000).fadeOut(300);
     },

@@ -138,7 +138,7 @@ $(document).on('click', '.message-list', function (e) {
       url: call,
       success: function (response) {
         $('#header-user').html(`
-          <img src="${webRoot}${response["other_user"]["image"]}" width="40px" alt="profile picture" style="border-radius: 50px;">
+          <img src="${response["other_user"]["image"]}" width="40px" alt="profile picture" style="border-radius: 50px;">
           <span><h6 class="mt-2 ml-2">${response["other_user"]["name"]}</h6></span>
         `);
         document.title = response["other_user"]["name"];

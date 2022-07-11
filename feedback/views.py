@@ -10,21 +10,6 @@ from mainapp.models import Business, BusinessPost, Product, BusinessPostComment
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-# Create your views here.
-
-def send_feedback(request, subject, reporter, reported):
-    email = settings.EMAIL_HOST_USER
-    sender = subject
-    message = render_to_string('feedback_email.html', {
-        'subject': subject,
-        'business': reported,
-        'user': reporter
-    })
-    email = EmailMessage(
-        subject, message, sender, to=[email]
-    )
-    email.send()
-    return HttpResponse("")
 
 def report_business(request, slug):
     if request.user.email_is_verified != True:
@@ -59,7 +44,7 @@ def report_product(request, slug):
             return JsonResponse('You have reported this product', safe=False)
         else:
             ReportProduct.objects.create(product=product, user=request.user)
-            email = request.user.email
+            email = settings.FEEDBACK_EMAIL
             sender = "RadarLens Feedback"
             subject = "Report Product"
             message = render_to_string('feedback/report_product_email.html', {
@@ -68,7 +53,7 @@ def report_product(request, slug):
                 'user': request.user
             })
             email = EmailMessage(
-                subject, message, sender
+                subject, message, sender, to=[email]
             )
             email.content_subtype = 'html'
             email.send()

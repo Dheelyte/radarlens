@@ -175,7 +175,7 @@ EMAIL_HOST_PASSWORD = 'vlmrhojseygpfmre'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'RadarLens'
-FEEDBACK_EMAIL = 'linque.feedback@gmail.com'
+FEEDBACK_EMAIL = 'linque.adm@gmail.com'
 
 AWS_ACCESS_KEY_ID = 'AKIAUB73RK3M3B67AE5U'
 AWS_SECRET_ACCESS_KEY = '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'

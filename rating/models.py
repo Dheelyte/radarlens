@@ -7,7 +7,7 @@ User = get_user_model()
 
 class BusinessRating(models.Model):
     rating = models.IntegerField(default=0)
-    content = models.TextField(blank=True)
+    content = models.CharField(max_length=5000)
     date_posted = models.DateTimeField(auto_now_add=True)
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -15,7 +15,7 @@ class BusinessRating(models.Model):
 
 class ProductRating(models.Model):
     rating = models.IntegerField(default=0)
-    content = models.TextField(blank=True)
+    content = models.CharField(max_length=5000)
     date_posted = models.DateTimeField(auto_now_add=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Verify your email
+    Verify email
 {% endblock %}
 
 {% block content %}
@@ -19,6 +19,6 @@
         </div>
         <a href="{% url 'login' %}">Go To Login</a>
     </div>
-    <p class="text-center text-muted mt-4 mb-4">© {% now 'Y' %} RadarLens · <a href="{% url 'privacy-policy' %}">Privacy Policy</a></p>
+    <p class="text-center text-muted mt-4">© {% now 'Y' %} RadarLens · <a href="{% url 'privacy-policy' %}">Privacy Policy</a></p>
     <p class="text-center mb-4"><a href="{% url 'contact' %}">Write feedback</a></p>
 {% endblock %}

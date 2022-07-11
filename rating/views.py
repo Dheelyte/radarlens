@@ -1,8 +1,10 @@
+from django.conf import settings
 from django.shortcuts import render, reverse, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect
 from mainapp.models import Business, Product
 from .models import BusinessRating, ProductRating
 from .forms import BusinessRatingForm, ProductRatingForm
+from notification.models import Notification
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib.humanize.templatetags.humanize import naturalday
@@ -59,6 +61,12 @@ def business_rating(request, slug):
             instance.business = business
             instance.user = request.user
             instance.save()
+            notification = Notification.objects.create(
+                content=f"{request.user.name} wrote a review on {business.name}",
+                url=settings.WEB_ROOT+business.get_absolute_url(),
+                tag = business.name
+            )
+            notification.receivers.add(business.user)
             return JsonResponse("Rating successful", safe=False)
         else:
             return JsonResponse("Something went wrong", status=400, safe=False)
