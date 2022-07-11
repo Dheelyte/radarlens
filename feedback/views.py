@@ -36,7 +36,7 @@ def report_business(request, slug):
         else:
             ReportBusiness.objects.create(business=business, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "Linque Feedback"
+            sender = "RadarLens Feedback"
             subject = "Report Business"
             message = render_to_string('feedback/report_business_email.html', {
                 'subject': subject,
@@ -60,7 +60,7 @@ def report_product(request, slug):
         else:
             ReportProduct.objects.create(product=product, user=request.user)
             email = request.user.email
-            sender = "Linque Feedback"
+            sender = "RadarLens Feedback"
             subject = "Report Product"
             message = render_to_string('feedback/report_product_email.html', {
                 'subject': subject,
@@ -85,7 +85,7 @@ def report_post(request):
         else:
             ReportBusinessPost.objects.create(post=post, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "Linque Feedback"
+            sender = "RadarLens Feedback"
             subject = "Report Post"
             message = render_to_string('feedback/report_post_email.html', {
                 'subject': subject,
@@ -111,7 +111,7 @@ def report_review(request):
         else:
             ReportBusinessReview.objects.create(review=review, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "Linque Feedback"
+            sender = "RadarLens Feedback"
             subject = "Report Business Review"
             message = render_to_string('feedback/report_business_review_email.html', {
                 'subject': subject,
@@ -137,7 +137,7 @@ def report_product_review(request):
         else:
             ReportProductReview.objects.create(review=review, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "Linque Feedback"
+            sender = "RadarLens Feedback"
             subject = "Report Product Review"
             message = render_to_string('feedback/report_product_review_email.html', {
                 'subject': subject,
@@ -163,7 +163,7 @@ def report_comment(request):
         else:
             ReportBusinessComment.objects.create(comment=comment, user=request.user)
             email = settings.FEEDBACK_EMAIL
-            sender = "Linque Feedback"
+            sender = "RadarLens Feedback"
             subject = "Report Comment"
             message = render_to_string('feedback/report_comment_email.html', {
                 'subject': subject,
@@ -185,7 +185,7 @@ def contact(request):
             new.user = request.user
             new.save()
             email = settings.FEEDBACK_EMAIL
-            sender = "Linque Contact Message"
+            sender = "RadarLens Contact Message"
             subject = form.cleaned_data['subject']
             message = render_to_string('feedback/contact_email.html', {
                 'subject': subject,

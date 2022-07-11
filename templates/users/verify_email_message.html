@@ -1,9 +1,9 @@
 
 <p>Hi {{ user.name }},</p>
 <br>
-<p>You created an account on Linque, we need to verify that this email address belongs to you.
+<p>You created an account on RadarLens, we need to verify that this email address belongs to you.
 Please click on the button below to verify your email.</p>
 <br>
 <p>{{ request.scheme }}://{{ domain }}{% url 'verify-email-confirm' uidb64=uid token=token %}</p>
 <br>
-<p>The Linque Team</p>
+<p>The RadarLens Team</p>

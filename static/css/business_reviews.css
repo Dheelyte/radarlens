@@ -28,7 +28,7 @@
     width: 33%
 }
 .tabs-link.purple {
-    border-bottom: 3px rgb(120, 60, 245) solid;
+    border-bottom: 3px #5865F2 solid;
 }
 .edit-review:hover {
     background-color: #e3dff0;
@@ -37,7 +37,7 @@
 }
 .star {
     font-size: 40px;
-    color: rgb(120, 60, 245);
+    color: #5865F2;
 }
 .star:hover{
     cursor: pointer;
@@ -110,7 +110,7 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 #more:hover {
-    color: rgb(120, 60, 245);
+    color: #5865F2;
     background-color: #e3dff0;
     border-radius: 5px;
     cursor: pointer;

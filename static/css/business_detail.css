@@ -1,7 +1,7 @@
 A {color: rgb(43, 41, 41);}
 a:hover {text-decoration: none;}
 .blue {
-    outline: 1px rgb(120, 60, 245) solid;
+    outline: 1px #5865F2 solid;
 }
 .name-div {
     margin: 0;
@@ -103,7 +103,7 @@ a:hover {text-decoration: none;}
     .info-div{ width: 100%; }
 }
 .message-btn {
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     color: #fff;
     width: 87%;
     letter-spacing: .5px;
@@ -112,10 +112,10 @@ a:hover {text-decoration: none;}
     width: 33%
 }
 .tabs-link.purple {
-    border-bottom: 3px rgb(120, 60, 245) solid;
+    border-bottom: 3px #5865F2 solid;
 }
 .add-product {
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     color: #fff;
 }
 .message-btn:hover {
@@ -185,13 +185,13 @@ a:hover {text-decoration: none;}
     cursor: pointer;
 }
 .btn.max-btn:focus {
-    background-color: rgb(120, 60, 245) !important;
+    background-color: #5865F2 !important;
 }
 .max-btn {
     width: 100%;
     max-width: 500px;
-    background-color: rgb(120, 60, 245);
-    border-color: rgb(120, 60, 245);
+    background-color: #5865F2;
+    border-color: #5865F2;
     color: #ffffff;
 }
 .max-btn:hover {
@@ -221,7 +221,7 @@ a:hover {text-decoration: none;}
 }
 .star {
     font-size: 40px;
-    color: rgb(120, 60, 245);
+    color: #5865F2;
 }
 .star:hover{
     cursor: pointer;

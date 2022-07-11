@@ -65,7 +65,7 @@ article {
     background: rgb(196, 201, 211)
 }
 #more:hover {
-    color: rgb(120, 60, 245);
+    color: #5865F2;
     background-color: #e3dff0;
     border-radius: 5px;
     cursor: pointer;

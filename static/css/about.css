@@ -17,7 +17,7 @@
     border-bottom-left-radius: 50px;
 }
 .action-search-button {
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     color: #fff;
     padding: 13px 17px;
     border: 0;
@@ -30,7 +30,7 @@
     transition: all 0.3s ease 0s;
 }
 .cta-button {
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     padding: 12px 20px;
     color: #fff;
     letter-spacing: .5px;

@@ -18,12 +18,12 @@
     .column { width: 100%; }
 }
 .create-business-column {
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     color: #fff;
     padding: 20px;
 }
 .purple {
-    color: rgb(120, 60, 245);
+    color: #5865F2;
 }
 .column-text {
     margin: auto;
@@ -50,7 +50,7 @@
 }
 .max-btn {
     width: 100%;
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     border-color: #9d6df6;
     color: #ffffff;
 }

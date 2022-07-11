@@ -51,11 +51,11 @@
 }
 .action .icon {
     font-size: 20px;
-    color: rgb(120, 60, 245);
+    color: #5865F2;
 }
 .action .rounded-circle {
     padding: 13px;
-    outline: 1px rgb(120, 60, 245) solid;
+    outline: 1px #5865F2 solid;
 }
 .seller-image {
     width: 30%;
@@ -90,8 +90,8 @@
 }
 .max-btn {
     width: 100%;
-    background-color: rgb(120, 60, 245);
-    border-color: rgb(120, 60, 245);
+    background-color: #5865F2;
+    border-color: #5865F2;
     color: #ffffff;
 }
 .max-btn:hover {

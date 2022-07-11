@@ -14,7 +14,7 @@ p, hr, h1, h1, h3, h4, h5, h6, .row {margin: 1px;}
 p {font-size: 15px;}
 ul {margin: 0;}
 .purple {
-    color: rgb(120, 60, 245)
+    color: #5865F2
 }
 .alert {
     font-size: 15px;
@@ -161,7 +161,7 @@ header span form {
     padding: 9px;
 }
 .base-search-button {
-    background-color: rgb(120, 60, 245);
+    background-color: #5865F2;
     color: #fff;
     padding: 9px 17px;
     border: 0;
