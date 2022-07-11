@@ -300,6 +300,10 @@ a:hover {text-decoration: none;}
     padding: 10px;
     background-color: white;
     transition: all 0.01s ease 0.01s;
+    cursor: pointer;
+}
+.rating-card:hover {
+    background-color: aliceblue;
 }
 .rating-card img {
     width:50px;

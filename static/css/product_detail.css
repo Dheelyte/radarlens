@@ -142,10 +142,14 @@
     font-size: 17pt;
 }
 .rating-card {
-    height: auto
+    height: auto;
+    cursor: pointer;
+}
+.rating-card:hover {
+    background-color: aliceblue;
 }
 .rating-card-incomplete {
-    max-height: 297px;
+    max-height: 289px;
 }
 article img {
     width:50px;
