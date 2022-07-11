@@ -170,12 +170,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 WEB_ROOT = 'https://radarlens.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'linque.adm@gmail.com'
-EMAIL_HOST_PASSWORD = 'vlmrhojseygpfmre'
+EMAIL_HOST_USER = 'radarlens.adm@gmail.com'
+EMAIL_HOST_PASSWORD = 'epuxjiptbijrmbln'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'RadarLens'
-FEEDBACK_EMAIL = 'linque.adm@gmail.com'
+FEEDBACK_EMAIL = 'radarlens.adm@gmail.com'
 
 AWS_ACCESS_KEY_ID = 'AKIAUB73RK3M3B67AE5U'
 AWS_SECRET_ACCESS_KEY = '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'
