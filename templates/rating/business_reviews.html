@@ -27,7 +27,7 @@
             <div class="name-div d-flex bg-white">
                 <h1><a href="{% url 'business-detail' business.slug %}">{{ business.name }}</a></h1>
                 {% if not business.rating.rating__avg == None %}
-                <span class="d-flex purple" title="Business rating">
+                <span class="d-flex" style="color: #28a745" title="Business rating">
                     <h4>{{ business.rating.rating__avg | floatformat:'1' }}</h4>
                     <span class="pt-1"><span class="icon-star"></span></span>
                 </span>
