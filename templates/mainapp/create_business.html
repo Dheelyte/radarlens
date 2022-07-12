@@ -12,12 +12,12 @@
 {% endblock %}
 
 {% block open_graph %}
+  <meta name="twitter:card" content="summary" />
   <meta property="og:title" content="Create a Profile for your Business. Reach more people near you." />
   <meta property="og:description" content="Own a small business? Sell your products to more people near you. Connect with customers. Earn reviews for your business." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{% url 'home' %}" />
-  <meta property="og:image" content="{% static 'images/meta-image.png' %}" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="{% url 'create-business' %}" />
+  <meta property="og:image" content="{% static 'images/meta-image.jpg' %}" />
 {% endblock %}
 
 {% block content %}

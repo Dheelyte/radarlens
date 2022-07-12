@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block open_graph %}
+  <meta name="twitter:card" content="summary" />
   <meta property="og:title" content="{{ business.name }}" />
   <meta property="og:description" content="{{ business.description }}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{% url 'business-detail' business.slug %}" />
   <meta property="og:image" content="{{ business.thumbnail.url }}" />
-  <meta name="twitter:card" content="summary" />
 {% endblock %}
 
 {% block structured_data %}
