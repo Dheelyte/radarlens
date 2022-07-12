@@ -295,9 +295,18 @@ a:hover {text-decoration: none;}
 #products-div, #ratings-div, #about-div {
     display: none;
 }
-.rating-card {
+.complete-card{
     height: auto;
-    padding: 10px;
+}
+.imcomplete-card {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 8;
+    -moz-box-orient: 8;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+}
+.rating-card {
     background-color: white;
     transition: all 0.01s ease 0.01s;
     cursor: pointer;
@@ -309,9 +318,6 @@ a:hover {text-decoration: none;}
     width:50px;
     height:50px;
     border-radius:200px
-}
-.rating-card-incomplete {
-    max-height: 289px;
 }
 .card-title {
     margin: 0 0 2px 0;
@@ -335,5 +341,5 @@ a:hover {text-decoration: none;}
 .empty-stars:before,
 .full-stars:before {
     content: "\2605\2605\2605\2605\2605";
-    font-size: 17pt;
+    font-size: 15pt;
 }

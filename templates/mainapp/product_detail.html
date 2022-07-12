@@ -70,13 +70,13 @@
         "itemListElement": [{
           "@type": "ListItem",
           "position": 1,
-          "name": "https://{{ request.META.HTTP_HOST }}",
+          "name": "radarlens.com",
           "item": "https://{{ request.META.HTTP_HOST }}"
         },{
           "@type": "ListItem",
           "position": 2,
           "name": "{{ product.business.name }}",
-          "item": "https://{{ request.META.HTTP_HOST }}{{ product.business.get_absolute_url }}"
+          "item": "https://radarlens.com{{ product.business.get_absolute_url }}"
         },{
           "@type": "ListItem",
           "position": 3,
@@ -232,7 +232,7 @@
         {% if product.reviews %}
             <div class="reviews-div" id="reviews">
                 {% for rating in product.reviews %}
-                <article class="position-relative rating-card-incomplete overflow-hidden rating-card p-2 pb-3 bg-white border-bottom d-flex">
+                <article class="position-relative incomplete-card overflow-hidden rating-card p-2 pb-3 bg-white border-bottom d-flex">
                     <img class="mr-3 lazy rounded-circle" src="{% static 'images/my_official_logo.png' %}" data-src="{{ rating.user.image.url }}">
                     <div>
                         <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |naturalday }}</p>
@@ -288,13 +288,13 @@
                 <div class="modal-body text-center position-relative" id="modal-body" style="padding: 0px;">
                   <p class="text-center mb-2 mt-2">Copy product link</p>
                   <div class="input-group mb-4">
-                      <input type="text" value="https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" class="form-control" id="share-link" readonly>
+                      <input type="text" value="https://radarlens.com{{ product.get_absolute_url }}" class="form-control" id="share-link" readonly>
                       <button type="button" class="btn btn-secondary" id="copy"><span class="icon-copy"></span> Copy</button>
                   </div>
                   <p class="social p-2 text-center">Share product to</p>
-                    <button data-href="https://api.whatsapp.com/send?text=https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-success btn-sm mr-1 mb-2"><span class="icon-whatsapp"></span> WhatsApp</button>
-                    <button data-href="https://www.facebook.com/sharer/sharer.php?u=https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-primary btn-sm mr-1 mb-2"><span class="icon-facebook"></span> Facebook</button>
-                    <button data-href="https://twitter.com/intent/tweet?text=https://{{ request.META.HTTP_HOST }}{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-primary btn-sm mb-2"><span class="icon-twitter"></span> Twitter</button>
+                    <button data-href="https://api.whatsapp.com/send?text=https://radarlens.com{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-success btn-sm mr-1 mb-2"><span class="icon-whatsapp"></span> WhatsApp</button>
+                    <button data-href="https://www.facebook.com/sharer/sharer.php?u=https://radarlens.com{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-primary btn-sm mr-1 mb-2"><span class="icon-facebook"></span> Facebook</button>
+                    <button data-href="https://twitter.com/intent/tweet?text=https://radarlens.com{{ product.get_absolute_url }}" target="_blank" class="share-social btn max btn-primary btn-sm mb-2"><span class="icon-twitter"></span> Twitter</button>
                 </div>
             </div>
         </div>  

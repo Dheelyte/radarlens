@@ -88,7 +88,7 @@
         {% if ratings %}
             <div class="reviews-div" id="reviews">
                 {% for rating in ratings %}
-                    <article class="rating-card rating-card-incomplete overflow-hidden d-flex border-bottom position-relative">
+                    <article class="rating-card incomplete-card overflow-hidden d-flex border-bottom position-relative p-2">
                         <img class="mr-3 lazy" src="{% static 'images/Lazy1.png' %}" data-src="{{ rating.user.image.url }}">
                         <div>
                             <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |date:"j/n/Y" }}</p>

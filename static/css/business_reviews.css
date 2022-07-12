@@ -45,11 +45,25 @@
 .rating-card-incomplete {
     max-height: 289px;
 }
-.rating-card {
+.complete-card{
     height: auto;
+}
+.imcomplete-card {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 8;
+    -moz-box-orient: 8;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+}
+.rating-card {
     padding: 10px;
     background-color: white;
     transition: all 0.01s ease 0.01s;
+    cursor: pointer;
+}
+.rating-card:hover {
+    background-color: aliceblue;
 }
 .rating-card img {
     width:50px;

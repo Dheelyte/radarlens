@@ -19,7 +19,7 @@ var fetchHome = ()=> {
                           </form>`
         };
         $('#home-ratings-div').append(`
-          <article class="rating-card rating-card-incomplete d-flex overflow-hidden position-relative border-bottom">
+          <article class="rating-card incomplete-card d-flex overflow-hidden position-relative border-bottom">
             <img class="lazy mr-3" src="${logo}" data-src="${webRoot}${obj["image"]}" alt="${obj["user"]["name"]}">
             <div class="position-relative">
               <p class="text-muted overflow-hidden" style="max-height: 20px">${obj["user"]["name"]} · ${obj["date_posted"]}</p>
@@ -98,7 +98,8 @@ $('#see-more').on('click', (e)=>{
 });
 
 $(document).on('click', '.rating-card', (e)=>{
-  $(e.currentTarget).toggleClass('rating-card-incomplete')
+  $(e.currentTarget).toggleClass('incomplete-card')
+  $(e.currentTarget).toggleClass('complete-card')
 })
 
 $('#cta-btn1').click(()=>{

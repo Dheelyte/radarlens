@@ -63,7 +63,8 @@ $('#see-more').on('click', ()=>{
 });
 
 $(document).on('click', '.rating-card', (e)=>{
-  $(e.currentTarget).toggleClass('rating-card-incomplete')
+  $(e.currentTarget).toggleClass('incomplete-card')
+  $(e.currentTarget).toggleClass('complete-card')
 })
 
 const showOnPx = 2000;
@@ -110,7 +111,7 @@ $('#more').click(()=>{
           action = `<li id="report" class="list-group-item list-group-item-action p-2" data-review="${obj["id"]}">Report</li>`
         };
         $('.reviews-div').append(`
-          <article class="rating-card overflow-hidden rating-card-incomplete d-flex border-bottom position-relative">
+          <article class="rating-card overflow-hidden incomplete-card d-flex border-bottom position-relative p-2">
             <img class="mr-3 lazy" src="${ph}" data-src="${obj["user"]["image"]}">
             <div>
                 <p class="text-muted">${obj["user"]["name"]} · ${obj["date"]}</p>

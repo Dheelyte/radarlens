@@ -27,7 +27,7 @@
       "itemListElement": [{
         "@type": "ListItem",
         "position": 1,
-        "name": "https://radarlens.com",
+        "name": "radarlens.com",
         "item": "https://radarlens.com"
       },{
         "@type": "ListItem",
@@ -281,8 +281,10 @@
                 </div>
               {% endif %}
             {% else %}
-                <p class="p-2 mb-2 text-center">Login to write a review</p>
-                <a href="{% url 'login' %}" class="text-center edit-review p-2 purple font-weight-bold mt-3 mb-3 pointer">Log In</a>
+              <div class="text-center pt-3 pb-3">
+                <p class="p-2 mb-2">Log in to write a review</p>
+                <a href="{% url 'login' %}" class="edit-review p-2 purple font-weight-bold mt-3 mb-3 pointer">Log In</a>
+              </div>
             {% endif %}
           </div>
         </div>
@@ -302,14 +304,14 @@
           <div class="modal-body" id="modal-body">
             <p class="text-center mb-2">Copy Business Profile Link</p>
             <div class="input-group mb-2">
-                <input type="text" value="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" class="form-control" id="link" readonly>
+                <input type="text" value="https://radarlens.com{% url 'business-detail' business.slug %}" class="form-control" id="link" readonly>
                 <button type="button" class="btn btn-secondary" id="copy"><span class="icon-copy"></span> Copy</button>
             </div>
             <p class="p-2 text-center">Share to</p>
             <div class="text-center">
-              <button data-href="https://api.whatsapp.com/send?text={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-success btn-sm mr-1 mb-2"><span class="icon-whatsapp"></span> WhatsApp</button>
-              <button data-href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-primary btn-sm mr-1 mb-2"><span class="icon-facebook"></span> Facebook</button>
-              <button data-href="https://twitter.com/intent/tweet?text={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-primary btn-sm mb-2"><span class="icon-twitter"></span> Twitter</button>
+              <button data-href="https://api.whatsapp.com/send?text=https://radarlens.com{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-success btn-sm mr-1 mb-2"><span class="icon-whatsapp"></span> WhatsApp</button>
+              <button data-href="https://www.facebook.com/sharer/sharer.php?u=https://radarlens.com{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-primary btn-sm mr-1 mb-2"><span class="icon-facebook"></span> Facebook</button>
+              <button data-href="https://twitter.com/intent/tweet?text=https://radarlens.com{% url 'business-detail' business.slug %}" target="_blank" class="share-social btn max btn-primary btn-sm mb-2"><span class="icon-twitter"></span> Twitter</button>
             </div>
           </div>
         </div>
