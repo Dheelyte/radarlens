@@ -10,6 +10,15 @@ Contact Us | RadarLens
 Contact Us
 {% endblock %}
 
+{% block open_graph %}
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="Contact Us | RadarLens" />
+  <meta property="og:description" content="Send RadarLens a message" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'contact' %}" />
+  <meta property="og:image" content="https://radarlens.com/static/images/meta-image.jpg" />
+{% endblock %}
+
 {% block style %}
     <style>
         .max-btn {

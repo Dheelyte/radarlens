@@ -42,7 +42,11 @@
 .star:hover{
     cursor: pointer;
 }
+.rating-card-incomplete {
+    max-height: 289px;
+}
 .rating-card {
+    height: auto;
     padding: 10px;
     background-color: white;
     transition: all 0.01s ease 0.01s;

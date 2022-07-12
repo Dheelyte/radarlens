@@ -9,6 +9,15 @@
     Reviews - {{ business.name }}
 {% endblock %}
 
+{% block open_graph %}
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="{{ business.name }} - Reviews" />
+  <meta property="og:description" content="{{ business.description }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'business-reviews' business.slug %}" />
+  <meta property="og:image" content="{{ business.thumbnail.url }}" />
+{% endblock %}
+
 {% block content %}
     <div id="main-div">
         <div class="rounded-bottom position-relative bg-white">
@@ -79,7 +88,7 @@
         {% if ratings %}
             <div class="reviews-div" id="reviews">
                 {% for rating in ratings %}
-                    <article class="rating-card d-flex border-bottom position-relative">
+                    <article class="rating-card rating-card-incomplete overflow-hidden d-flex border-bottom position-relative">
                         <img class="mr-3 lazy" src="{% static 'images/Lazy1.png' %}" data-src="{{ rating.user.image.url }}">
                         <div>
                             <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |date:"j/n/Y" }}</p>

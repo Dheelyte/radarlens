@@ -62,6 +62,10 @@ $('#see-more').on('click', ()=>{
   $('.business-description p').toggleClass('incomplete')
 });
 
+$(document).on('click', '.rating-card', (e)=>{
+  $(e.currentTarget).toggleClass('rating-card-incomplete')
+})
+
 const showOnPx = 2000;
 const backToTop = document.querySelector('.back-to-top');
 const scrollContainer = () =>{
@@ -106,7 +110,7 @@ $('#more').click(()=>{
           action = `<li id="report" class="list-group-item list-group-item-action p-2" data-review="${obj["id"]}">Report</li>`
         };
         $('.reviews-div').append(`
-          <article class="rating-card d-flex border-bottom position-relative">
+          <article class="rating-card overflow-hidden rating-card-incomplete d-flex border-bottom position-relative">
             <img class="mr-3 lazy" src="${ph}" data-src="${obj["user"]["image"]}">
             <div>
                 <p class="text-muted">${obj["user"]["name"]} · ${obj["date"]}</p>
