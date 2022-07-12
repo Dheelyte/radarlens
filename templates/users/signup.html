@@ -10,6 +10,15 @@ Sign Up
     Sign up for radarLens
 {% endblock %}
 
+{% block open_graph %}
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="Sign Up | RadarLens" />
+  <meta property="og:description" content="Sign Up on RadarLens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'signup' %}" />
+  <meta property="og:image" content="{% static 'images/meta-image.png' %}" />
+{% endblock %}
+
 {% block style %}
     <style>
         

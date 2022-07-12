@@ -10,6 +10,15 @@
     Login to RadarLens
 {% endblock %}
 
+{% block open_graph %}
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="Login | RadarLens" />
+  <meta property="og:description" content="Login to RadarLens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'login' %}" />
+  <meta property="og:image" content="{% static 'images/meta-image.png' %}" />
+{% endblock %}
+
 {% block content %}
     <div class="text-center mt-4 mb-4">
         <a href="/" class="d-flex justify-content-center">

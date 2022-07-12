@@ -10,6 +10,15 @@
   {{ business.description }}
 {% endblock %}
 
+{% block open_graph %}
+  <meta property="og:title" content="{{ business.name }}" />
+  <meta property="og:description" content="{{ business.description }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'business-detail' business.slug %}" />
+  <meta property="og:image" content="{{ business.thumbnail.url }}" />
+  <meta name="twitter:card" content="summary" />
+{% endblock %}
+
 {% block structured_data %}
 <script type="application/ld+json">
   {
@@ -18,13 +27,13 @@
       "itemListElement": [{
         "@type": "ListItem",
         "position": 1,
-        "name": "https://{{ request.META.HTTP_HOST }}",
-        "item": "https://{{ request.META.HTTP_HOST }}"
+        "name": "https://radarlens.com",
+        "item": "https://radarlens.com"
       },{
         "@type": "ListItem",
         "position": 2,
         "name": "{{ business.name }}",
-        "item": "https://{{ request.META.HTTP_HOST }}{{ business.get_absolute_url }}"
+        "item": "https://radarlens.com{{ business.get_absolute_url }}"
       }]
   }
 </script>

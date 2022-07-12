@@ -10,6 +10,15 @@
     {{ product.description }}
 {% endblock %}
 
+{% block open_graph %}
+  <meta property="og:title" content="{{ product.name }}" />
+  <meta property="og:description" content="{{ product.description }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'product-detail' product.business.slug product.slug %}" />
+  <meta property="og:image" content="{{ business.thumbnail.url }}" />
+  <meta name="twitter:card" content="summary" />
+{% endblock %}
+
 {% block structured_data %}
 <script type="application/ld+json">
     {

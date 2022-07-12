@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-{{ category.name }}
+  {{ category.name }}
 {% endblock %}
 
 {% block description %}
-{{ category.name }} | RadarLens
+  {{ category.name }} | RadarLens
+{% endblock %}
+
+{% block open_graph %}
+  <meta property="og:title" content="{{ category.name }} near you | RadarLens" />
+  <meta property="og:description" content="Find small businesses & products near you." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'business-category' category.slug %}" />
+  <meta property="og:image" content="{% static 'images/meta-image.png' %}" />
+  <meta name="twitter:card" content="summary" />
 {% endblock %}
 
 {% block content %}

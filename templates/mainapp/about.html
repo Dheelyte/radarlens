@@ -9,11 +9,20 @@ About | RadarLens
 See Businesses and services near you
 {% endblock %}
 
+{% block open_graph %}
+  <meta property="og:title" content="RadarLens | Create a profile for your business. Reach more people near you." />
+  <meta property="og:description" content="Find small businesses & products near you." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'about' %}" />
+  <meta property="og:image" content="{% static 'images/meta-image.png' %}" />
+  <meta name="twitter:card" content="summary" />
+{% endblock %}
+
 {% block content %}
 
     <div class="action text-center position-relative">
       <div class="p-2 pb-5">
-        <h2 class="pt-5 p-4">Create a Business Profile and sell to more people near you.</h2>
+        <h2 class="pt-5 p-4">Create a Business Profile and sell your products to more people near you.</h2>
         <p class="mb-3 pb-4 pr-4 pl-4">
           RadarLens helps small businesses gain visibility by showcasing their businesses and products to people closest to them.
         </p>

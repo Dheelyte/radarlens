@@ -2,11 +2,20 @@
 {% load static %}
 
 {% block title %}
-Find small businesses & products near you | RadarLens
+RadarLens | Find small businesses & products near you
 {% endblock %}
 
 {% block description %}
 Create a profile for your business. Search for small businesses & products near you
+{% endblock %}
+
+{% block open_graph %}
+  <meta property="og:title" content="RadarLens | Create a profile for your business. Reach more people near you." />
+  <meta property="og:description" content="Find small businesses & products near you." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'home' %}" />
+  <meta property="og:image" content="{% static 'images/meta-image.png' %}" />
+  <meta name="twitter:card" content="summary" />
 {% endblock %}
 
 {% block structured_data %}
@@ -56,7 +65,7 @@ Create a profile for your business. Search for small businesses & products near 
     </div>
 
     <div class="text-center position-relative cta bg-white pt-4 shadow-sm" style="padding-bottom: 60px;">
-        <h1 class="text-center p-4" style="font-size: 30px;">Create a <span class="font-weight-bold">Business Profile</span> and sell to more people near you.</h1>
+        <h1 class="text-center p-4" style="font-size: 30px;">Create a <span class="font-weight-bold">Business Profile</span> and sell your products to more people near you.</h1>
         <p class="mb-3 pb-4 pr-4 pl-4">
           RadarLens helps small businesses gain visibility by showcasing their businesses and products to people closest to them.
         </p>
