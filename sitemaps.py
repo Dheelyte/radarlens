@@ -1,7 +1,7 @@
 from django.contrib.sitemaps import Sitemap
 from django.contrib import sitemaps
 from django.urls import reverse
-from mainapp.models import Business, BusinessCategory
+from mainapp.models import Business, BusinessCategory, Product
 
 class BusinessSitemap(Sitemap):
     changefreq = "always"
@@ -9,6 +9,13 @@ class BusinessSitemap(Sitemap):
 
     def items(self):
         return Business.objects.order_by('name')
+
+class ProductSitemap(Sitemap):
+    changefreq = "always"
+    priority = 1
+
+    def items(self):
+        return Product.objects.order_by('name')
 
 class BusinessCategorySitemap(Sitemap):
     changefreq = "always"

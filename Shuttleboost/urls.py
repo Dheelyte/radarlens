@@ -1,3 +1,4 @@
+from itertools import product
 from django.contrib import admin, sitemaps
 from django.urls import path, include
 from django.conf.urls.static import static
@@ -5,11 +6,12 @@ from django.conf import settings
 from django.contrib.sitemaps import views
 from django.contrib.sitemaps.views import sitemap
 from mainapp.models import BusinessCategory
-from sitemaps import BusinessCategorySitemap, BusinessSitemap, StaticSitemap
+from sitemaps import BusinessCategorySitemap, BusinessSitemap, ProductSitemap, StaticSitemap
 #import debug_toolbar
 
 sitemaps = {
     'business': BusinessSitemap,
+    'product': ProductSitemap,
     'businesscategory': BusinessCategorySitemap,
     'static': StaticSitemap
 } 

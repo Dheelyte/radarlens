@@ -742,7 +742,7 @@ def related_products(request):
     if slug:
         product = Product.objects.get(slug=slug)
         query = SearchQuery(product.name)
-        products_vector = SearchVector('name', weight='A') + SearchVector('category__name', config='english', weight='B') + SearchVector('description', config='english', weight='C')
+        products_vector = SearchVector('name', weight='A') + SearchVector('description', config='english', weight='B')
         products_query_set = Product.objects.annotate(search=products_vector, rank=SearchRank(products_vector, query)).filter(search=query).exclude(id=product.id).order_by('-rank')
         products = products_query_set.annotate(distance=Distance(location, 'business__location')).order_by('distance')
         if not products:
