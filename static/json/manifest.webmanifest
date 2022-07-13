@@ -1,10 +1,10 @@
 {
-    "background_color": "#5865F2",
+    "background_color": "#ffffff",
     "description": "Find Businesses and Products near you.",
     "display": "standalone",
     "icons": [
         {
-            "src": "/static/images/logo-160-w.png",
+            "src": "/static/images/logo-160.png",
             "sizes": "160x160",
             "type": "image/png"
         }
