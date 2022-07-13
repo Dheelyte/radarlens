@@ -88,15 +88,15 @@
         {% if ratings %}
             <div class="reviews-div" id="reviews">
                 {% for rating in ratings %}
-                    <article class="rating-card incomplete-card overflow-hidden d-flex border-bottom position-relative p-2">
+                    <article class="rating-card d-flex border-bottom position-relative p-2">
                         <img class="mr-3 lazy" src="{% static 'images/Lazy1.png' %}" data-src="{{ rating.user.image.url }}">
                         <div>
-                            <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |date:"j/n/Y" }}</p>
+                            <p class="text-muted overflow-hidden">{{ rating.user.name }} · {{ rating.date_posted |date:"j/n/Y" }}</p>
                             <div class="ratings mt-0">
                                 <div class="empty-stars"></div>
                                 <div class="full-stars" style="width: calc({{ rating.rating }}/5*100%)"></div>
                             </div>
-                            <p class="mt-1">{{ rating.content }}</p>
+                            <p class="incomplete-card in-paragraph mt-1">{{ rating.content }}</p>
                         </div>
                         <span tabindex="1" class="side-ellipsis option-icon p-2 text-muted position-absolute">
                             <span class="icon-ellipsis-v"></span>

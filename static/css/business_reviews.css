@@ -42,21 +42,15 @@
 .star:hover{
     cursor: pointer;
 }
-.rating-card-incomplete {
-    max-height: 289px;
-}
-.complete-card{
-    height: auto;
-}
 .imcomplete-card {
-    text-overflow: ellipsis;
     display: -webkit-box;
-    line-clamp: 8;
-    -moz-box-orient: 8;
     -webkit-line-clamp: 8;
     -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .rating-card {
+    height: auto;
     padding: 10px;
     background-color: white;
     transition: all 0.01s ease 0.01s;

@@ -232,15 +232,15 @@
         {% if product.reviews %}
             <div class="reviews-div" id="reviews">
                 {% for rating in product.reviews %}
-                <article class="position-relative incomplete-card overflow-hidden rating-card p-2 pb-3 bg-white border-bottom d-flex">
+                <article class="position-relative rating-card p-2 pb-3 bg-white border-bottom d-flex">
                     <img class="mr-3 lazy rounded-circle" src="{% static 'images/my_official_logo.png' %}" data-src="{{ rating.user.image.url }}">
                     <div>
-                        <p class="text-muted">{{ rating.user.name }} · {{ rating.date_posted |naturalday }}</p>
+                        <p class="text-muted overflow-hidden">{{ rating.user.name }} · {{ rating.date_posted |naturalday }}</p>
                         <div class="ratings">
                             <div class="empty-stars"></div>
                             <div class="full-stars" style="width: calc({{ rating.rating }}/5*100%)"></div>
                         </div>
-                        <p class="mt-1 pr-2">{{ rating.content }}</p>
+                        <p class="mt-1 pr-2 incomplete-card in-paragraph">{{ rating.content }}</p>
                     </div>
                     <span tabindex="1" class="side-ellipsis option-icon p-2 text-muted position-absolute">
                         <span class="icon-ellipsis-v"></span>

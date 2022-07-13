@@ -62,9 +62,8 @@ $('#see-more').on('click', ()=>{
   $('.business-description p').toggleClass('incomplete')
 });
 
-$(document).on('click', '.rating-card', (e)=>{
+$(document).on('click', '.in-paragraph', (e)=>{
   $(e.currentTarget).toggleClass('incomplete-card')
-  $(e.currentTarget).toggleClass('complete-card')
 })
 
 const showOnPx = 2000;
@@ -111,15 +110,15 @@ $('#more').click(()=>{
           action = `<li id="report" class="list-group-item list-group-item-action p-2" data-review="${obj["id"]}">Report</li>`
         };
         $('.reviews-div').append(`
-          <article class="rating-card overflow-hidden incomplete-card d-flex border-bottom position-relative p-2">
+          <article class="rating-card d-flex border-bottom position-relative p-2">
             <img class="mr-3 lazy" src="${ph}" data-src="${obj["user"]["image"]}">
             <div>
-                <p class="text-muted">${obj["user"]["name"]} · ${obj["date"]}</p>
+                <p class="text-muted overflow-hidden">${obj["user"]["name"]} · ${obj["date"]}</p>
                 <div class="ratings mt-0">
                     <div class="empty-stars"></div>
                     <div class="full-stars" style="width: calc(${obj["rating"]}/5*100%)"></div>
                 </div>
-                <p class="mt-1">${obj["content"]}</p>
+                <p class="incomplete-card in-paragraph mt-1">${obj["content"]}</p>
             </div>
             <span tabindex="1" class="side-ellipsis option-icon p-2 text-muted position-absolute">
               <i class="fas fa-ellipsis-v"></i>

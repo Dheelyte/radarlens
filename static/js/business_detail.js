@@ -19,15 +19,15 @@ var fetchHome = ()=> {
                           </form>`
         };
         $('#home-ratings-div').append(`
-          <article class="rating-card incomplete-card d-flex overflow-hidden position-relative border-bottom">
-            <img class="lazy mr-3" src="${logo}" data-src="${webRoot}${obj["image"]}" alt="${obj["user"]["name"]}">
+          <article class="rating-card d-flex p-2 position-relative border-bottom">
+            <img class="lazy mr-3" src="${logo}" data-src="${obj["image"]}" alt="${obj["user"]["name"]}">
             <div class="position-relative">
               <p class="text-muted overflow-hidden" style="max-height: 20px">${obj["user"]["name"]} · ${obj["date_posted"]}</p>
               <div class="ratings mt-0">
                 <div class="empty-stars"></div>
                 <div class="full-stars" style="width: calc(${obj["rating"]}/5*100%)"></div>
               </div>
-              <p class="mt-1">${obj["content"]}</p>
+              <p class="incomplete-card in-paragraph mt-1">${obj["content"]}</p>
             </div>
             <span class="side-ellipsis option-icon p-2 text-muted position-absolute">
               <span class="icon-ellipsis-v"></span>
@@ -97,9 +97,8 @@ $('#see-more').on('click', (e)=>{
   }
 });
 
-$(document).on('click', '.rating-card', (e)=>{
+$(document).on('click', '.in-paragraph', (e)=>{
   $(e.currentTarget).toggleClass('incomplete-card')
-  $(e.currentTarget).toggleClass('complete-card')
 })
 
 $('#cta-btn1').click(()=>{
