@@ -295,7 +295,7 @@ a:hover {text-decoration: none;}
 #products-div, #ratings-div, #about-div {
     display: none;
 }
-.imcomplete-card {
+.incomplete-card {
     display: -webkit-box;
     -webkit-line-clamp: 8;
     -webkit-box-orient: vertical;

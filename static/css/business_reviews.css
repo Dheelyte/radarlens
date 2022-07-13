@@ -42,12 +42,12 @@
 .star:hover{
     cursor: pointer;
 }
-.imcomplete-card {
-    display: -webkit-box;
-    -webkit-line-clamp: 8;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.incomplete-card {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 8 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 .rating-card {
     height: auto;

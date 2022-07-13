@@ -109,7 +109,6 @@ $('.desc-div').on('click', (e)=>{
 
 $(document).on('click', '.in-paragraph', (e)=>{
   $(e.currentTarget).toggleClass('incomplete-card')
-  $(e.currentTarget).toggleClass('complete-card')
 })
 
 $('.cta .option-icon').click(()=>{

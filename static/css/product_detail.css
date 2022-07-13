@@ -141,7 +141,7 @@
     content: "\2605\2605\2605\2605\2605";
     font-size: 15pt;
 }
-.imcomplete-card {
+.incomplete-card {
     display: -webkit-box;
     -webkit-line-clamp: 8;
     -webkit-box-orient: vertical;
