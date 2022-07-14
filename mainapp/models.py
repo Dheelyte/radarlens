@@ -51,7 +51,7 @@ class Business(models.Model):
     category = models.ForeignKey(BusinessCategory, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     followers = models.ManyToManyField(User, related_name='followers')
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
@@ -244,7 +244,7 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='products_images', default='ShuttleboostBusiness.png')
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
