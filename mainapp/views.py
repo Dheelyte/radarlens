@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.gis.db.models.functions import Distance
 from users.decorators import email_verify_required
 from .decorators import business_owner_required
-from .models import  Business, BusinessCategory, Product, WebsiteVisit, BusinessVisit, BusinessPost, BusinessPostComment
+from .models import  Business, BusinessCategory, Product, BusinessVisit, BusinessPost, BusinessPostComment
 from users.models import IpUser
 from geolocation.models import Geolocation
 from notification.models import Notification
