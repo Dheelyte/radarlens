@@ -49,6 +49,9 @@ $('#search').on('click', function() {
     $('#header-full-search').toggle()
     $('#header-full-search input[type="search"]').focus()
 })
+$('a, input').click(()=>{
+    $('.progress-container').show()
+})
 $('#main').click(()=>{
     $('#header-full-search').hide()
     $('#user-div').hide()
