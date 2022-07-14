@@ -49,8 +49,11 @@ $('#search').on('click', function() {
     $('#header-full-search').toggle()
     $('#header-full-search input[type="search"]').focus()
 })
-$('a, input').click(()=>{
-    $('#progress-container').show()
+const elements = document.querySelectorAll('input, a')
+elements.forEach(element =>{
+    element.addEventListener('click', ()=>{
+        document.getElementById('progress-container').style.display = "block"
+    })
 })
 $('#main').click(()=>{
     $('#header-full-search').hide()
