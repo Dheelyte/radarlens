@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
 from .models import CustomUser, IpUser, SavedProduct
+admin.site.site_header = "RadarLens Admin"
+admin.site.site_title = "RadarLens Admin"
+admin.site.index_title = "Welcome to the RadarLens Admin"
+
 
 
 class CustomUserAdmin(UserAdmin):

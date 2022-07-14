@@ -49,7 +49,7 @@ $('#search').on('click', function() {
     $('#header-full-search').toggle()
     $('#header-full-search input[type="search"]').focus()
 })
-const elements = document.querySelectorAll('input, a')
+const elements = document.querySelectorAll('input[type=submit], a')
 elements.forEach(element =>{
     element.addEventListener('click', ()=>{
         document.getElementById('progress-container').style.display = "block"

@@ -1,4 +1,5 @@
 from email.policy import default
+from operator import mod
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.db.models import Avg
@@ -49,10 +50,11 @@ class Business(models.Model):
     email = models.EmailField(max_length=50)
     category = models.ForeignKey(BusinessCategory, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    followers = models.ManyToManyField(User, related_name='followers')    
+    followers = models.ManyToManyField(User, related_name='followers')
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.name}  :  {self.location}'
+        return self.name
 
     def get_absolute_url(self):
         kwargs = {
@@ -242,7 +244,7 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='products_images', default='ShuttleboostBusiness.png')
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
