@@ -228,13 +228,6 @@ class BusinessDirection(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
 
-class WebsiteVisit(models.Model):
-    business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name='website_user', null=True, on_delete=models.CASCADE)
-    ipuser = models.ForeignKey(IpUser, related_name='website_ipuser', null=True, on_delete=models.CASCADE)
-    time = models.DateTimeField(auto_now_add=True)
-
-
 class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, editable=False)

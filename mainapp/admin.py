@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (BusinessCategory,
     Business, PostCategory, BusinessPost, BusinessPostComment,
-    Product, BusinessVisit, WebsiteVisit, BusinessCall, BusinessDirection
+    Product, BusinessVisit, BusinessCall, BusinessDirection
 )
 admin.site.site_header = "RadarLens Admin"
 admin.site.site_title = "RadarLens Admin"
@@ -21,12 +21,18 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "email",)
     ordering = ('date',)
 
+class BusinessVisitAdmin(admin.ModelAdmin):
+    model = BusinessVisit
+    list_display = ("business", "remote_address", "location", "time")
+    list_filter = ("time", )
+    search_fields = ("business", "remote_address", "location",)
+    ordering = ('time',)
+
 # Register your models here.
 admin.site.register(BusinessCategory)
 admin.site.register(Business, BusinessAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(BusinessVisit)
-admin.site.register(WebsiteVisit)
+admin.site.register(BusinessVisit, BusinessVisitAdmin)
 admin.site.register(PostCategory)
 admin.site.register(BusinessPost)
 admin.site.register(BusinessPostComment)
