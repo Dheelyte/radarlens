@@ -50,7 +50,7 @@ $('#search').on('click', function() {
     $('#header-full-search input[type="search"]').focus()
 })
 $('a, input').click(()=>{
-    $('.progress-container').show()
+    $('#progress-container').show()
 })
 $('#main').click(()=>{
     $('#header-full-search').hide()

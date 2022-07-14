@@ -30,14 +30,14 @@
     {% endblock %}
 </head>
 <body>
-    <div class="navigation invisible">
+    <div class="navigation d-none">
         <ul class="navigation">
-            <li class="navigation"><a href="">Create Business Profile</a></li>
-            <li class="navigation"><a href="">Login</a></li>
-            <li class="navigation"><a href="">Sign Up</a></li>
-            <li class="navigation"><a href="">About Us</a></li>
-            <li class="navigation"><a href="">Contact</a></li>
-            <li class="navigation"><a href="">Privacy Policy</a></li>
+            <li class="navigation"><a href="{% url 'create-business' %}">Create Business Profile</a></li>
+            <li class="navigation"><a href="{% url 'login' %}">Login</a></li>
+            <li class="navigation"><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li class="navigation"><a href="{% url 'about' %}">About Us</a></li>
+            <li class="navigation"><a href="{% url 'contact' %}">Contact</a></li>
+            <li class="navigation"><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
         </ul>
     </div>
     <header class="shadow-sm">

@@ -19,7 +19,7 @@ ul {margin: 0;}
 .alert {
     font-size: 15px;
 }
-.progress-container {
+#progress-container {
     width: 100%;
     position: fixed;
     z-index: 5;
