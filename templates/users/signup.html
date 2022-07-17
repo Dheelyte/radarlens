@@ -42,13 +42,11 @@ Sign Up
   <!-- End Facebook Pixel Code -->
 {% endblock %}
 
-{% block style %}
-    <style>
-        
-    </style>
-{% endblock %}
-
 {% block content %}
+    <div class="d-none">
+        <h1>Sign Up</h1>
+        <p>Sign up on RadarLens. Create a Profile for your Business. Find Small businesses near you. © {% now 'Y' %} RadarLens</p>
+    </div>
     <div class="text-center mt-4 mb-4">
         <a href="/" class="d-flex justify-content-center">
             <img src="{% static 'images/logo-32.png' %}" class="mr-2" style="height: 30px" alt="Logo">

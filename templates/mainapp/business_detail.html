@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block description %}
-  {{ business.description }}
+  {{ business.category }} • {{ business.description }}
 {% endblock %}
 
 {% block open_graph %}
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:title" content="{{ business.name }}" />
   <meta property="og:description" content="{{ business.description }}" />
   <meta property="og:type" content="website" />
