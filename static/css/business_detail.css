@@ -343,14 +343,12 @@ footer a:hover {
     text-decoration: underline;
 }
 .quick-links a {
-    display: block;
-    color: #fff;
-    padding: 10px 0px;
+    color: #212529;
+    padding: 10px;
 }
 .footer-btn {
     border: 1px solid #212529;
     color: #ffffff;
     background-color: #212529;
-    margin: 7px;
     padding:  7px 12px;
 }
