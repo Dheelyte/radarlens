@@ -280,7 +280,23 @@
         <span class="icon-angle-up"></span>
         <span>Back To Top</span>
     </span>
-    <div style="height: 20vh;"></div>
+    <div style="height: 10vh;"></div>
+    <footer class="p-3" style="background-color: #d6d6d6">
+        <a href="/">
+          <img src="{% static 'images/logo-32.png' %}" class="mr-2 mb-2" style="height: 30px" alt="Logo">
+          <h4 style="display: inline" class="pt-2"><span style="color: #ffffff;">radarLens</span></h4>
+        </a>
+        <div class="quick-links d-flex mt-4 mb-4">
+          <a href="{% url 'login' %}">Log In</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'privacy-policy' %}">Privacy</a>
+          <a href="{% url 'contact' %}">Feedback</a>
+        </div>
+        <div>
+          <h5 style="color: #28a745;">Add your products on RadarLens</h5>
+          <a href="{% url 'create-business' %}" class="rounded-pill">Get started</a>
+        </div>
+      </footer>
 
     <div id="share-div" class="modal p-0">
         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -339,3 +339,18 @@ a:hover {text-decoration: none;}
     content: "\2605\2605\2605\2605\2605";
     font-size: 15pt;
 }
+footer a:hover {
+    text-decoration: underline;
+}
+.quick-links a {
+    display: block;
+    color: #fff;
+    padding: 10px 0px;
+}
+.footer-btn {
+    border: 1px solid #212529;
+    color: #ffffff;
+    background-color: #212529;
+    margin: 7px;
+    padding:  7px 12px;
+}
