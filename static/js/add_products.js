@@ -80,11 +80,13 @@ form.addEventListener('submit', (e)=>{
                 success: function(response) {
                     $('#view-product').attr('href', response);
                     $('#success').show();
+                    $('#progress-container').hide()
                 },
                 error: function() {
                     alertDanger();
                     submit.disabled = false;
                     $('#product-form #submit').val('Add Product');
+                    $('#progress-container').hide()
                 },
                 cache: false,
                 contentType: false,
