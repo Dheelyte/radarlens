@@ -39,7 +39,7 @@ class BusinessCategory(models.Model):
 
 class Business(models.Model):
     location = models.PointField(default=Point(0.0, 0.0, srid=4326))
-    show_location = models.BooleanField(default=False)
+    show_location = models.BooleanField(default=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, editable=False)
     description = models.CharField(max_length=5000, blank=True)
