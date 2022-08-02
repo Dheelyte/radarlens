@@ -11,35 +11,12 @@
 {% endblock %}
 
 {% block open_graph %}
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:title" content="Login | RadarLens" />
   <meta property="og:description" content="Login to RadarLens" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{% url 'login' %}" />
   <meta property="og:image" content="https://radarlens.com/static/images/meta-image.jpg" />
-{% endblock %}
-
-{% block analytics %}
-<!-- Facebook Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window,document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-   fbq('init', '1021552721888157'); 
-  fbq('track', 'PageView');
-  fbq('track', 'CompleteRegistration');
-  </script>
-  <noscript>
-   <img height="1" width="1" 
-  src="https://www.facebook.com/tr?id=1021552721888157&ev=PageView
-  &noscript=1"/>
-  </noscript>
-  <!-- End Facebook Pixel Code -->
 {% endblock %}
 
 {% block content %}
