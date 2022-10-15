@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5d02a575908c7f5fb177bfefa34510e7535bf3894d8c1e16b516cd9e'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -124,12 +124,12 @@ USE_TZ = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'radarlens',
-        'USER': 'postgres',
-        'PASSWORD': 'allthesewhile',
-        'HOST': 'radarlens.c7ay9ilyif62.us-east-1.rds.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': os.environ.get("DATABASE_ENGINE"),
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("DATABASE_USER"),
+        'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
+        'HOST': os.environ.get("DATABASE_HOST"),
+        'PORT': os.environ.get("DATABASE_PORT")
     }
 }
 
@@ -169,40 +169,40 @@ LOGGING = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 WEB_ROOT = 'https://radarlens.com'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'radarlens.adm@gmail.com'
-EMAIL_HOST_PASSWORD = 'epuxjiptbijrmbln'
-EMAIL_PORT = '587'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'RadarLens radarlens.adm@gmail.com'
-FEEDBACK_EMAIL = 'radarlens.adm@gmail.com'
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
 
-AWS_ACCESS_KEY_ID = 'AKIAUB73RK3M3B67AE5U'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'linque-media'
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
-AWS_S3_FILE_OVERWRITE = False
+AWS_S3_FILE_OVERWRITE = (os.environ.get("AWS_ACCESS_KEY_ID") == "True")
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 
-STATIC_URL = "/static/"
-STATIC_ROOT = "/var/www/radarlens.com/static"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_URL = os.environ.get("STATIC_URL")
+STATIC_ROOT = os.environ.get("STATIC_ROOT")
+STATICFILES_DIRS = [BASE_DIR / os.environ.get("STATICFILES_DIRS")]
 
-GEOIP_PATH = BASE_DIR / 'geolocation/GeoLite2-City_20210713/GeoLite2-City.mmdb'
+GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
 CREATE_REDIRECT_URL = '/signup/?next=/create/'
 
 SECURE_HSTS_SECONDS = 2_592_000
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = (os.environ.get("SECURE_HSTS_PRELOAD") == "True") #True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = (os.environ.get("SECURE_HSTS_INCLUDE_SUBDOMAINS") == "True") #True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+SECURE_REFERRER_POLICY = os.environ.get("SECURE_REFERRER_POLICY")
 
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+DATABASES['default']['ENGINE'] = os.environ.get("DATABASE_ENGINE")
