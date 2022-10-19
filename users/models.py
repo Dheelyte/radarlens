@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+# from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):
