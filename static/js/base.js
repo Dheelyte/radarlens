@@ -55,8 +55,13 @@ elements.forEach(element =>{
         document.getElementById('progress-container').style.display = "block"
     })
 })
+window.addEventListener("beforeunload", function(e){
+    e.preventDefault();
+    document.getElementById('progress-container').style.display = "none";
+    return null;
+})
 $('#main').click(()=>{
-    $('#header-full-search').hide()
+    $('#header-full-search').hide();
     $('#user-div').hide()
 })
 $('#user').click(()=>{

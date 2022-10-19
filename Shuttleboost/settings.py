@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.radarlens.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.admin',
-    'storages',
+    #'storages',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +133,7 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGGING = {
     'version': 1,
@@ -168,6 +169,7 @@ LOGGING = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 WEB_ROOT = 'https://radarlens.com'
+DEV_GEOLOCATION_IP = '197.210.54.179'
 
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
@@ -177,17 +179,20 @@ EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
-AWS_S3_FILE_OVERWRITE = (os.environ.get("AWS_ACCESS_KEY_ID") == "True")
+# AWS_S3_FILE_OVERWRITE = (os.environ.get("AWS_ACCESS_KEY_ID") == "True")
 
-DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
+# DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 
-STATIC_URL = os.environ.get("STATIC_URL")
-STATIC_ROOT = os.environ.get("STATIC_ROOT")
-STATICFILES_DIRS = [BASE_DIR / os.environ.get("STATICFILES_DIRS")]
+STATIC_URL = '/static/'
+# STATIC_ROOT = 'static'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -195,11 +200,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 CREATE_REDIRECT_URL = '/signup/?next=/create/'
 
-SECURE_HSTS_SECONDS = 2_592_000
-SECURE_HSTS_PRELOAD = (os.environ.get("SECURE_HSTS_PRELOAD") == "True") #True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = (os.environ.get("SECURE_HSTS_INCLUDE_SUBDOMAINS") == "True") #True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_REFERRER_POLICY = os.environ.get("SECURE_REFERRER_POLICY")
+# SECURE_HSTS_SECONDS = 2_592_000
+# SECURE_HSTS_PRELOAD = (os.environ.get("SECURE_HSTS_PRELOAD") == "True") #True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = (os.environ.get("SECURE_HSTS_INCLUDE_SUBDOMAINS") == "True") #True
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_REFERRER_POLICY = os.environ.get("SECURE_REFERRER_POLICY")
 
 
 import dj_database_url

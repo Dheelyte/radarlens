@@ -1,0 +1,26 @@
+DJANGO
+    Version: 3.1.4 to 4.1.2
+    Modifications:
+            Module: users.models
+            Type: Import Error
+            Error: Cannot import name 'ugettext_lazy' from 'django.utils.translation'
+            Reason: ugettext_lazy has been removed in Django 4.0. Use gettext_lazy instead:
+            Fix:
+                Previous: from django.utils.translation import ugettext_lazy as _
+                Current: from django.utils.translation import gettext_lazy as _
+
+            Module: users.views
+            Type: Import Error
+            Error: cannot import name 'force_text' from 'django.utils.encoding'
+            Reason: In django 4.0, force_text was deprecated. Instead change force_text to force_str
+            Fix:
+                Previous: from django.utils.encoding import force_text
+                Current: from django.utils.encoding import force_bytes, force_str
+
+            Module: settings.py
+            Type: 'DB models Error'
+            Error: Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'
+            Reason: Models do not have primary keys. But they are being created automatically by django (New in Django 3.2).
+                You need to choose type of auto-created primary keys. Either add this into settings.py DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+            Fix:
+                Current: DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
