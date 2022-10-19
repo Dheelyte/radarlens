@@ -27,3 +27,6 @@ DJANGO
 
 PILLOW
     No need to make changes after upgrade
+
+SQLPARSE
+    No need to make changes after upgrade
