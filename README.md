@@ -24,6 +24,8 @@ As a regular user:
 - Sign up, verify email and login
 - Search for businesses and products nearest to you.
 - Radarlens automatically displays business profiles and products nearest to the current location of the user.
+- Message business owners
+- Rate and review businesses and products
 
 ## Technologies used
 The following programming languages, libraries, softwares and platforms were used in the development and deployment of Radarlens.
