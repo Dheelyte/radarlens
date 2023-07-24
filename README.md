@@ -1,20 +1,20 @@
-<img align="center" src="https://pbs.twimg.com/profile_banners/1540818889835257857/1659298329/1080x360">
+<img width="100%" align="center" src="https://pbs.twimg.com/profile_banners/1540818889835257857/1659298329/1080x360">
 
 # Radarlens
 #### Creator: [Delight Gbolahan Olu-Olagbuji](https://github.com/Dheelyte)
 
 Radarlens is a location-based e-commerce web app built for small businesses.
 
-It took 12 months to finally deploy this current version of Radarlens, which is the most stable version.
-I handled the back-end and frontend of the app
+*It took me 12 months to deploy the current version of Radarlens, which is the most stable version. It took this long mostly because I had to learn some tech stacks as they were needed so as to integrate them into Radarlens.*
 
 <br>
 
 ## Functionalities
 - Geolocation (with GeoDjango and GeoLite)
-- Authentication (signup/email verification/Login/logout/forgot password)
+- Authentication (Signup / email verification / login / logout / forgot password)
 - Instant Messaging
 - Notifications
+- Ratings and reviews
 
 <br>
 
@@ -30,3 +30,24 @@ As a regular user:
 - Radarlens automatically displays business profiles and products nearest to the current location of the user.
 
 <br><br>
+
+## Technologies used
+The following programming languages, libraries, softwares and platforms were used in the development and deployment of Radarlens.
+
+- Python
+- Django Web Framework (GeoDjango)
+- GeoIP
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- AJAX
+- Maxmind GeoLite2 DB
+- Nginx
+- Gunicorn
+- AWS EC2
+- AWS Buckets
+
+For getting the location of the user, HTML Geolocation API is used. However, IP address is used as the fallback option in case of denied permission.
+
+MaxmindDB is used as the geolocation database
