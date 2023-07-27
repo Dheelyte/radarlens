@@ -188,9 +188,9 @@ DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 
 STATIC_URL = os.environ.get("STATIC_URL")
 STATIC_ROOT = os.environ.get("STATIC_ROOT")
-STATICFILES_DIRS = [BASE_DIR / os.environ.get("STATICFILES_DIRS")]
+STATICFILES_DIRS = [BASE_DIR / os.environ.get("static")]
 
-GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
+# GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
