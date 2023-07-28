@@ -5,7 +5,8 @@
 
 Radarlens is a location-based e-commerce web app built for small businesses.
 
-*It took me 12 months to deploy the current version of Radarlens, which is the most stable version. It took this long mostly because I had to learn some tech stacks as they were needed so as to integrate them into Radarlens.*
+*It took me 12 months to deploy the current version of Radarlens, which is the most stable version. It took this long mostly because I had to learn some tech stacks as they were needed so as to integrate them into Radarlens.
+I initially deployed Radarlens to Heroku, then later redeployed it to AWS, then recently deployed it to render*
 
 ## Functionalities
 - Geolocation (with GeoDjango and GeoLite)
@@ -48,8 +49,8 @@ For getting the location of the user, HTML Geolocation API is used. However, IP 
 
 MaxmindDB is used as the geolocation database
 
-## Note
-The server `radarlens.com` might not be available at the moment for logistic reasons. Mostly because it costs a bunch to keep multiple servers running.
+## Use Radarlens
+Radarlens is live at [radarlens.com](https://radarlens.onrender.com)
 
 ## Connect with me
 I am open to internship opportunities and projects collaboration. Reach me on:
