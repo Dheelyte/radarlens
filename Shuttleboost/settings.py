@@ -186,8 +186,8 @@ AWS_S3_FILE_OVERWRITE = (os.environ.get("AWS_ACCESS_KEY_ID") == "True")
 
 DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 
-STATIC_URL = os.environ.get("STATIC_URL")
-STATIC_ROOT = [BASE_DIR / "staticfiles"]
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
