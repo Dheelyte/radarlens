@@ -50,7 +50,7 @@ For getting the location of the user, HTML Geolocation API is used. However, IP 
 MaxmindDB is used as the geolocation database
 
 ## Use Radarlens
-Radarlens is live at [radarlens.com](https://radarlens.onrender.com)
+Radarlens is live at [radarlens.com](https://radarlens.onrender.com) and **all its features are fully functional**
 
 ## Connect with me
 I am open to internship opportunities and projects collaboration. Reach me on:
