@@ -193,17 +193,16 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
+GEOIP_PATH = BASE_DIR / os.environ.get("GEOIP_PATH")
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
 CREATE_REDIRECT_URL = '/signup/?next=/create/'
 
 SECURE_HSTS_SECONDS = 2_592_000
-SECURE_HSTS_PRELOAD = (os.environ.get("SECURE_HSTS_PRELOAD") == "True") #True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = (os.environ.get("SECURE_HSTS_INCLUDE_SUBDOMAINS") == "True") #True
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_REFERRER_POLICY = os.environ.get("SECURE_REFERRER_POLICY")
 
 
 import dj_database_url
